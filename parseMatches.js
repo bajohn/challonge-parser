@@ -4,7 +4,7 @@ export const parseMatches = async (tourney) => {
     const tourneyId = tourney.tournament.id;
     const matches = await getMatches(tourneyId);
     const players = await getPlayers(tourneyId);
-    console.log(players);
+    //console.log(players);
     // cleanName('test')
 }
 

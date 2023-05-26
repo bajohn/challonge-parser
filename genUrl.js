@@ -1,5 +1,4 @@
-import { apiKey } from "./creds";
-
+import { apiKey } from "./creds.js";
 export const genUrl = (endpoint) => {
     const userName = 'bjohn454';
     const suffix = endpoint.indexOf('?') === -1 ? '?' : '&';
