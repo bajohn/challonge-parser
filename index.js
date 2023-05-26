@@ -11,13 +11,18 @@ const main = async () => {
     const tourneyUrl = genUrl(endpoint);
 
     const resp = await fetch(tourneyUrl);
-    const tourneys = await resp.json()
+    const tourneys = await resp.json();
+    let statStore = {};
+    let counter = 0;
     for (const tourney of tourneys) {
-        console.log(tourney.tournament.name);
-        parseMatches(tourney);
-        break;
+        // console.log(tourney.tournament.name);
+        statStore = await parseMatches(tourney, statStore);
+        counter += 1;
+        // if (counter > 5) {
+        //     break;
+        // }
     }
-    console.log(tourneys.length)
+    console.log(statStore);
 }
 
 
