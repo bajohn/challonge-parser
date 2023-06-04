@@ -1,4 +1,5 @@
 import { cleanName } from "./cleanName.js";
+import { podiumLookup } from "./constants.js";
 import { genUrl } from "./genUrl.js";
 
 export const parseMatches = async (tourney, statStoreIn) => {
@@ -36,26 +37,22 @@ const cleanNames = async (participants) => {
         return lv;
     }, {})
     return ret;
-}
+};
 
 const podiumFinishes = (statStoreIn, participants, cleanedNames) => {
     let statStore = Object.assign({}, statStoreIn);
     if (!('podiumFinishes' in statStore)) {
-        statStore['podiumFinishes'] = {
-            firstPlace: {},
-            secondPlace: {},
-            thirdPlace: {}
-        };
+        statStore['podiumFinishes'] = Object.values(podiumLookup()).reduce(
+            (lv, cv) => {
+                lv[cv] = {};
+                return lv;
+            }, {});
     }
     const finishesRef = statStore['podiumFinishes'];
     for (const el of participants) {
         const participant = el.participant;
         const rank = participant.final_rank;
-        const lookup = {
-            1: 'firstPlace',
-            2: 'secondPlace',
-            3: 'thirdPlace'
-        }
+        const lookup = podiumLookup();
         if (rank in lookup) {
             const result = lookup[rank];
             const cleanName = cleanedNames[participant.id];

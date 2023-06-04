@@ -1,0 +1,40 @@
+First Place Finishes
+Adel: 9
+Campbell: 8
+Brendan: 8
+Parker: 1
+Joshua: 1
+Sean: 1
+
+
+Second Place Finishes
+Luis: 7
+Brendan: 5
+Adel: 5
+Adam: 3
+Marcus: 2
+Sean: 1
+Woody: 1
+Darren: 1
+Campbell: 1
+Joshua: 1
+Edward: 1
+
+
+Third Place Finishes
+Brendan: 5
+Adel: 4
+Adam: 4
+Martin: 4
+Luis: 3
+Lily: 3
+Joshua: 2
+Sean: 2
+Edward: 2
+Tommy: 1
+Darren: 1
+Chris: 1
+Campbell: 1
+Spencer: 1
+Alex: 1
+James: 1
