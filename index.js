@@ -1,7 +1,7 @@
-import { cleanName } from "./cleanName.js";
-import { checkSum, prettifyPodiumFinishes } from "./finalUtils.js";
-import { genUrl } from "./genUrl.js";
-import { parseMatches } from "./parseMatches.js";
+import { cleanName } from "./lib/cleanName.js";
+import { checkSum, prettifyPodiumFinishes } from "./lib/postParse.js";
+import { genUrl } from "./lib/genUrl.js";
+import { parseMatches } from "./lib/parseMatches.js";
 
 
 const main = async () => {
@@ -15,19 +15,26 @@ const main = async () => {
     const tourneys = await resp.json();
     console.log(`Tournament count: ${tourneys.length}`);
     let statStore = {};
-    let counter = 0;
+
+    statStore = await iterate(tourneys, statStore, true);
+
+};
+
+const iterate = async (tourneys, statStoreIn, debug = false) => {
+    let statStore = Object.assign({}, statStoreIn);
+    let counter = 1;
     for (const tourney of tourneys) {
         // console.log(tourney.tournament.name);
         statStore = await parseMatches(tourney, statStore);
-        // counter += 1;
-        // if (counter > 5) {
-        //     break;
-        // }
+
+        if (debug) {
+            counter += 1;
+            if (counter > 5) {
+                break;
+            }
+        }
     }
-    // console.log(statStore);
-    console.log(prettifyPodiumFinishes(statStore));
-    checkSum(statStore);
-}
+};
 
 
 main();
