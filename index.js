@@ -13,9 +13,7 @@ const main = async () => {
     console.log(`Tournament count: ${tourneys.length}`);
     let statStore = {};
 
-    statStore = await iterate(tourneys, statStore, true);
-    console.log('end', statStore);
-
+    statStore = await iterate(tourneys, statStore, false);
 };
 
 const iterate = async (tourneys, statStoreIn, debug = false) => {
@@ -26,7 +24,7 @@ const iterate = async (tourneys, statStoreIn, debug = false) => {
         statStore = await parseMatches(tourney, statStore);
         if (debug) {
             counter += 1;
-            if (counter > 3) {
+            if (counter > 6) {
                 break;
             }
         }

@@ -30,6 +30,7 @@ export const cleanName = (name) => {
         Sean: [
             'Sean 🖕 x',
             'Sean 👍 x',
+            'Sean 🎼 x'
         ],
         Woody: [
             'Woody 💧x',
@@ -39,10 +40,12 @@ export const cleanName = (name) => {
             'Adam 🦤 x',
             'Adam 🍩 x',
             'Adam 🦜 x',
+            'Adam ⚾️ x'
 
         ],
         Darren: [
             'Darren x 🐢',
+            'Darren 🐢 x'
         ],
         Lily: [
             'Medusa 🧟‍♀️ x',
@@ -59,7 +62,16 @@ export const cleanName = (name) => {
         ],
         Spencer: [
             'Eightball Break Spence 🕊️ x',
-
+            'Herrerasaurus 🎧 x',
+        ],
+        Katy: [
+            'K86 🫧🧚🏻‍♀️🤸🏻‍♀️🍄🦋🌲🪷🌚🌈 x',
+        ],
+        Bella :[
+            'Bella 🧜‍♀️ x'
+        ],
+        Sirine: [
+            'Sirine 🐠🦋 x'
         ]
     }
 
@@ -69,4 +81,14 @@ export const cleanName = (name) => {
         }
     }
     return name;
-}
+};
+
+export const findCleanName = (playerId, participants) => {
+    for (const el of participants) {
+        const participant = el['participant'];
+        if (participant['id'] === playerId) {
+            return cleanName(participant['name']);
+        }
+    }
+    throw (`Error - name not found for ID: ${participant['id']}`);
+};
