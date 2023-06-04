@@ -14,7 +14,7 @@ const main = async () => {
     let statStore = {};
 
     statStore = await iterate(tourneys, statStore, true);
-    console.log(statStore);
+    console.log('end', statStore);
 
 };
 
@@ -24,10 +24,9 @@ const iterate = async (tourneys, statStoreIn, debug = false) => {
     for (const tourney of tourneys) {
         // console.log(tourney.tournament.name);
         statStore = await parseMatches(tourney, statStore);
-
         if (debug) {
             counter += 1;
-            if (counter > 5) {
+            if (counter > 3) {
                 break;
             }
         }
