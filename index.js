@@ -1,12 +1,9 @@
-import { cleanName } from "./lib/cleanName.js";
-import { checkSum, prettifyPodiumFinishes } from "./lib/postParse.js";
+import { cleanName } from "./constants/cleanName.js";
 import { genUrl } from "./lib/genUrl.js";
 import { parseMatches } from "./lib/parseMatches.js";
 
 
 const main = async () => {
-    console.log('start');
-
     const subdomain = 'b71fc01980b13ee66eab1849';
     const endpoint = `tournaments.json?subdomain=${subdomain}`;
     const tourneyUrl = genUrl(endpoint);
@@ -17,6 +14,7 @@ const main = async () => {
     let statStore = {};
 
     statStore = await iterate(tourneys, statStore, true);
+    console.log(statStore);
 
 };
 
@@ -34,6 +32,7 @@ const iterate = async (tourneys, statStoreIn, debug = false) => {
             }
         }
     }
+    return statStore;
 };
 
 
