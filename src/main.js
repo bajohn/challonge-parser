@@ -1,9 +1,10 @@
-import { cleanName } from "./constants/cleanName.js";
-import { genUrl } from "./lib/genUrl.js";
-import { parseMatches } from "./lib/parseMatches.js";
+const { cleanName } = require("./constants/cleanName.js");
+const { genUrl } = require("./lib/genUrl.js");
+const { parseMatches } = require( "./lib/parseMatches.js");
 
 
-const main = async () => {
+
+exports.main = async () => {
     const subdomain = 'b71fc01980b13ee66eab1849';
     const endpoint = `tournaments.json?subdomain=${subdomain}`;
     const tourneyUrl = genUrl(endpoint);
@@ -13,7 +14,8 @@ const main = async () => {
     console.log(`Tournament count: ${tourneys.length}`);
     let statStore = {};
 
-    statStore = await iterate(tourneys, statStore, false);
+    statStore = await iterate(tourneys, statStore, true);
+    console.log(JSON.stringify(statStore));
 };
 
 const iterate = async (tourneys, statStoreIn, debug = false) => {
@@ -24,13 +26,10 @@ const iterate = async (tourneys, statStoreIn, debug = false) => {
         statStore = await parseMatches(tourney, statStore);
         if (debug) {
             counter += 1;
-            if (counter > 6) {
+            if (counter > 2) {
                 break;
             }
         }
     }
     return statStore;
 };
-
-
-main();

@@ -1,4 +1,4 @@
-export const podiumLookup = () => {
+exports.podiumLookup = () => {
     return {
         1: 'First Place Finishes',
         2: 'Second Place Finishes',

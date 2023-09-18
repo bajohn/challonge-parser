@@ -1,18 +1,17 @@
-import { podiumLookup } from "../constants/constants.js";
+const { podiumLookup } = require("../constants/constants.js");
 
-export const checkSum = (statStoreIn) => {
+exports.checkSum = (statStoreIn) => {
     const statStore = Object.assign({}, statStoreIn);
     const finishesRef = statStore['podiumFinishes'];
     for (const finishers of Object.values(finishesRef)) {
         const result = Object.values(finishers).reduce((lv, cv) => {
             return lv + cv;
         }, 0);
-        console.log(`Checksum value ${result}`);
     }
 }
 
 
-export const parsePodium = (statStoreIn, participants, cleanedNames) => {
+exports.parsePodium = (statStoreIn, participants, cleanedNames) => {
     let statStore = Object.assign({}, statStoreIn);
     if (!('podiumFinishes' in statStore)) {
         statStore['podiumFinishes'] = Object.values(podiumLookup()).reduce(
@@ -39,7 +38,7 @@ export const parsePodium = (statStoreIn, participants, cleanedNames) => {
     return statStore;
 };
 
-export const prettifyPodium = (statStoreIn) => {
+exports.prettifyPodium = (statStoreIn) => {
     const statStore = Object.assign({}, statStoreIn);
     const finishesRef = statStore['podiumFinishes'];
     const podiumNames = Object.values(podiumLookup());

@@ -1,16 +1,16 @@
-import { cleanName } from "../constants/cleanName.js";
-import { genUrl } from "./genUrl.js";
-import { parseH2H } from "./h2h.js";
-import { parsePodium } from "./podium.js";
+const { cleanName } = require( "../constants/cleanName.js");
+const { genUrl } = require( "./genUrl.js");
+const { parseH2H } = require( "./h2h.js");
+const { parsePodium } = require( "./podium.js");
 
-export const parseMatches = async (tourney, statStoreIn) => {
+exports.parseMatches = async (tourney, statStoreIn) => {
     let statStore = Object.assign({}, statStoreIn);
     const tourneyId = tourney.tournament.id;
     const matches = await getMatches(tourneyId);
     const participants = await getParticipants(tourneyId);
     const cleanedNames = await cleanNames(participants);
 
-    // statStore = parsePodium(statStore, participants, cleanedNames);
+    statStore = parsePodium(statStore, participants, cleanedNames);
     statStore = parseH2H(statStore, matches, participants);
     return statStore;
 }

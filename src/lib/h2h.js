@@ -1,4 +1,4 @@
-import { cleanName, findCleanName } from "../constants/cleanName.js";
+const { cleanName, findCleanName } = require("../constants/cleanName.js");
 
 // Update the h2h stats for all the matches
 // of a single tournament.
@@ -7,7 +7,7 @@ import { cleanName, findCleanName } from "../constants/cleanName.js";
 // a   x   1   1
 // b   0   x   1
 // c   0   0   x
-export const parseH2H = (statStoreIn, matches, participants) => {
+exports.parseH2H = (statStoreIn, matches, participants) => {
     let statStore = Object.assign({}, statStoreIn);
 
     if (!('h2h' in statStore)) {
@@ -67,7 +67,6 @@ const prettifyH2H = (statStoreIn) => {
     for (const keyPlayer of keys) {
         header += uniformCell(keyPlayer);
     }
-    console.log(header);
     for (const keyPlayer of keys) {
         const rowRef = h2hRef[keyPlayer];
         let lineToPrint = uniformCell(keyPlayer);
@@ -79,7 +78,6 @@ const prettifyH2H = (statStoreIn) => {
                 lineToPrint += uniformCell(`${cellRef['w']}-${cellRef['l']}`);
             }
         }
-        console.log(lineToPrint);
     }
 }
 

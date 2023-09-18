@@ -1,4 +1,4 @@
-export const cleanName = (name) => {
+exports.cleanName = (name) => {
     const lookup = {
         Campbell: [
             'Campbell 🤠 x',
@@ -83,11 +83,11 @@ export const cleanName = (name) => {
     return name;
 };
 
-export const findCleanName = (playerId, participants) => {
+exports.findCleanName = (playerId, participants) => {
     for (const el of participants) {
         const participant = el['participant'];
         if (participant['id'] === playerId) {
-            return cleanName(participant['name']);
+            return exports.cleanName(participant['name']);
         }
     }
     throw (`Error - name not found for ID: ${participant['id']}`);

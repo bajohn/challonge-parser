@@ -1,4 +1,4 @@
-export const statStore = {
+exports.statStore = {
     podiumFinishes: {
         'First Place Finishes': {
             Campbell: 8,
