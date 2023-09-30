@@ -1,3 +1,4 @@
+const { dynamo } = require("./lib/dynamo");
 const { main } = require("./main");
 
 
@@ -18,5 +19,6 @@ exports.handler = async (event, context, callback) => {
     // return callback(
     //     null, res
     // );
+    await dynamo();
     return res;
 }

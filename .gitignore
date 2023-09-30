@@ -2,3 +2,4 @@ creds.js
 artifacts/*
 !/**/.gitkeep
 terraform/.terraform
+**node_modules
