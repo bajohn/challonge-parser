@@ -8,7 +8,7 @@ resource "aws_lambda_function" "summit-api" {
   source_code_hash = filebase64sha256( "../artifacts/lambda_function_payload.zip")
 
   runtime = "nodejs18.x"
-  timeout = 30
+  timeout = 300
 }
 
 resource "aws_iam_role" "iam_for_summit_api_lambda" {
