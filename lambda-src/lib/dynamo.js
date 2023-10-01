@@ -9,4 +9,5 @@ exports.dynamo = async () => {
     const command = new ListTablesCommand(input);
     const response = await client.send(command);
     console.log(response);
+    return response
 };

@@ -8,17 +8,23 @@ exports.handler = async (event, context, callback) => {
     // return {
     //     success: true
     // }
-    const res = {
-        "isBase64Encoded": false,
-        "statusCode": 200,
-        "headers": {},
-        // "multiValueHeaders": { "headerName": ["headerValue", "headerValue2", ...], ... },
-        "body": 'yo'
-    }
-    console.log(res);
+
     // return callback(
     //     null, res
     // );
-    await dynamo();
+    const dynamoResp = await dynamo();
+
+    const res = {
+        "isBase64Encoded": false,
+        "statusCode": 200,
+        "headers": {
+            'Access-Control-Allow-Origin': '*'
+        },
+        // "multiValueHeaders": { "headerName": ["headerValue", "headerValue2", ...], ... },
+        "body": JSON.stringify({
+            dynamoResp
+        })
+    };
+    console.log(res);
     return res;
 }
