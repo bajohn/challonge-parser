@@ -1,4 +1,4 @@
-const { dynamo } = require("./lib/dynamo");
+const { getPodiumFinishes } = require("./lib/dynamo");
 const { main } = require("./main");
 
 
@@ -12,7 +12,7 @@ exports.handler = async (event, context, callback) => {
     // return callback(
     //     null, res
     // );
-    const dynamoResp = await dynamo();
+    const dynamoResp = await getPodiumFinishes();
 
     const res = {
         "isBase64Encoded": false,
