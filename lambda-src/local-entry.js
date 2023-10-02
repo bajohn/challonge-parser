@@ -1,6 +1,5 @@
-const { main } = require("./main");
-const { getPodiumFinishes } = require('./lib/dynamo')
+const { handler } = require('./entrypoints/dynamo-updater')
+const { doIterate } = require('./lib/iterateTournaments')
 
-// main();
 
-getPodiumFinishes();
+handler();

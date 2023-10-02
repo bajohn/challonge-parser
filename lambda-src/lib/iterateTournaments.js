@@ -1,9 +1,10 @@
-const { genUrl } = require("./lib/genUrl.js");
-const { parseMatches } = require( "./lib/parseMatches.js");
+const { genUrl } = require("./genUrl.js");
+const { parseMatches } = require( "./parseMatches.js");
 
 
-
-exports.main = async () => {
+// Iterate through all tournaments, 
+// returning statStore
+exports.doIterate = async () => {
     const subdomain = 'b71fc01980b13ee66eab1849';
     const endpoint = `tournaments.json?subdomain=${subdomain}`;
     const tourneyUrl = genUrl(endpoint);
@@ -14,7 +15,7 @@ exports.main = async () => {
     let statStore = {};
 
     statStore = await iterate(tourneys, statStore, true);
-    console.log(JSON.stringify(statStore));
+    return statStore;
 };
 
 const iterate = async (tourneys, statStoreIn, debug = false) => {

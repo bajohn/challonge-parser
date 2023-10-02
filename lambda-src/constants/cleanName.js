@@ -13,6 +13,7 @@ exports.cleanName = (name) => {
             'Adel 👁️ x',
             'Adel x',
             'Adel 👨‍🍳 x',
+            'Adel 👁️'
         ],
         Brendan: [
             'Brendan 🦭 x',
@@ -21,6 +22,7 @@ exports.cleanName = (name) => {
             'Brendan 🦭 x',
             'Brendan 🦭 x',
             'Brendan 🦭',
+            'Mr. Brendan 🦭💍 x'
         ],
         Luis: [
             'Luis x',
@@ -59,6 +61,13 @@ exports.cleanName = (name) => {
         Martin: [
             'Martini 🧜‍♂️🍸 (with a twist)',
             'Martin “The Brown Recluse” 🕷️',
+            'M2 🐺'
+        ],
+        Marty: [
+            'Marty 💚 x'
+        ],
+        'Big Chris': [
+            'OG Chris 😎'
         ],
         Spencer: [
             'Eightball Break Spence 🕊️ x',
@@ -66,18 +75,43 @@ exports.cleanName = (name) => {
         ],
         Katy: [
             'K86 🫧🧚🏻‍♀️🤸🏻‍♀️🍄🦋🌲🪷🌚🌈 x',
+            'K86'
         ],
-        Bella :[
+        Ken: [
+            'Ken 💀 x',
+            'Ken 💀x'
+        ],
+        Bella: [
             'Bella 🧜‍♀️ x'
         ],
         Sirine: [
             'Sirine 🐠🦋 x'
+        ],
+        James: [
+        ],
+        Chris: [
+            'Chris 🩴 x'
         ]
+
     }
 
     for (const key of Object.keys(lookup)) {
-        if (lookup[key].indexOf(name) !== -1){
+        // First priority - 
+        // Matches element of subarray - hardcoded replacement
+        if (lookup[key].indexOf(name) !== -1) {
             return key;
+        }
+        // Second priority
+        // Clean name is substring of raw name
+        if (name.indexOf(key) > -1) {
+            return key
+        }
+        // Third priority
+        // Element of subarray is substring of raw name
+        for (const subel of lookup[key]) {
+            if (name.indexOf(subel) > -1) {
+                return key
+            }
         }
     }
     return name;

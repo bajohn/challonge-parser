@@ -1,10 +1,8 @@
-const { getPodiumFinishes } = require("./lib/dynamo");
-const { main } = require("./main");
+const { getPodiumFinishes } = require("../lib/dynamo");
 
 
-exports.handler = async (event, context, callback) => {
+exports.handler = async (event, context) => {
     console.log(event)
-    // await main();
     // return {
     //     success: true
     // }

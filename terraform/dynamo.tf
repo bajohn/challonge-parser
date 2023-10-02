@@ -1,6 +1,6 @@
 
 resource "aws_dynamodb_table" "summit-podium" {
-  name           = "PodiumFinishes"
+  name           = "SummitPodiumFinishes"
   billing_mode   = "PROVISIONED"
   read_capacity  = 1
   write_capacity = 1
@@ -16,3 +16,37 @@ resource "aws_dynamodb_table" "summit-podium" {
   }
 }
 
+
+resource "aws_dynamodb_table" "summit-h2h" {
+  name           = "SummitH2H"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 1
+  write_capacity = 1
+  hash_key       = "playerName"
+
+  attribute {
+    name = "playerName"
+    type = "S"
+  }
+
+  tags = {
+    Name        = "Summit Head-to-Head"
+  }
+}
+
+resource "aws_dynamodb_table" "summit-players" {
+  name           = "SummitPlayers"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 1
+  write_capacity = 1
+  hash_key       = "playerName"
+
+  attribute {
+    name = "playerName"
+    type = "S"
+  }
+
+  tags = {
+    Name        = "Summit Head-to-Head"
+  }
+}

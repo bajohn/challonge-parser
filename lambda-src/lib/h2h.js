@@ -46,9 +46,11 @@ exports.parseH2H = (statStoreIn, matches, participants) => {
     for (const keyName of Object.keys(h2h)) {
         const curRef = h2h[keyName];
         for (const inner of Object.keys(h2h)) {
-            if (keyName === inner) {
-                curRef[inner] = { w: 'x', l: 'x' }
-            } else if (!(inner in curRef)) {
+            // Optional: add x/x for player's self
+            // if (keyName === inner) {
+            //     curRef[inner] = { w: 'x', l: 'x' }
+            // } else 
+            if (!(inner in curRef)) {
                 curRef[inner] = { w: 0, l: 0 };
             }
         }
@@ -89,4 +91,8 @@ const uniformCell = (str) => {
         ret += ' ';
     }
     return ret;
+}
+
+exports.getAllNames = (statStore) => {
+    return Object.keys(statStore.h2h).sort()
 }
