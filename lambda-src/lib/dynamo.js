@@ -2,7 +2,7 @@ const { DynamoDBClient,
     ListTablesCommand,
     PutItemCommand,
     GetItemCommand,
-    ScanCommand} = require("@aws-sdk/client-dynamodb");
+    ScanCommand } = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 
 const podiumFinishes = 'podiumFinishes'
@@ -68,5 +68,7 @@ exports.getAllPlayers = async () => {
     };
     const command = new ScanCommand(input);
     const response = await client.send(command);
-    return response
+    return {
+        players: response['Items'].map(el => unmarshall(el))
+    };
 }

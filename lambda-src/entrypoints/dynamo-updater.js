@@ -1,17 +1,16 @@
-const { getPodiumFinishes, putPodiumFinishes, putPlayer } = require("../lib/dynamo");
+const { getPodiumFinishes, putPodiumFinishes, putPlayer, getAllPlayers} = require("../lib/dynamo");
 const { getAllNames } = require("../lib/h2h");
 const { doIterate } = require("../lib/iterateTournaments");
 const { getWinLoss } = require("../lib/parseWinLoss");
 
 exports.handler = async (event, context) => {
     const statStore = await doIterate();
-    // await putPodiumFinishes(statStore);
+    await putPodiumFinishes(statStore);
     // const resp = await getPodiumFinishes()
     // const names = getAllNames(statStore);
-    const players = getWinLoss(statStore);
-    // for (const player of players) {
-    //     putPlayer(player);
-    // }
-    await Promise.all(players.map(player=>putPlayer(player)))
+    // const players = getWinLoss(statStore);
+    // await Promise.all(players.map(player=>putPlayer(player)))
+    const players = await getAllPlayers();
+    console.log(players);
 
 };
