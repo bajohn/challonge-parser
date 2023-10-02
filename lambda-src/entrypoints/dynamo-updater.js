@@ -12,5 +12,6 @@ exports.handler = async (event, context) => {
     // for (const player of players) {
     //     putPlayer(player);
     // }
-    console.log(players)
+    await Promise.all(players.map(player=>putPlayer(player)))
+
 };

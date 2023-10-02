@@ -1,7 +1,8 @@
 const { DynamoDBClient,
     ListTablesCommand,
     PutItemCommand,
-    GetItemCommand } = require("@aws-sdk/client-dynamodb");
+    GetItemCommand,
+    ScanCommand} = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 
 const podiumFinishes = 'podiumFinishes'
@@ -48,15 +49,24 @@ exports.putPlayer = async (player) => {
     const client = new DynamoDBClient({ region: 'us-west-2' });
 
     const marshalled = marshall({
-        player
+        ...player
     });
     console.log(marshalled);
     const input = {
-        TableName: 'SummitPodiumFinishes',
+        TableName: 'SummitPlayers',
         Item: marshalled
     };
     const command = new PutItemCommand(input);
     const response = await client.send(command);
-    console.log(response);
+    return response;
+};
+
+exports.getAllPlayers = async () => {
+    const client = new DynamoDBClient({ region: 'us-west-2' });
+    const input = {
+        TableName: 'SummitPlayers',
+    };
+    const command = new ScanCommand(input);
+    const response = await client.send(command);
     return response
 }
