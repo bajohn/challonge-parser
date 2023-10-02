@@ -1,10 +1,13 @@
 exports.cleanName = (name) => {
     const lookup = {
-        Campbell: [
-            'Campbell 🤠 x',
-            'Campbell 🧑‍⚖️🐟 x',
-            'Campbell x',
-            'Campbell🦈',
+        Abdul: [],
+        Adam: [
+            'Adam 🦜 x',
+            'Adam 🦤 x',
+            'Adam 🍩 x',
+            'Adam 🦜 x',
+            'Adam ⚾️ x'
+
         ],
         Adel: [
             'El Maestro 👁️ x',
@@ -15,6 +18,26 @@ exports.cleanName = (name) => {
             'Adel 👨‍🍳 x',
             'Adel 👁️'
         ],
+        Alec: [],
+        Alex: [],
+        Andy: [],
+        Antonio: [],
+        Aqeel: [],
+        Ari: ['Ari 🐙 x'],
+        Aryan: ['Aryan x'],
+        Ben: ['Ben x'],
+        Tom: [
+            'Big ChaTomgus 🌴 x'
+        ],
+        'Big Chris': [
+            'OG Chris 😎'
+        ],
+        Bella: [
+            'Bella 🧜‍♀️ x'
+        ],
+        Bill: ['Bill'],
+        Blake: [],
+        Brandon: ['Brandon 💅 x'],
         Brendan: [
             'Brendan 🦭 x',
             'Brendan x',
@@ -24,55 +47,48 @@ exports.cleanName = (name) => {
             'Brendan 🦭',
             'Mr. Brendan 🦭💍 x'
         ],
-        Luis: [
-            'Luis x',
-            'Luis 🦖 x',
-            'Luis Vuitton 🦖 x',
-        ],
-        Sean: [
-            'Sean 🖕 x',
-            'Sean 👍 x',
-            'Sean 🎼 x'
-        ],
-        Woody: [
-            'Woody 💧x',
-        ],
-        Adam: [
-            'Adam 🦜 x',
-            'Adam 🦤 x',
-            'Adam 🍩 x',
-            'Adam 🦜 x',
-            'Adam ⚾️ x'
 
+        Campbell: [
+            'Campbell 🤠 x',
+            'Campbell 🧑‍⚖️🐟 x',
+            'Campbell x',
+            'Campbell🦈',
         ],
+        Chahrazef: [],
+        Charlie: [],
+        Cho: [
+            'Cho x',
+            'Cho 👸🏻'
+        ],
+        Chris: [
+            'Chris 🩴 x'
+        ],
+        Claire: [],
         Darren: [
             'Darren x 🐢',
             'Darren 🐢 x'
         ],
-        Lily: [
-            'Medusa 🧟‍♀️ x',
-            'Lily x',
+        David: [],
+        Edward: [],
+        Enrique: [],
+        Faisal: [
+            'Faisal',
+            'Faysal'
+        ],
+        Idir: [],
+        James: [
+        ],
+        Jackie: [],
+        Jake: [],
+        Jeff: [],
+        Joe: [
+            'Joe 🍳 x'
         ],
         Joshua: [
             'Josh',
             'Josh 🤡 x',
-
         ],
-        Martin: [
-            'Martini 🧜‍♂️🍸 (with a twist)',
-            'Martin “The Brown Recluse” 🕷️',
-            'M2 🐺'
-        ],
-        Marty: [
-            'Marty 💚 x'
-        ],
-        'Big Chris': [
-            'OG Chris 😎'
-        ],
-        Spencer: [
-            'Eightball Break Spence 🕊️ x',
-            'Herrerasaurus 🎧 x',
-        ],
+        JT: [],
         Katy: [
             'K86 🫧🧚🏻‍♀️🤸🏻‍♀️🍄🦋🌲🪷🌚🌈 x',
             'K86'
@@ -81,19 +97,59 @@ exports.cleanName = (name) => {
             'Ken 💀 x',
             'Ken 💀x'
         ],
-        Bella: [
-            'Bella 🧜‍♀️ x'
+        Lily: [
+            'Medusa 🧟‍♀️ x',
+            'Lily x',
+            'Lillies 🫘'
+        ],
+        Lisa: [],
+        Luis: [
+            'Luis x',
+            'Luis 🦖 x',
+            'Luis Vuitton 🦖 x',
+        ],
+
+
+        Marcus: [],
+        Mariel: [],
+        Martin: [
+            'Martini 🧜‍♂️🍸 (with a twist)',
+            'Martin “The Brown Recluse” 🕷️',
+            'M2 🐺',
+            'El Lobo 🐺'
+        ],
+        Marty: [
+            'Marty 💚 x'
+        ],
+        Mike: [
+            'Mike 👽 x'
+        ],
+        Mohammed: [
+            'Mo 🐥 x',
+            'Mo x'
+        ],
+        Philo: [],
+        Robin: [],
+        Ronnie: [],
+        Ryan: [],
+        Said: [],
+        Sean: [
+            'Sean 🖕 x',
+            'Sean 👍 x',
+            'Sean 🎼 x'
         ],
         Sirine: [
             'Sirine 🐠🦋 x'
         ],
-        James: [
-        ],
-        Chris: [
-            'Chris 🩴 x'
-        ]
 
-    }
+        Spencer: [
+            'Herrerasaurus',
+            'Spence'
+        ],
+        Woody: [
+            'Woody 💧x',
+        ],
+    };
 
     for (const key of Object.keys(lookup)) {
         // First priority - 
