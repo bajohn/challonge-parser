@@ -2,6 +2,8 @@ const { genUrl } = require("./genUrl.js");
 const { parseMatches } = require( "./parseMatches.js");
 
 
+
+
 // Iterate through all tournaments, 
 // returning statStore
 exports.doIterate = async () => {
