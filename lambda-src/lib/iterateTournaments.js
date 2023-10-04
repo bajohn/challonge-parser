@@ -30,7 +30,7 @@ const iterate = async (tourneys, statStoreIn, debug = false) => {
         statStore = await parseMatches(tourney, statStore);
         if (debug) {
             counter += 1;
-            if (counter > 1) {
+            if (counter > 3) {
                 break;
             }
         }

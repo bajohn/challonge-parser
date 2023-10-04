@@ -7,13 +7,23 @@ import { rootUrl } from './util/constants';
 const MIN_GAMES = 2;
 function App() {
   const [players, setPlayers] = useState([]);
-  const [podiums, setPodiums] = useState([]);
+  const [podiums, setPodiums] = useState({});
   useEffect(() => {
     playerGetter(setPlayers);
+    podiumGetter(setPodiums);
   }, []);
 
   return (
     <Container className="App" data-bs-theme="dark">
+      <h1>
+        Summit Wednesday Night Tournaments
+      </h1>
+      <h2>
+        Podium Finishes
+      </h2>
+      <PodiumFinishes podiums={podiums}>
+
+      </PodiumFinishes>
       <h2>
         Ranked Players
       </h2>
@@ -35,6 +45,86 @@ function App() {
 }
 
 
+function PodiumFinishes(props: any) {
+  const FIRST_PLACE = 'First Place Finishes';
+  const podiums = props.podiums;
+  console.log('in', podiums)
+  const store: any = {}
+  for (const key of Object.keys(podiums)) {
+    const podium = podiums[key];
+    for (const name of Object.keys(podium)) {
+      if (!(name in store)) {
+        store[name] = {};
+      }
+      if (key in store[name]) {
+        store[name][key] += 1;
+      } else {
+        store[name][key] = 1;
+      }
+    }
+  }
+  console.log(store);
+
+
+  const playerArr = Object.keys(store).map(name => {
+    const cur = store[name]
+    cur['playerName'] = name;
+    return cur;
+  });
+  console.log(playerArr);
+  playerArr.sort((a, b) => {
+    return a[FIRST_PLACE] > b[FIRST_PLACE] ? -1 : 1;
+  });
+
+
+  const getMedals = (cur: any) => {
+    let ret = '';
+    const lookup: any = {
+      'First Place Finishes': '🥇',
+      'Second Place Finishes': '🥈',
+      'Third Place Finishes': '🥉'
+    };
+
+    for (const podiumName of Object.keys(lookup)) {
+      if (podiumName in cur) {
+        while (cur[podiumName] > 0) {
+          ret += lookup[podiumName];
+          cur[podiumName] -= 1;
+        }
+      }
+    }
+    return ret;
+  }
+
+
+
+  return (<Table striped bordered hover>
+
+    <thead>
+      <tr>
+        <th scope="col">Player</th>
+        <th scope="col">Finishes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {playerArr.map((player: any) => {
+        return (
+          <tr key={player.playerName}>
+            <td>
+              {player.playerName}
+            </td>
+            <td>
+              {getMedals(player)}
+            </td>
+
+          </tr>
+
+        )
+      })}
+    </tbody>
+  </Table>);
+
+}
 
 function RankedPlayers(props: any) {
   const rankedPlayers = props.players.reduce((lv: any[], cv: any) => {
@@ -127,7 +217,11 @@ const playerGetter = async (setPlayers: any) => {
 }
 
 const podiumGetter = async (setPodium: any) => {
-
+  const resp = await fetch(`${rootUrl}podium-finishes`)
+  const jsonResp = await resp.json();
+  const podiums = jsonResp.data;
+  console.log(podiums)
+  setPodium(podiums);
 }
 
 export default App;
