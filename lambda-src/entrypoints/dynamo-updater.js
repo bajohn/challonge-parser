@@ -7,10 +7,14 @@ exports.handler = async (event, context) => {
     const statStore = await doIterate();
     await putPodiumFinishes(statStore);
     // const resp = await getPodiumFinishes()
-    // const names = getAllNames(statStore);
-    // const players = getWinLoss(statStore);
-    // await Promise.all(players.map(player=>putPlayer(player)))
-    const players = await getAllPlayers();
+    const names = getAllNames(statStore);
+    const players = getWinLoss(statStore);
+
+    // const resp = await getAllPlayers();
+    // const players = resp.players;
     console.log(players);
+    await Promise.all(players.map(player=>putPlayer(player)))
+    console.log('Done');
+
 
 };

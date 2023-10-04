@@ -1,3 +1,4 @@
+
 /* .App {
   text-align: center;
 }
@@ -36,3 +37,11 @@
     transform: rotate(360deg);
   }
 } */
+
+.App {
+  /* background-color: rgb(133, 133, 156) */
+}
+
+.subheader-italic {
+  font-style: italic
+}
