@@ -4,3 +4,4 @@ artifacts/*
 terraform/.terraform
 **node_modules
 **DS_Store
+**.log

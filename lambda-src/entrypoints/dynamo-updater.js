@@ -5,7 +5,9 @@ const { getWinLoss } = require("../lib/parseWinLoss");
 
 exports.handler = async (event, context) => {
     const statStore = await doIterate();
+    console.log(JSON.stringify(statStore));
     await putPodiumFinishes(statStore);
+
     // const resp = await getPodiumFinishes()
     const names = getAllNames(statStore);
     const players = getWinLoss(statStore);

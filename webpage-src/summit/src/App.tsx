@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 
 import './App.css';
 import { rootUrl } from './util/constants';
-const MIN_GAMES = 2;
+const MIN_GAMES = 10;
 function App() {
   const [players, setPlayers] = useState([]);
   const [podiums, setPodiums] = useState({});
@@ -47,23 +47,26 @@ function App() {
 
 function PodiumFinishes(props: any) {
   const FIRST_PLACE = 'First Place Finishes';
+  const SECOND_PLACE = 'Second Place Finishes';
+  const THIRD_PLACE = 'Third Place Finishes';
   const podiums = props.podiums;
   console.log('in', podiums)
   const store: any = {}
-  for (const key of Object.keys(podiums)) {
-    const podium = podiums[key];
+  for (const podiumName of Object.keys(podiums)) {
+    const podium = podiums[podiumName];
     for (const name of Object.keys(podium)) {
       if (!(name in store)) {
         store[name] = {};
       }
-      if (key in store[name]) {
-        store[name][key] += 1;
+      if (podiumName in store[name]) {
+        console.error('Repeated name/podium, this should never happen. Check get-podiums API.')
       } else {
-        store[name][key] = 1;
+        store[name][podiumName] = podium[name];
       }
     }
   }
   console.log(store);
+  console.log(JSON.stringify(store));
 
 
   const playerArr = Object.keys(store).map(name => {
@@ -73,17 +76,23 @@ function PodiumFinishes(props: any) {
   });
   console.log(playerArr);
   playerArr.sort((a, b) => {
-    return a[FIRST_PLACE] > b[FIRST_PLACE] ? -1 : 1;
+    if (a[FIRST_PLACE] > b[FIRST_PLACE]) {
+      return -1
+    } else if ((a[FIRST_PLACE] === b[FIRST_PLACE] && a[SECOND_PLACE] > b[SECOND_PLACE])) {
+      return -1
+    } else if ((a[SECOND_PLACE] === b[SECOND_PLACE] && a[THIRD_PLACE] > b[THIRD_PLACE])) {
+      return -1
+    }
+    return 1;
   });
 
 
   const getMedals = (cur: any) => {
     let ret = '';
-    const lookup: any = {
-      'First Place Finishes': '🥇',
-      'Second Place Finishes': '🥈',
-      'Third Place Finishes': '🥉'
-    };
+    const lookup: any = {};
+    lookup[FIRST_PLACE] = '🥇';
+    lookup[SECOND_PLACE] = '🥈';
+    lookup[THIRD_PLACE] = '🥉';
 
     for (const podiumName of Object.keys(lookup)) {
       if (podiumName in cur) {

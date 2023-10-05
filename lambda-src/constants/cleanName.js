@@ -126,7 +126,8 @@ exports.cleanName = (name) => {
         ],
         Mohammed: [
             'Mo 🐥 x',
-            'Mo x'
+            'Mo x',
+            'Mohammad 🐥 x'
         ],
         Philo: [],
         Robin: [],

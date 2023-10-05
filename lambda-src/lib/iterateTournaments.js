@@ -9,7 +9,7 @@ const { parseMatches } = require( "./parseMatches.js");
 exports.doIterate = async () => {
     const subdomain = 'b71fc01980b13ee66eab1849';
     const endpoint = `tournaments.json?subdomain=${subdomain}`;
-    const debug = true;
+    const debug = false;
     const tourneyUrl = genUrl(endpoint);
 
     const resp = await fetch(tourneyUrl);
@@ -27,10 +27,11 @@ const iterate = async (tourneys, statStoreIn, debug = false) => {
     let counter = 1;
     for (const tourney of tourneys) {
         // console.log(tourney.tournament.name);
+        console.log(tourney.tournament.name)
         statStore = await parseMatches(tourney, statStore);
         if (debug) {
             counter += 1;
-            if (counter > 3) {
+            if (counter > 2) {
                 break;
             }
         }
