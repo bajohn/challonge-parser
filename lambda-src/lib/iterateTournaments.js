@@ -1,4 +1,4 @@
-const { genUrl } = require("./genUrl.js");
+const { doFetch } = require("./doFetch.js");
 const { parseMatches } = require( "./parseMatches.js");
 
 
@@ -9,12 +9,9 @@ const { parseMatches } = require( "./parseMatches.js");
 exports.doIterate = async () => {
     const subdomain = 'b71fc01980b13ee66eab1849';
     const endpoint = `tournaments.json?subdomain=${subdomain}`;
-    const debug = false;
-    const tourneyUrl = genUrl(endpoint);
+    const debug = true;
 
-    const resp = await fetch(tourneyUrl);
-    console.log(resp);
-    const tourneys = await resp.json();
+    const tourneys = await doFetch(endpoint)
     console.log(`Tournament count: ${tourneys.length}`);
     let statStore = {};
 
@@ -26,7 +23,6 @@ const iterate = async (tourneys, statStoreIn, debug = false) => {
     let statStore = Object.assign({}, statStoreIn);
     let counter = 1;
     for (const tourney of tourneys) {
-        // console.log(tourney.tournament.name);
         console.log(tourney.tournament.name)
         statStore = await parseMatches(tourney, statStore);
         if (debug) {

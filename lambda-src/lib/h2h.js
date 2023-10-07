@@ -20,42 +20,13 @@ exports.parseH2H = (statStoreIn, matches, participants) => {
         const player2Name = findCleanName(match['player2_id'], participants);
 
         const winnerName = findCleanName(match['winner_id'], participants);
-        // const sorted = [player1Name, player2Name].sort();
-
-        // const keyName = sorted[0];
-        // const nonKeyName = sorted[1];
-
-        // if (!(keyName in h2h)) {
-        //     h2h[keyName] = {};
-        // }
-        // if (!(nonKeyName in h2h[keyName])) {
-        //     h2h[keyName][nonKeyName] = {
-        //         w: 0,
-        //         l: 0
-        //     };
-        // };
-        // const resultRef = h2h[keyName][nonKeyName];
-
-        // if (winnerName === keyName) {
-        //     resultRef['w'] += 1;
-        // } else {
-        //     resultRef['l'] += 1;
-        // }
-
         updateH2H2wl(player1Name, player2Name, winnerName, h2h);
         updateH2H2wl(player2Name, player1Name, winnerName, h2h);
-
-
     }
 
     for (const keyName of Object.keys(h2h)) {
         const curRef = h2h[keyName];
         for (const inner of Object.keys(h2h)) {
-            // Optional: add x/x for player's self
-            // if (keyName === inner) {
-            //     curRef[inner] = { w: 'x', l: 'x' }
-            // } else 
-            // fill 0/0 if players haven't played each other
             if (!(inner in curRef)) {
                 curRef[inner] = { w: 0, l: 0 };
             }

@@ -1,7 +1,7 @@
-const { cleanName } = require( "../constants/cleanName.js");
-const { genUrl } = require( "./genUrl.js");
-const { parseH2H } = require( "./h2h.js");
-const { parsePodium } = require( "./podium.js");
+const { cleanName } = require("../constants/cleanName.js");
+const { doFetch } = require("./doFetch.js");
+const { parseH2H } = require("./h2h.js");
+const { parsePodium } = require("./podium.js");
 
 exports.parseMatches = async (tourney, statStoreIn) => {
     let statStore = Object.assign({}, statStoreIn);
@@ -17,17 +17,13 @@ exports.parseMatches = async (tourney, statStoreIn) => {
 
 const getMatches = async (tourneyId) => {
     const endpoint = `tournaments/${tourneyId}/matches.json`;
-    const matchUrl = genUrl(endpoint);
-    const resp = await fetch(matchUrl);
-    const matches = await resp.json();
+    const matches = await doFetch(endpoint);
     return matches;
 }
 
 const getParticipants = async (tourneyId) => {
     const endpoint = `tournaments/${tourneyId}/participants.json`;
-    const participantUrl = genUrl(endpoint);
-    const resp = await fetch(participantUrl);
-    const participants = await resp.json();
+    const participants = await doFetch(endpoint);
     return participants
 }
 

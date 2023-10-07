@@ -57,12 +57,11 @@ function PodiumFinishes(props: any) {
     for (const name of Object.keys(podium)) {
       if (!(name in store)) {
         store[name] = {};
+        store[name][FIRST_PLACE] = 0;
+        store[name][SECOND_PLACE] = 0;
+        store[name][THIRD_PLACE] = 0;
       }
-      if (podiumName in store[name]) {
-        console.error('Repeated name/podium, this should never happen. Check get-podiums API.')
-      } else {
-        store[name][podiumName] = podium[name];
-      }
+      store[name][podiumName] = podium[name];
     }
   }
   console.log(store);

@@ -5,17 +5,13 @@ const { getWinLoss } = require("../lib/parseWinLoss");
 
 exports.handler = async (event, context) => {
     const statStore = await doIterate();
-    console.log(JSON.stringify(statStore));
-    await putPodiumFinishes(statStore);
+    // console.log(JSON.stringify(statStore));
+    // await putPodiumFinishes(statStore);
 
     // const resp = await getPodiumFinishes()
     const names = getAllNames(statStore);
     const players = getWinLoss(statStore);
-
-    // const resp = await getAllPlayers();
-    // const players = resp.players;
-    console.log(players);
-    await Promise.all(players.map(player=>putPlayer(player)))
+    // await Promise.all(players.map(player=>putPlayer(player)))
     console.log('Done');
 
 

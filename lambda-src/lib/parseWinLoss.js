@@ -8,8 +8,6 @@ exports.getWinLoss = (statStore) => {
     const h2h = statStore['h2h']
 
     return names.map(name => {
-        console.log("RUNNING", name);
-        console.log(h2h[name])
         const winLoss = Object.keys(h2h[name]).reduce(
             (lv, cv) => {
                 const cur = h2h[name][cv];

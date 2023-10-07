@@ -30,14 +30,12 @@ exports.putPodiumFinishes = async (statStore) => {
         podiumFinishes,
         data: statStore.podiumFinishes
     });
-    console.log(marshalled);
     const input = {
         TableName: 'SummitPodiumFinishes',
         Item: marshalled
     };
     const command = new PutItemCommand(input);
     const response = await client.send(command);
-    console.log(response);
     return response
 };
 
@@ -51,7 +49,6 @@ exports.putPlayer = async (player) => {
     const marshalled = marshall({
         ...player
     });
-    console.log(marshalled);
     const input = {
         TableName: 'SummitPlayers',
         Item: marshalled
@@ -60,6 +57,22 @@ exports.putPlayer = async (player) => {
     const response = await client.send(command);
     return response;
 };
+
+exports.putApiResp = async (endpoint, resp) => {
+    const client = new DynamoDBClient({ region: 'us-west-2' });
+
+    const marshalled = marshall({
+        url: endpoint,
+        data: resp
+    });
+    const input = {
+        TableName: 'SummitAPIMock',
+        Item: marshalled
+    };
+    const command = new PutItemCommand(input);
+    const response = await client.send(command);
+    return response;
+}
 
 exports.getAllPlayers = async () => {
     const client = new DynamoDBClient({ region: 'us-west-2' });
