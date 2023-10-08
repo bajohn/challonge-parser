@@ -5,3 +5,13 @@ exports.podiumLookup = () => {
         3: 'Third Place Finishes'
     }
 }
+
+let isTesting = false;
+
+exports.setIsTesting = (input) => {
+    isTesting = input;
+}
+
+exports.getIsTesting = () => {
+    return isTesting;
+}

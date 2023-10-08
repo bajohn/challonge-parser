@@ -34,3 +34,8 @@ statStore structure:
 }
 
 ```
+
+Next TODOs
+- Create shareable variable for whether to put API responses into Dynamo, or retrieve from it (like isTesting)
+- If retrieving from dynamo, make sure the whole pull works (will need to ignore cred)
+- Should we make an additive data model in general? 

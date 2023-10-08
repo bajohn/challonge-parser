@@ -1,3 +1,4 @@
+const { getIsTesting } = require("../constants/constants.js");
 const { apiKey } = require("../creds.js");
 const { putApiResp } = require("./dynamo.js");
 genUrl = (endpoint) => {
@@ -7,6 +8,9 @@ genUrl = (endpoint) => {
     console.log(ret);
     return ret;
 }
+
+
+
 
 exports.doFetch = async (endpoint) => {
     // for dev - store in dynamo?

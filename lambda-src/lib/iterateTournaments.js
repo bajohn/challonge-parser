@@ -11,7 +11,7 @@ exports.doIterate = async () => {
     const endpoint = `tournaments.json?subdomain=${subdomain}`;
     const debug = true;
 
-    const tourneys = await doFetch(endpoint)
+    const tourneys = await doFetch(endpoint);
     console.log(`Tournament count: ${tourneys.length}`);
     let statStore = {};
 
