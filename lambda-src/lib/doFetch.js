@@ -1,4 +1,4 @@
-const { getIsTesting } = require("../constants/constants.js");
+const { getIsTesting, DYNAMO, CHALLONGE } = require("../constants/constants.js");
 const { apiKey } = require("../creds.js");
 const { mockApiPut, mockApiGet } = require("./dynamo.js");
 genUrl = (endpoint) => {
@@ -13,10 +13,10 @@ genUrl = (endpoint) => {
 
 
 exports.doFetch = async (endpoint, source) => {
-    if (source === 'dynamo') {
+    if (source === DYNAMO) {
         return await mockApiGet(endpoint)
 
-    } else if (source === 'challonge') {
+    } else if (source === CHALLONGE) {
         const url = genUrl(endpoint);
         const resp = await fetch(url);
         const respJson = await resp.json();

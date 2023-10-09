@@ -6,6 +6,10 @@ exports.podiumLookup = () => {
     }
 }
 
+exports.SUBDOMAIN = 'b71fc01980b13ee66eab1849';
+exports.DYNAMO = 'dynamo';
+exports.CHALLONGE = 'challonge';
+
 let isTesting = false;
 
 exports.setIsTesting = (input) => {

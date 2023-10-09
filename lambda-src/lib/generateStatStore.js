@@ -1,5 +1,6 @@
 const { doFetch } = require("./doFetch.js");
 const { addTourneyToStatStore } = require("./addTourney.js");
+const { SUBDOMAIN } = require("../constants/constants.js");
 
 
 
@@ -7,8 +8,7 @@ const { addTourneyToStatStore } = require("./addTourney.js");
 // Iterate through all tournaments, 
 // returning statStore
 exports.generateStatStore = async (source) => {
-    const subdomain = 'b71fc01980b13ee66eab1849';
-    const endpoint = `tournaments.json?subdomain=${subdomain}`;
+    const endpoint = `tournaments.json?subdomain=${SUBDOMAIN}`;
     const debug = false;
 
     const tourneys = await doFetch(endpoint, source);

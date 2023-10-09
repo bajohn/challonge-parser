@@ -39,6 +39,48 @@ exports.putPodiumFinishes = async (statStore) => {
     return response
 };
 
+
+
+exports.getMetadata = async (keyIn) => {
+    const client = new DynamoDBClient({ region: 'us-west-2' });
+    const input = {
+        TableName: 'SummitMetadata',
+        Key: marshall({
+            key: keyIn
+        })
+    };
+
+    const command = new GetItemCommand(input);
+
+    const response = await client.send(command);
+    const unmarshalled = unmarshall(response.Item);
+    return unmarshalled.value
+};
+
+
+
+exports.putMetadata = async (keyIn, valIn) => {
+    const client = new DynamoDBClient({ region: 'us-west-2' });
+    const marshalled = marshall(
+        {
+            key: keyIn,
+            value: valIn
+        }
+    );
+    const input = {
+        TableName: 'SummitMetadata',
+        Item: marshalled
+    };
+    const command = new PutItemCommand(input);
+    const response = await client.send(command);
+    return response
+};
+
+
+
+
+
+
 // Insert player with win/loss
 // Could batch update these, but
 // not super time sensitive
