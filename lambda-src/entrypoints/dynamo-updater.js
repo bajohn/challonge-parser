@@ -1,15 +1,17 @@
 const { isTesting, getIsTesting } = require("../constants/constants");
 const { getPodiumFinishes, putPodiumFinishes, putPlayer, getAllPlayers} = require("../lib/dynamo");
 const { getAllNames } = require("../lib/h2h");
-const { doIterate } = require("../lib/iterateTournaments");
+const { generateStatStore } = require("../lib/generateStatStore");
 const { getWinLoss } = require("../lib/parseWinLoss");
 
 exports.handler = async (event, context) => {
-    // const statStore = await doIterate();
-    // console.log(JSON.stringify(statStore));
+    const source = 'challonge';
+    // const source = 'dynamo';
+    const statStore = await generateStatStore(source);
+    console.log(JSON.stringify(statStore));
     // await putPodiumFinishes(statStore);
 
-    const resp = await getPodiumFinishes()
+    // const resp = await getPodiumFinishes()
     // const names = getAllNames(statStore);
     // const players = getWinLoss(statStore);
     // await Promise.all(players.map(player=>putPlayer(player)))
@@ -17,3 +19,11 @@ exports.handler = async (event, context) => {
 
 
 };
+
+const updateApiMock = async ()=>{
+    
+}
+
+const updateCoreDynamoMock = async ()=>{
+    
+}

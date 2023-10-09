@@ -4,8 +4,8 @@
 resource "aws_dynamodb_table" "summit-api-mock" {
   name           = "SummitAPIMock"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 1
-  write_capacity = 1
+  read_capacity  = 5
+  write_capacity = 5
   hash_key       = "url"
 
   attribute {

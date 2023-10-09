@@ -1,6 +1,6 @@
 const { getIsTesting } = require("../constants/constants.js");
 const { apiKey } = require("../creds.js");
-const { putApiResp } = require("./dynamo.js");
+const { mockApiPut, mockApiGet } = require("./dynamo.js");
 genUrl = (endpoint) => {
     const suffix = endpoint.indexOf('?') === -1 ? '?' : '&';
     const auth = `${suffix}api_key=${apiKey}`;
@@ -12,16 +12,18 @@ genUrl = (endpoint) => {
 
 
 
-exports.doFetch = async (endpoint) => {
-    // for dev - store in dynamo?
-    const storeResults = true;
+exports.doFetch = async (endpoint, source) => {
+    if (source === 'dynamo') {
+        return await mockApiGet(endpoint)
 
-    const url = genUrl(endpoint);
-
-    const resp = await fetch(url);
-    const respJson = await resp.json();
-    if (storeResults) {
-        await putApiResp(endpoint, respJson)
+    } else if (source === 'challonge') {
+        const url = genUrl(endpoint);
+        const resp = await fetch(url);
+        const respJson = await resp.json();
+        await mockApiPut(endpoint, respJson)
+        return respJson;
     }
-    return respJson;
+    else {
+        throw new Error(`Unknown source ${source}`);
+    }
 };

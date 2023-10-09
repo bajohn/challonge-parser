@@ -58,12 +58,41 @@ exports.putPlayer = async (player) => {
     return response;
 };
 
-exports.putApiResp = async (endpoint, resp) => {
-    const client = new DynamoDBClient({ region: 'us-west-2' });
+const getMinimal = (endpoint, resp) => {
+    if (endpoint.indexOf('matches') > -1) {
+        return resp.map(el => {
+            const match = el.match;
+            return {
+                match: {
+                    player1_id: match.player1_id,
+                    player2_id: match.player2_id,
+                    winner_id: match.winner_id
+                }
 
+            }
+        });
+    }
+    else if (endpoint.indexOf('participants') > -1) {
+        return resp.map(el => {
+            const participant = el.participant;
+            return {
+                participant: {
+                    id: participant.id,
+                    final_rank: participant.final_rank,
+                    name: participant.name
+                }
+            }
+        });
+    }
+    return resp;
+}
+
+exports.mockApiPut = async (endpoint, resp) => {
+    const client = new DynamoDBClient({ region: 'us-west-2' });
+    const minimalData = getMinimal(endpoint, resp);
     const marshalled = marshall({
         url: endpoint,
-        data: resp
+        data: minimalData
     });
     const input = {
         TableName: 'SummitAPIMock',
@@ -72,7 +101,23 @@ exports.putApiResp = async (endpoint, resp) => {
     const command = new PutItemCommand(input);
     const response = await client.send(command);
     return response;
-}
+};
+
+exports.mockApiGet = async (endpoint) => {
+    const client = new DynamoDBClient({ region: 'us-west-2' });
+    const input = {
+        TableName: 'SummitAPIMock',
+        Key: marshall({
+            url: endpoint
+        })
+    };
+
+    const command = new GetItemCommand(input);
+
+    const response = await client.send(command);
+    const unmarshalled = unmarshall(response.Item);
+    return unmarshalled.data
+};
 
 exports.getAllPlayers = async () => {
     const client = new DynamoDBClient({ region: 'us-west-2' });
@@ -84,4 +129,4 @@ exports.getAllPlayers = async () => {
     return {
         players: response['Items'].map(el => unmarshall(el))
     };
-}
+};
