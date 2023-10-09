@@ -127,7 +127,7 @@ exports.cleanName = (name) => {
         Mohammed: [
             'Mo 🐥 x',
             'Mo x',
-            'Mohammad 🐥 x'
+            'Mohammad 🐥 x',
         ],
         Philo: [],
         Robin: [],
@@ -137,7 +137,8 @@ exports.cleanName = (name) => {
         Sean: [
             'Sean 🖕 x',
             'Sean 👍 x',
-            'Sean 🎼 x'
+            'Sean 🎼 x',
+            'S69',
         ],
         Sirine: [
             'Sirine 🐠🦋 x'
