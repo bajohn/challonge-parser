@@ -41,43 +41,6 @@ exports.putPodiumFinishes = async (statStore) => {
 
 
 
-exports.getMetadata = async (keyIn) => {
-    const client = new DynamoDBClient({ region: 'us-west-2' });
-    const input = {
-        TableName: 'SummitMetadata',
-        Key: marshall({
-            key: keyIn
-        })
-    };
-
-    const command = new GetItemCommand(input);
-
-    const response = await client.send(command);
-    const unmarshalled = unmarshall(response.Item);
-    return unmarshalled.value
-};
-
-
-
-exports.putMetadata = async (keyIn, valIn) => {
-    const client = new DynamoDBClient({ region: 'us-west-2' });
-    const marshalled = marshall(
-        {
-            key: keyIn,
-            value: valIn
-        }
-    );
-    const input = {
-        TableName: 'SummitMetadata',
-        Item: marshalled
-    };
-    const command = new PutItemCommand(input);
-    const response = await client.send(command);
-    return response
-};
-
-
-
 
 
 
@@ -172,3 +135,46 @@ exports.getAllPlayers = async () => {
         players: response['Items'].map(el => unmarshall(el))
     };
 };
+
+
+
+
+
+
+// Store key/val metadata in a table
+// So far unused
+// exports.getMetadata = async (keyIn) => {
+//     const client = new DynamoDBClient({ region: 'us-west-2' });
+//     const input = {
+//         TableName: 'SummitMetadata',
+//         Key: marshall({
+//             key: keyIn
+//         })
+//     };
+
+//     const command = new GetItemCommand(input);
+
+//     const response = await client.send(command);
+//     const unmarshalled = unmarshall(response.Item);
+//     return unmarshalled.value
+// };
+
+
+
+// exports.putMetadata = async (keyIn, valIn) => {
+//     const client = new DynamoDBClient({ region: 'us-west-2' });
+//     const marshalled = marshall(
+//         {
+//             key: keyIn,
+//             value: valIn
+//         }
+//     );
+//     const input = {
+//         TableName: 'SummitMetadata',
+//         Item: marshalled
+//     };
+//     const command = new PutItemCommand(input);
+//     const response = await client.send(command);
+//     return response
+// };
+

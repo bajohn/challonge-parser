@@ -24,6 +24,23 @@ resource "aws_lambda_function" "summit-dynamo-updater" {
   timeout = 300
 }
 
+
+resource "aws_scheduler_schedule" "dynamo-updater-schedule" {
+  name       = "dynamo-updater-schedule"
+  group_name = "default"
+
+  flexible_time_window {
+    mode = "OFF"
+  }
+
+  schedule_expression = "rate(1 hours)"
+
+  target {
+    arn      = aws_lambda_function.summit-dynamo-updater.arn
+    role_arn = aws_iam_role.iam_for_summit_api_lambda.arn
+  }
+}
+
 resource "aws_iam_role" "iam_for_summit_api_lambda" {
   name = "iam_for_summit_api_lambda"
 

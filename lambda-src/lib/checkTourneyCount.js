@@ -9,6 +9,4 @@ exports.checkTourneyCount = async (source) => {
     const ret = tourneys.length;
     console.log(`Tournament count: ${ret}`);
     return ret;
-    // getMetadata('')
-    // await putMetadata('tournamentCount', tourneys.length);
 };

@@ -24,9 +24,5 @@ exports.handler = async (event, context) => {
     else {
         throw new Error('Fewer tournaments on Challonge than Dynamo, this should should never happen.');
     }
-
-
-
-
     console.log('Done');
 };
