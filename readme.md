@@ -43,4 +43,4 @@ https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
 
 Next TODOs
 - Test framework / cases
-- Schedule update lambdas
+- Update only latest tournament / matches instead of full reload when tourneyCount is different
