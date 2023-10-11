@@ -12,7 +12,6 @@ exports.generateStatStore = async (source) => {
     const debug = false;
 
     const tourneys = await doFetch(endpoint, source);
-    console.log(`Tournament count: ${tourneys.length}`);
     let statStore = {};
 
     statStore = await iterate(tourneys, statStore, source, debug);

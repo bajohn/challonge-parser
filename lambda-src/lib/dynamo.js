@@ -120,8 +120,13 @@ exports.mockApiGet = async (endpoint) => {
     const command = new GetItemCommand(input);
 
     const response = await client.send(command);
-    const unmarshalled = unmarshall(response.Item);
-    return unmarshalled.data
+    if('Item' in response) {
+        const unmarshalled = unmarshall(response.Item);
+        return unmarshalled.data;
+    } else {
+        console.log(`Key not found in Dynamo: ${endpoint}`);
+        return {};
+    }
 };
 
 exports.getAllPlayers = async () => {
