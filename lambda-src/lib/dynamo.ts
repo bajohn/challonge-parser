@@ -6,7 +6,7 @@ const { DynamoDBClient,
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 
 const podiumFinishes = 'podiumFinishes'
-exports.getPodiumFinishes = async () => {
+export const getPodiumFinishes = async () => {
     const client = new DynamoDBClient({ region: 'us-west-2' });
     const input = {
         TableName: 'SummitPodiumFinishes',
@@ -24,7 +24,7 @@ exports.getPodiumFinishes = async () => {
 
 
 
-exports.putPodiumFinishes = async (statStore: iStatStore) => {
+export const putPodiumFinishes = async (statStore: iStatStore) => {
     const client = new DynamoDBClient({ region: 'us-west-2' });
     const marshalled = marshall({
         podiumFinishes,
@@ -92,7 +92,7 @@ const getMinimal = (endpoint: endpoint, resp: any[]) => {
     return resp;
 }
 
-exports.mockApiPut = async (endpoint: endpoint, resp: any) => {
+export const mockApiPut = async (endpoint: endpoint, resp: any) => {
     const client = new DynamoDBClient({ region: 'us-west-2' });
     const minimalData = getMinimal(endpoint, resp);
     const marshalled = marshall({
@@ -108,7 +108,7 @@ exports.mockApiPut = async (endpoint: endpoint, resp: any) => {
     return response;
 };
 
-exports.mockApiGet = async (endpoint: endpoint) => {
+export const mockApiGet = async (endpoint: endpoint) => {
     const client = new DynamoDBClient({ region: 'us-west-2' });
     const input = {
         TableName: 'SummitAPIMock',
@@ -129,7 +129,7 @@ exports.mockApiGet = async (endpoint: endpoint) => {
     }
 };
 
-exports.getAllPlayers = async () => {
+export const getAllPlayers = async () => {
     const client = new DynamoDBClient({ region: 'us-west-2' });
     const input = {
         TableName: 'SummitPlayers',

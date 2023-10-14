@@ -1,7 +1,7 @@
 //import { FIRST_PLACE, SECOND_PLACE, THIRD_PLACE } from "../constants/constants";
 
 
-type apiSource = 'DYNAMO' | 'CHALLONGE';
+type apiSource = 'dynamo' | 'challonge';
 
 
 // Types provided from Challonge API

@@ -1,7 +1,8 @@
-const { getPodiumFinishes, getAllPlayers } = require("../lib/dynamo");
+import { getPodiumFinishes, getAllPlayers } from "../lib/dynamo";
+import { Handler } from 'aws-lambda';
 
 
-exports.handler = async (event, context) => {
+export const handler: Handler = async (event, context) => {
     console.log(event);
     const path = event['pathParameters']['proxy'];
     const queryParams = event['queryStringParameters'];
@@ -21,7 +22,7 @@ exports.handler = async (event, context) => {
     return res;
 }
 
-const router = async (path, queryParams) => {
+const router = async (path: string, queryParams: { [key: string]: string }) => {
     if (path === 'get-players') {
         return await getAllPlayers()
     } else if (path === 'podium-finishes') {

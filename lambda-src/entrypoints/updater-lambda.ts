@@ -1,14 +1,15 @@
+import { Handler } from "aws-lambda";
 
-const { DYNAMO, CHALLONGE, getIsTesting } = require("../constants/constants");
-const { checkTourneyCount } = require("../lib/checkTourneyCount");
-const { putPodiumFinishes, putPlayer } = require("../lib/dynamo");
-const { generateStatStore } = require("../lib/generateStatStore");
-const { getWinLoss } = require("../lib/parseWinLoss");
+import { DYNAMO, CHALLONGE, getIsTesting } from "../constants/constants";
+import { checkTourneyCount } from "../lib/checkTourneyCount";
+import { putPodiumFinishes, putPlayer } from "../lib/dynamo";
+import { generateStatStore } from "../lib/generateStatStore";
+import { getWinLoss } from "../lib/parseWinLoss";
 
-exports.handler = async (event, context) => {
+export const handler: Handler = async (event, context) => {
     const dynamoCount = await checkTourneyCount(DYNAMO);
     const challongeCount = await checkTourneyCount(CHALLONGE);
-    
+
     // We could add an override here
     // to force an update, if a prior
     // update failed
