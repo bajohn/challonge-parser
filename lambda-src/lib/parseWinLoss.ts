@@ -3,7 +3,7 @@ import { getAllNames } from "./h2h";
 
 // Return player win/loss
 // from h2h object
-exports.getWinLoss = (statStore: iStatStore) => {
+export const getWinLoss = (statStore: iStatStore): iPlayer[] => {
     const names = getAllNames(statStore);
     const h2h = statStore['h2h']
 

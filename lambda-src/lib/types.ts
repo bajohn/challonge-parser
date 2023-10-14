@@ -15,13 +15,22 @@ interface iTournament {
 
 interface iMatch {
     match: {
-        id: number
-        tournament_id: number
+        // id: number
+        //tournament_id: number
         player1_id: number,
         player2_id: number,
         winner_id: number
-        loser_id: number
+        //loser_id: number
     }
+}
+//////////
+
+
+// object pushed to SummitPlayers Dynamo 
+interface iPlayer {
+    playerName: string
+    w: number
+    l: number
 }
 
 type endpoint = 'tournaments'

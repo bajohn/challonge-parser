@@ -48,7 +48,7 @@ exports.putPodiumFinishes = async (statStore: iStatStore) => {
 // Could batch update these, but
 // not super time sensitive
 // player shape: {playerName, w, l}
-exports.putPlayer = async (player) => {
+export const putPlayer = async (player: iPlayer) => {
     const client = new DynamoDBClient({ region: 'us-west-2' });
 
     const marshalled = marshall({
@@ -63,9 +63,9 @@ exports.putPlayer = async (player) => {
     return response;
 };
 
-const getMinimal = (endpoint, resp) => {
+const getMinimal = (endpoint: endpoint, resp: any[]) => {
     if (endpoint.indexOf('matches') > -1) {
-        return resp.map(el => {
+        return resp.map((el: iMatch): iMatch => {
             const match = el.match;
             return {
                 match: {
@@ -92,7 +92,7 @@ const getMinimal = (endpoint, resp) => {
     return resp;
 }
 
-exports.mockApiPut = async (endpoint, resp) => {
+exports.mockApiPut = async (endpoint: endpoint, resp: any) => {
     const client = new DynamoDBClient({ region: 'us-west-2' });
     const minimalData = getMinimal(endpoint, resp);
     const marshalled = marshall({
@@ -108,7 +108,7 @@ exports.mockApiPut = async (endpoint, resp) => {
     return response;
 };
 
-exports.mockApiGet = async (endpoint) => {
+exports.mockApiGet = async (endpoint: endpoint) => {
     const client = new DynamoDBClient({ region: 'us-west-2' });
     const input = {
         TableName: 'SummitAPIMock',
@@ -137,7 +137,7 @@ exports.getAllPlayers = async () => {
     const command = new ScanCommand(input);
     const response = await client.send(command);
     return {
-        players: response['Items'].map(el => unmarshall(el))
+        players: response['Items'].map((el: any) => unmarshall(el))
     };
 };
 
