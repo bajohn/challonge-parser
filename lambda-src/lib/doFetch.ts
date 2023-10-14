@@ -1,7 +1,8 @@
 const { getIsTesting, DYNAMO, CHALLONGE } = require("../constants/constants.js");
 const { apiKey } = require("../creds.js");
 const { mockApiPut, mockApiGet } = require("./dynamo.js");
-genUrl = (endpoint) => {
+
+const genUrl = (endpoint) => {
     const suffix = endpoint.indexOf('?') === -1 ? '?' : '&';
     const auth = `${suffix}api_key=${apiKey}`;
     const ret = 'https://api.challonge.com/v1/' + endpoint + auth;

@@ -1,5 +1,5 @@
 const { SUBDOMAIN } = require("../constants/constants");
-const { doFetch } = require("./doFetch");
+import { doFetch } from "./doFetch";
 const { getMetadata, putMetadata } = require("./dynamo");
 
 
