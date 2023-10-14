@@ -2,5 +2,11 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.421.0",
     "@aws-sdk/util-dynamodb": "^3.421.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "scripts": {
+    "test": "jest"
   }
 }

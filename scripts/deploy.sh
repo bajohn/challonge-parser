@@ -1,6 +1,6 @@
 cd lambda-src
 rm  ../artifacts/lambda_function_payload.zip 
-zip -r ../artifacts/lambda_function_payload.zip  .
+zip -r ../artifacts/lambda_function_payload.zip  . -x test/
 cd ../terraform
 terraform apply -auto-approve
 cd ../webpage-src/summit 
