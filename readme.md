@@ -42,6 +42,8 @@ https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/podium-finis
 https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
 
 Next TODOs
-- Test framework / cases
+- Move rank sorting to back end
+- Add test to rank sorting since it's out of sorts
+- Add clean name prioritization check
 - Update only latest tournament / matches instead of full reload when tourneyCount is different
 - (Optional) set CloudWatch retention to 2 weeks via tf
