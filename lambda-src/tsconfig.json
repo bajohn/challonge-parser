@@ -4,11 +4,12 @@
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
-        "sourceMap": true
+        "sourceMap": true,
+        "outDir": "../artifacts/tsout"
     },
     "exclude": [
         "node_modules",
         "**/*.test.ts"
     ],
-    "outDir": "../artifacts/tsout"
+
 }
