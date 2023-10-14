@@ -3,7 +3,10 @@ const { doFetch } = require("./doFetch.js");
 const { parseH2H } = require("./h2h.js");
 const { parsePodium } = require("./podium.js");
 
-exports.addTourneyToStatStore = async (tourneyId, statStoreIn, source) => {
+export const addTourneyToStatStore = async (
+    tourneyId: string,
+    statStoreIn: iStatStore,
+    source: apiSource) => {
     let statStore = Object.assign({}, statStoreIn);
 
     const matches = await getMatches(tourneyId, source);
@@ -15,24 +18,24 @@ exports.addTourneyToStatStore = async (tourneyId, statStoreIn, source) => {
     return statStore;
 };
 
-const getMatches = async (tourneyId, source) => {
+const getMatches = async (tourneyId: string, source: apiSource) => {
     const endpoint = `tournaments/${tourneyId}/matches.json`;
     const matches = await doFetch(endpoint, source);
     return matches;
 }
 
-const getParticipants = async (tourneyId, source) => {
+const getParticipants = async (tourneyId: string, source: apiSource) => {
     const endpoint = `tournaments/${tourneyId}/participants.json`;
     const participants = await doFetch(endpoint, source);
     return participants
 }
 
-const cleanNames = async (participants) => {
+const cleanNames = async (participants: iParticipant[]) => {
     const ret = participants.reduce((lv, cv) => {
         const id = cv.participant.id;
         const name = cleanName(cv.participant.name);
         lv[id] = name;
         return lv;
-    }, {})
+    }, {} as { [index: number]: string })
     return ret;
 };

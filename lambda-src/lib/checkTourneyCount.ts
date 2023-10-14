@@ -3,10 +3,10 @@ import { doFetch } from "./doFetch";
 const { getMetadata, putMetadata } = require("./dynamo");
 
 
-exports.checkTourneyCount = async (source) => {
+exports.checkTourneyCount = async (source: apiSource) => {
     const endpoint = `tournaments.json?subdomain=${SUBDOMAIN}`;
-    const tourneys = await doFetch(endpoint, source);
-    const tourneyCount = tourneys.reduce((lv, cv) => {
+    const tourneys = await doFetch(endpoint, source) as iTournament[];
+    const tourneyCount = tourneys.reduce((lv: number, cv: iTournament) => {
         if (cv.tournament.state === 'complete') {
             lv += 1;
         }

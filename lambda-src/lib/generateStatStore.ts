@@ -1,25 +1,24 @@
-const { doFetch } = require("./doFetch.js");
-const { addTourneyToStatStore } = require("./addTourney.js");
-const { SUBDOMAIN } = require("../constants/constants.js");
+import { addTourneyToStatStore } from "./addTourney";
+
+import { doFetch } from "./doFetch";
+import { FIRST_PLACE, SECOND_PLACE, SUBDOMAIN, THIRD_PLACE } from "../constants/constants";
 
 
 
 
 // Iterate through all tournaments, 
 // returning statStore
-exports.generateStatStore = async (source) => {
+export const generateStatStore = async (source: apiSource) => {
     const endpoint = `tournaments.json?subdomain=${SUBDOMAIN}`;
     const debug = false;
 
     const tourneys = await doFetch(endpoint, source);
-    let statStore = {};
-
-    statStore = await iterate(tourneys, statStore, source, debug);
+    const statStore = await iterate(tourneys, source, debug);
     return statStore;
 };
 
-const iterate = async (tourneys, statStoreIn, source, debug = false) => {
-    let statStore = Object.assign({}, statStoreIn);
+const iterate = async (tourneys: iTournament[], source: apiSource, debug = false) => {
+    let statStore = emptyStatStore;
     let counter = 1;
     for (const tourney of tourneys) {
         console.log(tourney.tournament.name)
@@ -34,3 +33,12 @@ const iterate = async (tourneys, statStoreIn, source, debug = false) => {
     }
     return statStore;
 };
+
+const emptyStatStore: iStatStore = {
+    podiumFinishes: {
+        [FIRST_PLACE]: {},
+        [SECOND_PLACE]: {},
+        [THIRD_PLACE]: {}
+    },
+    h2h: {}
+}

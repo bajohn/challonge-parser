@@ -1,9 +1,9 @@
-const { getAllNames } = require("./h2h");
+import { getAllNames } from "./h2h";
 
 
 // Return player win/loss
 // from h2h object
-exports.getWinLoss = (statStore) => {
+exports.getWinLoss = (statStore: iStatStore) => {
     const names = getAllNames(statStore);
     const h2h = statStore['h2h']
 

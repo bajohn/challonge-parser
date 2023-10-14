@@ -1,30 +1,20 @@
-const { podiumLookup } = require("../constants/constants.js");
+import { podiumLookup } from "../constants/constants";
 
-exports.checkSum = (statStoreIn) => {
-    const statStore = Object.assign({}, statStoreIn);
-    const finishesRef = statStore['podiumFinishes'];
-    for (const finishers of Object.values(finishesRef)) {
-        const result = Object.values(finishers).reduce((lv, cv) => {
-            return lv + cv;
-        }, 0);
-    }
-}
-
-
-exports.parsePodium = (statStoreIn, participants, cleanedNames) => {
+exports.parsePodium = (statStoreIn: iStatStore, participants: iParticipant[], cleanedNames: cleanedNames) => {
     let statStore = Object.assign({}, statStoreIn);
-    if (!('podiumFinishes' in statStore)) {
-        statStore['podiumFinishes'] = Object.values(podiumLookup()).reduce(
-            (lv, cv) => {
-                lv[cv] = {};
-                return lv;
-            }, {});
-    }
+    // Should be initialized on input, so we don't need this anymore
+    // if (!('podiumFinishes' in statStore)) {
+    //     statStore['podiumFinishes'] = Object.values(podiumLookup()).reduce(
+    //         (lv, cv) => {
+    //             lv[cv] = {};
+    //             return lv;
+    //         }, {});
+    // }
     const finishesRef = statStore['podiumFinishes'];
     for (const el of participants) {
         const participant = el.participant;
         const rank = participant.final_rank;
-        const lookup = podiumLookup();
+        const lookup = podiumLookup;
         if (rank in lookup) {
             const result = lookup[rank];
             const cleanName = cleanedNames[participant.id];
@@ -38,10 +28,10 @@ exports.parsePodium = (statStoreIn, participants, cleanedNames) => {
     return statStore;
 };
 
-exports.prettifyPodium = (statStoreIn) => {
+exports.prettifyPodium = (statStoreIn: iStatStore) => {
     const statStore = Object.assign({}, statStoreIn);
     const finishesRef = statStore['podiumFinishes'];
-    const podiumNames = Object.values(podiumLookup());
+    const podiumNames = Object.values(podiumLookup);
     let ret = '';
     for (const podiumName of podiumNames) {
         ret += podiumName;

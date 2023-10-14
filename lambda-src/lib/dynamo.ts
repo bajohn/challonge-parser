@@ -24,7 +24,7 @@ exports.getPodiumFinishes = async () => {
 
 
 
-exports.putPodiumFinishes = async (statStore) => {
+exports.putPodiumFinishes = async (statStore: iStatStore) => {
     const client = new DynamoDBClient({ region: 'us-west-2' });
     const marshalled = marshall({
         podiumFinishes,
@@ -120,7 +120,7 @@ exports.mockApiGet = async (endpoint) => {
     const command = new GetItemCommand(input);
 
     const response = await client.send(command);
-    if('Item' in response) {
+    if ('Item' in response) {
         const unmarshalled = unmarshall(response.Item);
         return unmarshalled.data;
     } else {

@@ -1,5 +1,5 @@
-exports.cleanName = (name) => {
-    const lookup = {
+exports.cleanName = (name: string) => {
+    const lookup: { [key: string]: string[] } = {
         Abdul: [],
         Adam: [
             'Adam 🦜 x',
@@ -153,6 +153,7 @@ exports.cleanName = (name) => {
         ],
     };
 
+    // TODO - this priority isn't quite right
     for (const key of Object.keys(lookup)) {
         // First priority - 
         // Matches element of subarray - hardcoded replacement
@@ -175,12 +176,12 @@ exports.cleanName = (name) => {
     return name;
 };
 
-exports.findCleanName = (playerId, participants) => {
+exports.findCleanName = (playerId: number, participants: iParticipant[]) => {
     for (const el of participants) {
         const participant = el['participant'];
         if (participant['id'] === playerId) {
             return exports.cleanName(participant['name']);
         }
     }
-    throw (`Error - name not found for ID: ${participant['id']}`);
+    throw (`Error - name not found for ID: ${playerId}`);
 };

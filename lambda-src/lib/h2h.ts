@@ -7,12 +7,13 @@ const { cleanName, findCleanName } = require("../constants/cleanName.js");
 // a   x   1   1
 // b   0   x   1
 // c   0   0   x
-exports.parseH2H = (statStoreIn, matches, participants) => {
+exports.parseH2H = (statStoreIn: iStatStore, matches: iMatch[], participants: iParticipant[]) => {
     let statStore = Object.assign({}, statStoreIn);
 
-    if (!('h2h' in statStore)) {
-        statStore['h2h'] = {};
-    }
+    // Object should be initialized already
+    // if (!('h2h' in statStore)) {
+    //     statStore['h2h'] = {};
+    // }
     const h2h = statStore['h2h'];
     for (const el of matches) {
         const match = el['match'];
@@ -36,7 +37,7 @@ exports.parseH2H = (statStoreIn, matches, participants) => {
     return statStore;
 };
 
-const updateH2H2wl = (player1Name, player2Name, winnerName, h2h) => {
+const updateH2H2wl = (player1Name: string, player2Name: string, winnerName: string, h2h: h2h) => {
     if (!(player1Name in h2h)) {
         h2h[player1Name] = {};
     }
@@ -57,7 +58,7 @@ const updateH2H2wl = (player1Name, player2Name, winnerName, h2h) => {
 }
 
 
-const prettifyH2H = (statStoreIn) => {
+const prettifyH2H = (statStoreIn: iStatStore) => {
     const statStore = Object.assign({}, statStoreIn);
     const h2hRef = statStore['h2h'];
     const keys = Object.keys(h2hRef).sort();
@@ -79,7 +80,7 @@ const prettifyH2H = (statStoreIn) => {
     }
 }
 
-const uniformCell = (str) => {
+const uniformCell = (str: string) => {
     let ret = str.trim();
     const cellSize = 10;
     const spacingSize = cellSize - ret.length;
@@ -89,6 +90,6 @@ const uniformCell = (str) => {
     return ret;
 }
 
-exports.getAllNames = (statStore) => {
+export const getAllNames = (statStore: iStatStore) => {
     return Object.keys(statStore.h2h).sort()
 }
