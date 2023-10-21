@@ -21,6 +21,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "cypress:open": "npx cypress open",
+    
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

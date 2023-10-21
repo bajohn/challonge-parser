@@ -3,19 +3,11 @@ import { PodiumFinishes } from '../Podium';
 import { podiumGetter } from '../util/fetchers';
 import { rootUrl } from '../util/constants';
 
-before(() => {
-    // root-level hook
-    // runs once before all tests
-
-
-})
+// before(() => {
+// });
 
 describe('<PodiumFinishes />', () => {
-
-
-    it('renders', () => {
-
-
+    it('displays one player', () => {
 
         const hardUrl = 'https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/podium-finishes';
         const mockResp = {
@@ -35,16 +27,6 @@ describe('<PodiumFinishes />', () => {
             }
         };
 
-
-
-        // cy.intercept({
-        //     method: 'GET',
-        //     url: hardUrl
-        // }, (req) => {
-        //     console.log('hi')
-        //     return mockResp
-        // }).as('getPodiums')
-
         cy.intercept(hardUrl, mockResp
         ).as('getPodiums')
             .then(async () => {
@@ -56,9 +38,16 @@ describe('<PodiumFinishes />', () => {
             .then((podiums) => {
                 console.log(podiums)
                 cy.mount(<PodiumFinishes podiums={podiums} />)
-                cy.get('tr td:first').should('have.text','playerA');
-            })
+                cy.get('tr td').each((el, idx) => {
+                    if (idx === 0) {
+                        cy.wrap(el).should('have.text', 'playerA');
+                    }
+                    else if (idx === 1) {
+                        cy.wrap(el).should('have.text', '🥇🥈🥉');
+                    }
+                })
+            });
 
-    })
+    });
 });
 
