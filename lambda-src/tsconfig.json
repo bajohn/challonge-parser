@@ -5,7 +5,7 @@
         "removeComments": true,
         "preserveConstEnums": true,
         "sourceMap": true,
-        "outDir": "../artifacts/tsout"
+        "outDir": "artifacts/tsout"
     },
     "exclude": [
         "node_modules",

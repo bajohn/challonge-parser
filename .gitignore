@@ -1,5 +1,5 @@
 creds.js
-artifacts/*
+lambda-src/artifacts/*
 !/**/.gitkeep
 terraform/.terraform
 **node_modules

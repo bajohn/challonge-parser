@@ -1,11 +1,17 @@
 
+
+locals {
+  code-location =  "../lambda-src/artifacts/lambda_function_payload.zip"
+}
+
+
 resource "aws_lambda_function" "summit-api" {
-  filename      = "../artifacts/lambda_function_payload.zip"
+  filename      = local.code-location
   function_name = "summit-api"
   role          = aws_iam_role.iam_for_summit_api_lambda.arn
   handler       = "entrypoints/api-lambda.handler"
 
-  source_code_hash = filebase64sha256( "../artifacts/lambda_function_payload.zip")
+  source_code_hash = filebase64sha256(local.code-location)
 
   runtime = "nodejs18.x"
   timeout = 300
@@ -13,12 +19,12 @@ resource "aws_lambda_function" "summit-api" {
 
 
 resource "aws_lambda_function" "summit-dynamo-updater" {
-  filename      = "../artifacts/lambda_function_payload.zip"
+  filename      = local.code-location
   function_name = "summit-dynamo-updater"
   role          = aws_iam_role.iam_for_summit_api_lambda.arn
   handler       = "entrypoints/updater-lambda.handler"
 
-  source_code_hash = filebase64sha256( "../artifacts/lambda_function_payload.zip")
+  source_code_hash = filebase64sha256(local.code-location)
 
   runtime = "nodejs18.x"
   timeout = 300
