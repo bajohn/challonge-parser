@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Table from 'react-bootstrap/Table';
-import Container from 'react-bootstrap/Container';
 
 export function PodiumFinishes(props: any) {
   const FIRST_PLACE = 'First Place Finishes';
