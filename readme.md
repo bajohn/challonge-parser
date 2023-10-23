@@ -7,9 +7,11 @@ https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/podium-finis
 https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
 
 ## Next TODOs
-- Add test to rank sorting since it's out of sorts
 - Can we share types between front and back end / is it worth doing so?
 - Add clean name prioritization check
+- Make routing work for s3 website, eg https://summit-tournament-webhost-bucket.s3-website-us-west-2.amazonaws.com/admin
+- Hard admin refresh button - make it not time out!
+- Clear old players when doing a fresh load! Currently old, messy names persist between reloads
 - Update only latest tournament / matches instead of full reload when tourneyCount is different
 - (Optional) set CloudWatch retention to 2 weeks via tf
 

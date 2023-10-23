@@ -131,6 +131,9 @@ exports.cleanName = (name: string) => {
         Marty: [
             'Marty 💚 x'
         ],
+        Matthew: [
+            'Matthew x'
+        ],
         Maya: [
             'Maya 🍉'
         ],

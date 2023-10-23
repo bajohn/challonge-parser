@@ -1,6 +1,5 @@
 import { getPodiumFinishes, getAllPlayers } from "../lib/dynamo";
 import { updateDynamo } from "../lib/updateDynamo";
-import { updaterHandler } from "./updater-lambda";
 import { APIGatewayProxyEventBase, Handler } from 'aws-lambda';
 
 
@@ -33,7 +32,11 @@ const router = async (path: string, method: string, queryParams: { [key: string]
         return await getPodiumFinishes()
     } else if (path === 'reload-dynamo') {
         await updateDynamo(true);
+        return {
+            status: 'reload complete!'
+        }
     }
+    // TODO return status 404 here:
     return {
         'error': 'unkown endpoint'
     }

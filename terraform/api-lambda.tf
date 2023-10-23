@@ -9,7 +9,7 @@ resource "aws_lambda_function" "summit-api" {
   filename      = local.code-location
   function_name = "summit-api"
   role          = aws_iam_role.iam_for_summit_api_lambda.arn
-  handler       = "entrypoints/api-lambda.handler"
+  handler       = "entrypoints/api-entry.apiHandler"
 
   source_code_hash = filebase64sha256(local.code-location)
 
@@ -22,7 +22,7 @@ resource "aws_lambda_function" "summit-dynamo-updater" {
   filename      = local.code-location
   function_name = "summit-dynamo-updater"
   role          = aws_iam_role.iam_for_summit_api_lambda.arn
-  handler       = "entrypoints/updater-lambda.handler"
+  handler       = "entrypoints/timed-updater.updaterHandler"
 
   source_code_hash = filebase64sha256(local.code-location)
 

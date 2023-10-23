@@ -8,20 +8,16 @@ import { getWinLoss } from "../lib/parseWinLoss";
 
 export const updateDynamo = async (forceUpdate: boolean = false) => {
 
-    return 'Done'
     const dynamoCount = await checkTourneyCount(DYNAMO);
     const challongeCount = await checkTourneyCount(CHALLONGE);
 
     if (forceUpdate || challongeCount > dynamoCount) {
-        console.log('New tournaments found! Update dynamo')
+        console.log('Updating dynamo...')
         const statStore = await generateStatStore(CHALLONGE);
         // Actually push data, updating website
-        // Don't push this update when testing from local
-        if (!getIsTesting()) {
-            await putPodiumFinishes(statStore);
-            const players = getWinLoss(statStore);
-            await Promise.all(players.map(player => putPlayer(player)));
-        }
+        await putPodiumFinishes(statStore);
+        const players = getWinLoss(statStore);
+        await Promise.all(players.map(player => putPlayer(player)));
         // end push
 
     } else if (challongeCount == dynamoCount) {
