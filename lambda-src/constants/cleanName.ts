@@ -54,6 +54,9 @@ exports.cleanName = (name: string) => {
             'Campbell x',
             'Campbell🦈',
         ],
+        Carter: [
+            'Carter x'
+        ],
         Chahrazef: [],
         Charlie: [],
         Cho: [
@@ -74,6 +77,9 @@ exports.cleanName = (name: string) => {
         Faisal: [
             'Faisal',
             'Faysal'
+        ],
+        Greg: [
+            'Greg 🏒 x'
         ],
         Idir: [],
         James: [
@@ -97,6 +103,9 @@ exports.cleanName = (name: string) => {
             'Ken 💀 x',
             'Ken 💀x'
         ],
+        Lauren: [
+            'Lauren x'
+        ],
         Lily: [
             'Medusa 🧟‍♀️ x',
             'Lily x',
@@ -116,10 +125,14 @@ exports.cleanName = (name: string) => {
             'Martini 🧜‍♂️🍸 (with a twist)',
             'Martin “The Brown Recluse” 🕷️',
             'M2 🐺',
-            'El Lobo 🐺'
+            'El Lobo 🐺',
+            'M² Prime 🤖 beep boop'
         ],
         Marty: [
             'Marty 💚 x'
+        ],
+        Maya: [
+            'Maya 🍉'
         ],
         Mike: [
             'Mike 👽 x'
@@ -148,9 +161,27 @@ exports.cleanName = (name: string) => {
             'Herrerasaurus',
             'Spence'
         ],
+        Rachelle: [
+            'Rachelle 📢 x'
+        ],
+        Sup: [
+            'Sup 🐐 x'
+        ],
+        Tef: [
+            'Teff 😈'
+        ],
+        Vic: [
+            'Vic 🥴 x'
+        ],
+        Will: [
+            'Will 🤠 x'
+        ],
         Woody: [
             'Woody 💧x',
         ],
+        Xavier: [
+            'Xavier 😋 x'
+        ]
     };
 
     // TODO - this priority isn't quite right

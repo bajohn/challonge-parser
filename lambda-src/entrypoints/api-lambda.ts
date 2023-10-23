@@ -1,13 +1,17 @@
 import { getPodiumFinishes, getAllPlayers } from "../lib/dynamo";
-import { Handler } from 'aws-lambda';
+import { updateDynamo } from "../lib/updateDynamo";
+import { updaterHandler } from "./updater-lambda";
+import { APIGatewayProxyEventBase, Handler } from 'aws-lambda';
 
 
-export const handler: Handler = async (event, context) => {
+
+export const apiHandler: Handler = async (event: APIGatewayProxyEventBase<any>, context) => {
     console.log(event);
     const path = event['pathParameters']['proxy'];
     const queryParams = event['queryStringParameters'];
+    const method = event['httpMethod'];
 
-    const routedResp = await router(path, queryParams)
+    const routedResp = await router(path, method, queryParams)
     const res = {
         "isBase64Encoded": false,
         "statusCode": 200,
@@ -22,11 +26,13 @@ export const handler: Handler = async (event, context) => {
     return res;
 }
 
-const router = async (path: string, queryParams: { [key: string]: string }) => {
+const router = async (path: string, method: string, queryParams: { [key: string]: string }) => {
     if (path === 'get-players') {
         return await getAllPlayers()
     } else if (path === 'podium-finishes') {
         return await getPodiumFinishes()
+    } else if (path === 'reload-dynamo') {
+        await updateDynamo(true);
     }
     return {
         'error': 'unkown endpoint'
