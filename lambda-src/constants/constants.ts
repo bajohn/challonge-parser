@@ -1,3 +1,5 @@
+import { firstPlace, podiumPlaces, secondPlace, thirdPlace } from "../lib/types";
+
 export const FIRST_PLACE: firstPlace = 'First Place Finishes';
 export const SECOND_PLACE: secondPlace = 'Second Place Finishes';
 export const THIRD_PLACE: thirdPlace = 'Third Place Finishes';

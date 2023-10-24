@@ -1,4 +1,5 @@
 import { getAllNames } from "./h2h";
+import { iPlayer, iStatStore } from "./types";
 
 
 // Return player win/loss

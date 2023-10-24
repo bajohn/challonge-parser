@@ -1,5 +1,6 @@
 import { SUBDOMAIN } from "../constants/constants";
 import { doFetch } from "./doFetch";
+import { apiSource, iTournament } from "./types";
 
 
 export const checkTourneyCount = async (source: apiSource) => {

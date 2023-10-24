@@ -1,3 +1,5 @@
+import { h2h, iMatch, iParticipant, iStatStore } from "./types";
+
 const { cleanName, findCleanName } = require("../constants/cleanName.js");
 
 // Update the h2h stats for all the matches

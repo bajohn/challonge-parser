@@ -1,4 +1,5 @@
 import { podiumLookup } from "../constants/constants";
+import { cleanedNames, iParticipant, iStatStore } from "./types";
 
 exports.parsePodium = (statStoreIn: iStatStore, participants: iParticipant[], cleanedNames: cleanedNames) => {
     let statStore = Object.assign({}, statStoreIn);

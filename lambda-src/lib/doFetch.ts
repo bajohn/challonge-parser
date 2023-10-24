@@ -1,3 +1,5 @@
+import { apiSource, iTournament } from "./types";
+
 const { getIsTesting, DYNAMO, CHALLONGE } = require("../constants/constants.js");
 const { apiKey } = require("../creds.js");
 const { mockApiPut, mockApiGet } = require("./dynamo.js");

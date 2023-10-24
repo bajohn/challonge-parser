@@ -1,3 +1,5 @@
+import { iParticipant } from "../lib/types";
+
 exports.cleanName = (name: string) => {
     const lookup: { [key: string]: string[] } = {
         Abdul: [],
