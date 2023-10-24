@@ -1,4 +1,4 @@
-import { getPodiumFinishes, getAllPlayers } from "../lib/dynamo";
+import { getPodiumFinishes, getAllPlayers, putMetaField, getMetaField } from "../lib/dynamo";
 import { updateDynamo } from "../lib/updateDynamo";
 import { APIGatewayProxyEventBase, Handler } from 'aws-lambda';
 
@@ -25,13 +25,14 @@ export const apiHandler: Handler = async (event: APIGatewayProxyEventBase<any>, 
     return res;
 }
 
-const router = async (path: string, method: string, queryParams: { [key: string]: string }) => {
+export const router = async (path: string, method: string, queryParams: { [key: string]: string }) => {
     if (path === 'get-players') {
         return await getAllPlayers()
     } else if (path === 'podium-finishes') {
         return await getPodiumFinishes()
     } else if (path === 'reload-dynamo') {
-        await updateDynamo(true);
+        // await updateDynamo(true);
+        await getMetaField('test');
         return {
             status: 'reload complete!'
         }

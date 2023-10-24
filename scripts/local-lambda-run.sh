@@ -1,2 +1,2 @@
 cd lambda-src
-node local-entry.js
+nodemon local-entry.ts

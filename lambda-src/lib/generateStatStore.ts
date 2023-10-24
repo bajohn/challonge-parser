@@ -2,6 +2,7 @@ import { addTourneyToStatStore } from "./addTourney";
 
 import { doFetch } from "./doFetch";
 import { FIRST_PLACE, SECOND_PLACE, SUBDOMAIN, THIRD_PLACE } from "../constants/constants";
+import { apiSource, iStatStore, iTournament } from "./types";
 
 
 

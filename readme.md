@@ -13,6 +13,7 @@ https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
 - Hard admin refresh button - make it not time out!
 - Clear old players when doing a fresh load! Currently old, messy names persist between reloads
 - Update only latest tournament / matches instead of full reload when tourneyCount is different
+- Move podiumfinishes to SummitMetadata table
 - (Optional) set CloudWatch retention to 2 weeks via tf
 
 ## Pulling out to generalize

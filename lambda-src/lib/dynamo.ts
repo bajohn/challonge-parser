@@ -1,3 +1,5 @@
+import { endpoint, iMatch, iPlayer, iStatStore } from "./types";
+
 const { DynamoDBClient,
     ListTablesCommand,
     PutItemCommand,
@@ -140,6 +142,42 @@ export const getAllPlayers = async () => {
         players: response['Items'].map((el: any) => unmarshall(el))
     };
 };
+
+export const getMetaField = async (key: string) => {
+    const client = new DynamoDBClient({ region: 'us-west-2' });
+    const input = {
+        TableName: 'SummitMetadata',
+        Key: marshall({
+            key
+        })
+    };
+
+    const command = new GetItemCommand(input);
+
+    const response = await client.send(command);
+    console.log(response);
+    if('Item' in response) {
+        const unmarshalled = unmarshall(response.Item);
+        return unmarshalled
+    }  
+    return null;
+};
+
+export const putMetaField = async (key: string, value: any) => {
+    const client = new DynamoDBClient({ region: 'us-west-2' });
+    const marshalled = marshall({
+        key,
+        value
+    });
+    const input = {
+        TableName: 'SummitMetadata',
+        Item: marshalled
+    };
+    const command = new PutItemCommand(input);
+    const response = await client.send(command);
+    return response
+};
+
 
 
 

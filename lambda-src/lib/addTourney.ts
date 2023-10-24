@@ -1,3 +1,5 @@
+import { apiSource, iParticipant, iStatStore } from "./types";
+
 const { cleanName } = require("../constants/cleanName.js");
 const { doFetch } = require("./doFetch.js");
 const { parseH2H } = require("./h2h.js");

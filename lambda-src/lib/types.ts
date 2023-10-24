@@ -1,11 +1,11 @@
 //import { FIRST_PLACE, SECOND_PLACE, THIRD_PLACE } from "../constants/constants";
 
 
-type apiSource = 'dynamo' | 'challonge';
+export type apiSource = 'dynamo' | 'challonge';
 
 
 // Types provided from Challonge API
-interface iTournament {
+export interface iTournament {
     tournament: {
         name: string
         id: string
@@ -13,7 +13,7 @@ interface iTournament {
     }
 }
 
-interface iMatch {
+export interface iMatch {
     match: {
         // id: number
         //tournament_id: number
@@ -27,13 +27,13 @@ interface iMatch {
 
 
 // object pushed to SummitPlayers Dynamo 
-interface iPlayer {
+export interface iPlayer {
     playerName: string
     w: number
     l: number
 }
 
-type endpoint = 'tournaments'
+export type endpoint = 'tournaments'
 
 // interface iChallongeResp {
 //     'tournaments': iTournament[]
@@ -41,7 +41,7 @@ type endpoint = 'tournaments'
 
 
 
-interface podiumFinishes {
+export interface podiumFinishes {
     'First Place Finishes':
     { [index: string]: number }
     'Second Place Finishes':
@@ -50,7 +50,7 @@ interface podiumFinishes {
     { [index: string]: number }
 }
 
-interface h2h {
+export interface h2h {
     [myName: string]: {
         [opponentName: string]: {
             w: number
@@ -59,12 +59,12 @@ interface h2h {
     }
 }
 
-interface iStatStore {
+export interface iStatStore {
     podiumFinishes: podiumFinishes
     h2h: h2h
 }
 
-interface iParticipant {
+export interface iParticipant {
     participant: {
         id: number
         name: string
@@ -72,11 +72,11 @@ interface iParticipant {
     }
 }
 
-interface cleanedNames {
+export interface cleanedNames {
     [id: number]: string
 }
 
-type firstPlace = 'First Place Finishes';
-type secondPlace = 'Second Place Finishes';
-type thirdPlace = 'Third Place Finishes';
-type podiumPlaces = firstPlace | secondPlace | thirdPlace;
+export type firstPlace = 'First Place Finishes';
+export type secondPlace = 'Second Place Finishes';
+export type thirdPlace = 'Third Place Finishes';
+export type podiumPlaces = firstPlace | secondPlace | thirdPlace;
