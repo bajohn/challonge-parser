@@ -12,7 +12,7 @@ export const updateDynamo = async (forceUpdate: boolean = false) => {
     const challongeCount = await checkTourneyCount(CHALLONGE);
 
     if (forceUpdate || challongeCount > dynamoCount) {
-        console.log('Updating dynamo...')
+        console.log('New tournament(s) found! Updating dynamo.')
         const statStore = await generateStatStore(CHALLONGE);
         // Actually push data, updating website
         await putPodiumFinishes(statStore);

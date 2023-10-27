@@ -1,4 +1,5 @@
-import { getPodiumFinishes, getAllPlayers, putMetaField, getMetaField } from "../lib/dynamo";
+import { reloadDynamo } from "../lib-api/reloadDynamo";
+import { getPodiumFinishes, getAllPlayers } from "../lib/dynamo";
 import { updateDynamo } from "../lib/updateDynamo";
 import { APIGatewayProxyEventBase, Handler } from 'aws-lambda';
 
@@ -32,10 +33,8 @@ export const router = async (path: string, method: string, queryParams: { [key: 
         return await getPodiumFinishes()
     } else if (path === 'reload-dynamo') {
         // await updateDynamo(true);
-        await getMetaField('test');
-        return {
-            status: 'reload complete!'
-        }
+        reloadDynamo();
+
     }
     // TODO return status 404 here:
     return {

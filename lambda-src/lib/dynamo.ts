@@ -1,33 +1,24 @@
 import { endpoint, iMatch, iPlayer, iStatStore } from "./types";
 
-const { DynamoDBClient,
-    ListTablesCommand,
-    PutItemCommand,
-    GetItemCommand,
-    ScanCommand } = require("@aws-sdk/client-dynamodb");
-const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
+
+import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import { dynamoGet, dynamoPut, dynamoScan } from "./dynamoUtil";
 
 const podiumFinishes = 'podiumFinishes'
+
 export const getPodiumFinishes = async () => {
-    const client = new DynamoDBClient({ region: 'us-west-2' });
     const input = {
         TableName: 'SummitPodiumFinishes',
         Key: marshall({
             podiumFinishes
         })
     };
-
-    const command = new GetItemCommand(input);
-
-    const response = await client.send(command);
-    const unmarshalled = unmarshall(response.Item);
-    return unmarshalled
+    return await dynamoGet(input);
 };
 
 
 
 export const putPodiumFinishes = async (statStore: iStatStore) => {
-    const client = new DynamoDBClient({ region: 'us-west-2' });
     const marshalled = marshall({
         podiumFinishes,
         data: statStore.podiumFinishes
@@ -36,9 +27,7 @@ export const putPodiumFinishes = async (statStore: iStatStore) => {
         TableName: 'SummitPodiumFinishes',
         Item: marshalled
     };
-    const command = new PutItemCommand(input);
-    const response = await client.send(command);
-    return response
+    return await dynamoPut(input);
 };
 
 
@@ -51,8 +40,6 @@ export const putPodiumFinishes = async (statStore: iStatStore) => {
 // not super time sensitive
 // player shape: {playerName, w, l}
 export const putPlayer = async (player: iPlayer) => {
-    const client = new DynamoDBClient({ region: 'us-west-2' });
-
     const marshalled = marshall({
         ...player
     });
@@ -60,11 +47,10 @@ export const putPlayer = async (player: iPlayer) => {
         TableName: 'SummitPlayers',
         Item: marshalled
     };
-    const command = new PutItemCommand(input);
-    const response = await client.send(command);
-    return response;
+    return await dynamoPut(input);
 };
 
+// Store only needed fields in Dynamo
 const getMinimal = (endpoint: endpoint, resp: any[]) => {
     if (endpoint.indexOf('matches') > -1) {
         return resp.map((el: iMatch): iMatch => {
@@ -92,10 +78,10 @@ const getMinimal = (endpoint: endpoint, resp: any[]) => {
         });
     }
     return resp;
-}
+};
+
 
 export const mockApiPut = async (endpoint: endpoint, resp: any) => {
-    const client = new DynamoDBClient({ region: 'us-west-2' });
     const minimalData = getMinimal(endpoint, resp);
     const marshalled = marshall({
         url: endpoint,
@@ -105,13 +91,11 @@ export const mockApiPut = async (endpoint: endpoint, resp: any) => {
         TableName: 'SummitAPIMock',
         Item: marshalled
     };
-    const command = new PutItemCommand(input);
-    const response = await client.send(command);
-    return response;
+
+    return await dynamoPut(input);
 };
 
 export const mockApiGet = async (endpoint: endpoint) => {
-    const client = new DynamoDBClient({ region: 'us-west-2' });
     const input = {
         TableName: 'SummitAPIMock',
         Key: marshall({
@@ -119,32 +103,24 @@ export const mockApiGet = async (endpoint: endpoint) => {
         })
     };
 
-    const command = new GetItemCommand(input);
-
-    const response = await client.send(command);
-    if ('Item' in response) {
-        const unmarshalled = unmarshall(response.Item);
-        return unmarshalled.data;
-    } else {
-        console.log(`Key not found in Dynamo: ${endpoint}`);
-        return {};
+    const response = await dynamoGet(input);
+    if ('data' in response) {
+        return response.data
     }
+    return response;
 };
 
 export const getAllPlayers = async () => {
-    const client = new DynamoDBClient({ region: 'us-west-2' });
     const input = {
         TableName: 'SummitPlayers',
     };
-    const command = new ScanCommand(input);
-    const response = await client.send(command);
+    const response = await dynamoScan(input);
     return {
-        players: response['Items'].map((el: any) => unmarshall(el))
+        players: response.map((el: any) => unmarshall(el))
     };
 };
 
 export const getMetaField = async (key: string) => {
-    const client = new DynamoDBClient({ region: 'us-west-2' });
     const input = {
         TableName: 'SummitMetadata',
         Key: marshall({
@@ -152,19 +128,10 @@ export const getMetaField = async (key: string) => {
         })
     };
 
-    const command = new GetItemCommand(input);
-
-    const response = await client.send(command);
-    console.log(response);
-    if('Item' in response) {
-        const unmarshalled = unmarshall(response.Item);
-        return unmarshalled
-    }  
-    return null;
+    return await dynamoGet(input);
 };
 
 export const putMetaField = async (key: string, value: any) => {
-    const client = new DynamoDBClient({ region: 'us-west-2' });
     const marshalled = marshall({
         key,
         value
@@ -173,51 +140,8 @@ export const putMetaField = async (key: string, value: any) => {
         TableName: 'SummitMetadata',
         Item: marshalled
     };
-    const command = new PutItemCommand(input);
-    const response = await client.send(command);
-    return response
+    return await dynamoPut(input);
+
 };
 
-
-
-
-
-
-
-// Store key/val metadata in a table
-// So far unused
-// exports.getMetadata = async (keyIn) => {
-//     const client = new DynamoDBClient({ region: 'us-west-2' });
-//     const input = {
-//         TableName: 'SummitMetadata',
-//         Key: marshall({
-//             key: keyIn
-//         })
-//     };
-
-//     const command = new GetItemCommand(input);
-
-//     const response = await client.send(command);
-//     const unmarshalled = unmarshall(response.Item);
-//     return unmarshalled.value
-// };
-
-
-
-// exports.putMetadata = async (keyIn, valIn) => {
-//     const client = new DynamoDBClient({ region: 'us-west-2' });
-//     const marshalled = marshall(
-//         {
-//             key: keyIn,
-//             value: valIn
-//         }
-//     );
-//     const input = {
-//         TableName: 'SummitMetadata',
-//         Item: marshalled
-//     };
-//     const command = new PutItemCommand(input);
-//     const response = await client.send(command);
-//     return response
-// };
 
