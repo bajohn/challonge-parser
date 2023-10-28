@@ -128,7 +128,12 @@ export const getMetaField = async (key: string) => {
         })
     };
 
-    return await dynamoGet(input);
+    const resp = await dynamoGet(input);
+    if ('value' in resp) {
+        return resp['value'];
+    } else {
+        return null;
+    }
 };
 
 export const putMetaField = async (key: string, value: any) => {

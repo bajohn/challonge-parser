@@ -10,10 +10,11 @@ import {
 } from "@aws-sdk/client-dynamodb";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
 
+const region = 'us-west-2'
 
 export const dynamoGet = async (input: GetItemCommandInput) => {
     const command = new GetItemCommand(input);
-    const client = new DynamoDBClient({ region: 'us-west-2' });
+    const client = new DynamoDBClient({ region });
     const response = await client.send(command);
     // null check - what do we want here?
     if ('Item' in response) {
@@ -25,7 +26,7 @@ export const dynamoGet = async (input: GetItemCommandInput) => {
 };
 
 export const dynamoPut = async (input: PutItemCommandInput) => {
-    const client = new DynamoDBClient({ region: 'us-west-2' });
+    const client = new DynamoDBClient({ region });
     const command = new PutItemCommand(input);
     const response = await client.send(command);
     return response
@@ -34,7 +35,7 @@ export const dynamoPut = async (input: PutItemCommandInput) => {
 
 
 export const dynamoScan = async (input: ScanCommandInput) => {
-    const client = new DynamoDBClient({ region: 'us-west-2' });
+    const client = new DynamoDBClient({ region });
     const command = new ScanCommand(input);
     const response = await client.send(command);
     if ('Items' in response) {

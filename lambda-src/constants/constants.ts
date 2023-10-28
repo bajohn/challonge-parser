@@ -23,3 +23,5 @@ export const setIsTesting = (input: boolean) => {
 export const getIsTesting = () => {
     return isTesting;
 }
+
+export const [UPDATE_IN_PROG, UPDATE_COMPLETE] = ['update_in_progress', 'update_complete'];

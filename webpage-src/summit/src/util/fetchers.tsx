@@ -34,8 +34,17 @@ export const podiumGetter = async (setPodium: any) => {
     setPodium(podiums);
 }
 
-export const reloadDynamo = async () => {
+export const reloadDynamo = async (setUpdateTime: any) => {
     const resp = await fetch(`${rootUrl}reload-dynamo`, {
-        method: 'POST',
+        method: 'POST'
     });
+    const respJson = await resp.json()
+    console.log(respJson);
+}
+
+export const checkUpdateStatus = async () => {
+    const resp = await fetch(`${rootUrl}get-update-status`, {
+        method: 'GET'
+    });
+    return await resp.json();
 }

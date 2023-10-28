@@ -35,7 +35,7 @@ resource "aws_lambda_function" "summit-invoked-dynamo-updater" {
   filename      = local.code-location
   function_name = "summit-invoked-dynamo-updater"
   role          = aws_iam_role.iam_for_summit_lambda.arn
-  handler       = "entrypoints/invoke-dynamo-updater.updaterHandler"
+  handler       = "entrypoints/invoked-dynamo-updater.updaterHandler"
 
   source_code_hash = filebase64sha256(local.code-location)
 
@@ -126,6 +126,12 @@ resource "aws_iam_policy_attachment" "summit-lambda-dynamo-attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
 }
 
+resource "aws_iam_policy_attachment" "summit-lambda-invoke-attachment" {
+  name       = "summit-lambda-invoke-attachment"
+  roles      = [aws_iam_role.iam_for_summit_lambda.name]
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaRole"
+}
+
 resource "aws_iam_policy_attachment" "summit-lambda-execution-attachment" {
   name       = "summit-lambda-execution-attachment"
   roles      = [
@@ -134,4 +140,3 @@ resource "aws_iam_policy_attachment" "summit-lambda-execution-attachment" {
     ]
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
-
