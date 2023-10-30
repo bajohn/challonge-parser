@@ -56,7 +56,7 @@ resource "aws_dynamodb_table" "summit-players" {
 resource "aws_dynamodb_table" "summit-metadata" {
   name           = "SummitMetadata"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 1
+  read_capacity  = 5
   write_capacity = 1
   hash_key       = "key"
 

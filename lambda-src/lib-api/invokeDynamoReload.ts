@@ -2,11 +2,10 @@ import { getMetaField } from "../lib/dynamo";
 import { LambdaClient, InvokeCommand } from "@aws-sdk/client-lambda";
 
 export const invokeDynamoReload = async () => {
-    await getMetaField('test');
-
     const client = new LambdaClient({});
     const command = new InvokeCommand({
         FunctionName: 'summit-invoked-dynamo-updater',
+        InvocationType: 'Event', // makes this async
         Payload: JSON.stringify({}),
     });
 

@@ -10,10 +10,13 @@ function Adminpage() {
     const [INITIAL, READY, KICKED_OFF, IN_PROG] = [1, 2, 3, 4];
     const [updateStatus, setUpdateStatus] = useState(INITIAL);
     const [tick, setTick] = useState(0);
-
+    const delayedTick = () => {
+        setTimeout(() => {
+            setTick(tick + 1)
+        }, 1000)
+    }
 
     let mockCount = 0;
-    console.log('current state', updateStatus)
     const cb: React.MouseEventHandler = async (event) => {
         console.log('click');
         setUpdateStatus(KICKED_OFF);  // This should trigger a rerender
@@ -36,7 +39,6 @@ function Adminpage() {
     const pollUpdateStatus = async () => {
 
         const resp = await checkUpdateStatus();
-        console.log('Running poll', updateStatus, resp)
 
         if (updateStatus === INITIAL) {
             if ('status' in resp) {
@@ -54,22 +56,25 @@ function Adminpage() {
             if ('status' in resp) {
                 if (resp.status === 'update_in_progress') {
                     setUpdateStatus(IN_PROG);
+                    return;
                 }
+
             }
-            setTick(tick + 1);
+            delayedTick()
         } else if (updateStatus === IN_PROG) {
             if ('status' in resp) {
                 if (resp.status === 'update_complete') {
                     setUpdateStatus(READY);
+                    return;
                 }
             }
-            setTick(tick + 1);
+            delayedTick();
         }
-        console.log('checked');
     }
 
     // Poll status would be nice
     if (updateStatus !== READY) {
+        console.log('KICKOFF', updateStatus)
         pollUpdateStatus();
     }
 

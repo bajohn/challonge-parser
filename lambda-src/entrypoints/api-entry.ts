@@ -33,6 +33,7 @@ export const router = async (path: string, method: string, queryParams: { [key: 
         return await getPodiumFinishes()
     } else if (path === 'reload-dynamo') {
         const updateStatus = await getMetaField('updateStatus')
+        console.log(updateStatus)
         if (updateStatus === UPDATE_IN_PROG) {
             return {
                 status: 'blocked'

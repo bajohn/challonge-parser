@@ -8,11 +8,10 @@ import { putMetaField } from "./lib/dynamo";
 // handler();
 
 const main = async () => {
+    //await putMetaField('updateStatus', UPDATE_COMPLETE);
     console.log('hi there');
-    const ret = await router('get-update-status', 'GET', {}, '')
-    console.log(ret)
-
-    await putMetaField('updateStatus', UPDATE_COMPLETE)
+    //const ret = await router('reload-dynamo', 'POST', {}, '')
+    //console.log(ret)
 }
 
 main();

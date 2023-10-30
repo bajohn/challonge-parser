@@ -39,6 +39,11 @@ resource "aws_apigatewayv2_deployment" "summit-deployment" {
     redeployment = timestamp()
   }
 
+  depends_on = [
+    aws_apigatewayv2_stage.summit-stage,
+    aws_lambda_function.summit-api
+  ]
+
   lifecycle {
     create_before_destroy = true
   }
