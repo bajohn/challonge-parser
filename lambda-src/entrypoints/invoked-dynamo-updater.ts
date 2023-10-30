@@ -5,7 +5,7 @@ import { UPDATE_COMPLETE } from "../constants/constants";
 
 export const updaterHandler: Handler = async (event, context) => {
     console.log('Invoked updater triggered', event);
-    // await updateDynamo(true);
+    await updateDynamo(true);
     const lastUpdated = (new Date()).toISOString();
     await putMetaField('lastUpdated', lastUpdated);
     await putMetaField('updateStatus', UPDATE_COMPLETE)
