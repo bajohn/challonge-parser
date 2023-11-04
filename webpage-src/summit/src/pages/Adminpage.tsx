@@ -79,9 +79,9 @@ function Adminpage() {
     }
 
     return <Container>
-        <Container>
+        <h1>
             Admin panel
-        </Container>
+        </h1>
         <Container>
             {
                 updateStatus === INITIAL ?
