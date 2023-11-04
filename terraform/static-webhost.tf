@@ -10,13 +10,28 @@ resource "aws_s3_bucket" "static-webhost-bucket" {
 
 
 
-
+# TODO - Create cloudfront distribution for better hosting 
+# Using index.html as a redirect to errors is not ideal
 resource "aws_s3_bucket_website_configuration" "webhost-config" {
   bucket = aws_s3_bucket.static-webhost-bucket.id
 
   index_document {
     suffix = "index.html"
   }
+
+  # TODO - this is a hack, a 404 is still returned to the browser 
+  error_document {
+    key = "index.html"
+  }
+
+  # routing_rule {
+  #   condition {
+  #     key_prefix_equals = "page"
+  #   }
+  #   redirect {
+  #     replace_key_with = ""
+  #   }
+  # }
 
 }
 
