@@ -9,7 +9,7 @@ resource "aws_lambda_function" "summit-api" {
   filename      = local.code-location
   function_name = "summit-api"
   role          = aws_iam_role.iam_for_summit_lambda.arn
-  handler       = "entrypoints/api-entry.apiHandler"
+  handler       = "src-lambda/entrypoints/api-entry.apiHandler"
 
   source_code_hash = filebase64sha256(local.code-location)
 
@@ -22,7 +22,7 @@ resource "aws_lambda_function" "summit-timed-dynamo-updater" {
   filename      = local.code-location
   function_name = "summit-timed-dynamo-updater"
   role          = aws_iam_role.iam_for_summit_lambda.arn
-  handler       = "entrypoints/timed-dynamo-updater.updaterHandler"
+  handler       = "src-lambda/entrypoints/timed-dynamo-updater.updaterHandler"
 
   source_code_hash = filebase64sha256(local.code-location)
 
@@ -35,7 +35,7 @@ resource "aws_lambda_function" "summit-invoked-dynamo-updater" {
   filename      = local.code-location
   function_name = "summit-invoked-dynamo-updater"
   role          = aws_iam_role.iam_for_summit_lambda.arn
-  handler       = "entrypoints/invoked-dynamo-updater.updaterHandler"
+  handler       = "src-lambda/entrypoints/invoked-dynamo-updater.updaterHandler"
 
   source_code_hash = filebase64sha256(local.code-location)
 
