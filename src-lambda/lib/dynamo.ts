@@ -1,4 +1,4 @@
-import { endpoint, iMatch, iPlayer, iStatStore } from "./types";
+import { iMatch, iPlayer, iStatStore } from "./types";
 
 
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
@@ -51,7 +51,7 @@ export const putPlayer = async (player: iPlayer) => {
 };
 
 // Store only needed fields in Dynamo
-const getMinimal = (endpoint: endpoint, resp: any[]) => {
+const getMinimal = (endpoint: string, resp: any[]) => {
     if (endpoint.indexOf('matches') > -1) {
         return resp.map((el: iMatch): iMatch => {
             const match = el.match;
@@ -81,7 +81,7 @@ const getMinimal = (endpoint: endpoint, resp: any[]) => {
 };
 
 
-export const mockApiPut = async (endpoint: endpoint, resp: any) => {
+export const mockApiPut = async (endpoint: string, resp: any) => {
     const minimalData = getMinimal(endpoint, resp);
     const marshalled = marshall({
         url: endpoint,
@@ -95,7 +95,7 @@ export const mockApiPut = async (endpoint: endpoint, resp: any) => {
     return await dynamoPut(input);
 };
 
-export const mockApiGet = async (endpoint: endpoint) => {
+export const mockApiGet = async (endpoint: string) => {
     const input = {
         TableName: 'SummitAPIMock',
         Key: marshall({

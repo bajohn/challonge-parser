@@ -1,9 +1,9 @@
 import { apiSource, iParticipant, iStatStore } from "./types";
 
-const { cleanName } = require("../constants/cleanName.js");
-const { doFetch } = require("./doFetch.js");
-const { parseH2H } = require("./h2h.js");
-const { parsePodium } = require("./podium.js");
+import { cleanName } from "../constants/cleanName.js";
+import { fetchMatches, fetchParticipants } from "./doFetch.js";
+import { parseH2H } from "./h2h.js";
+import { parsePodium } from "./podium.js";
 
 export const addTourneyToStatStore = async (
     tourneyId: string,
@@ -22,13 +22,13 @@ export const addTourneyToStatStore = async (
 
 const getMatches = async (tourneyId: string, source: apiSource) => {
     const endpoint = `tournaments/${tourneyId}/matches.json`;
-    const matches = await doFetch(endpoint, source);
+    const matches = await fetchMatches(endpoint, source);
     return matches;
 }
 
 const getParticipants = async (tourneyId: string, source: apiSource) => {
     const endpoint = `tournaments/${tourneyId}/participants.json`;
-    const participants = await doFetch(endpoint, source);
+    const participants = await fetchParticipants(endpoint, source);
     return participants
 }
 

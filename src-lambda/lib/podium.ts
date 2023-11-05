@@ -1,16 +1,8 @@
-import { podiumLookup } from "../constants/constants";
+import { podiumLookup } from "../../src-shared/constants";
 import { cleanedNames, iParticipant, iStatStore } from "./types";
 
-exports.parsePodium = (statStoreIn: iStatStore, participants: iParticipant[], cleanedNames: cleanedNames) => {
+export const parsePodium = (statStoreIn: iStatStore, participants: iParticipant[], cleanedNames: cleanedNames) => {
     let statStore = Object.assign({}, statStoreIn);
-    // Should be initialized on input, so we don't need this anymore
-    // if (!('podiumFinishes' in statStore)) {
-    //     statStore['podiumFinishes'] = Object.values(podiumLookup()).reduce(
-    //         (lv, cv) => {
-    //             lv[cv] = {};
-    //             return lv;
-    //         }, {});
-    // }
     const finishesRef = statStore['podiumFinishes'];
     for (const el of participants) {
         const participant = el.participant;
@@ -29,7 +21,7 @@ exports.parsePodium = (statStoreIn: iStatStore, participants: iParticipant[], cl
     return statStore;
 };
 
-exports.prettifyPodium = (statStoreIn: iStatStore) => {
+export const prettifyPodium = (statStoreIn: iStatStore) => {
     const statStore = Object.assign({}, statStoreIn);
     const finishesRef = statStore['podiumFinishes'];
     const podiumNames = Object.values(podiumLookup);

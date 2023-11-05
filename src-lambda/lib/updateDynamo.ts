@@ -1,5 +1,5 @@
 
-import { DYNAMO, CHALLONGE, getIsTesting } from "../constants/constants";
+import { DYNAMO, CHALLONGE } from "../../src-shared/constants";
 import { checkTourneyCount } from "./checkTourneyCount";
 import { putPodiumFinishes, putPlayer } from "./dynamo";
 import { generateStatStore } from "./generateStatStore";

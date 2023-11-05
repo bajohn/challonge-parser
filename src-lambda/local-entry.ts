@@ -1,4 +1,4 @@
-import { UPDATE_COMPLETE } from "./constants/constants";
+import { UPDATE_COMPLETE } from "../src-shared/constants";
 import { router } from "./entrypoints/api-entry";
 import { updaterHandler } from "./entrypoints/invoked-dynamo-updater";
 import { getMetaField, putMetaField } from "./lib/dynamo";

@@ -1,8 +1,8 @@
-import { apiSource, iTournament } from "./types";
+import { apiSource, iMatch, iParticipant, iTournament } from "./types";
 
-const { getIsTesting, DYNAMO, CHALLONGE } = require("../constants/constants.js");
-const { apiKey } = require("../creds.js");
-const { mockApiPut, mockApiGet } = require("./dynamo.js");
+import { DYNAMO, CHALLONGE } from "../../src-shared/constants";
+import { apiKey } from "../creds";
+import { mockApiPut, mockApiGet } from "./dynamo.js";
 
 const genUrl = (endpoint: string) => {
     const suffix = endpoint.indexOf('?') === -1 ? '?' : '&';
@@ -17,7 +17,7 @@ const genUrl = (endpoint: string) => {
 // If we can map endpoint strings to responses, we could do this
 // export const doFetch = async <String>(endpoint: string, source: apiSource): Promise<iChallongeResp['tournaments']> => 
 // But leaving generic for now
-export const doFetch = async (endpoint: string, source: apiSource): Promise<iTournament[]> => {
+const doFetch = async (endpoint: string, source: apiSource) => {
     if (source === DYNAMO) {
         return await mockApiGet(endpoint)
 
@@ -32,3 +32,24 @@ export const doFetch = async (endpoint: string, source: apiSource): Promise<iTou
         throw new Error(`Unknown source ${source}`);
     }
 };
+
+export const fetchTournies = async (endpoint: string, source: apiSource) => {
+    if (endpoint.indexOf('tournaments') === -1) {
+        throw Error(`Trying to fetch tournaments from wrong endpoint ${endpoint} `);
+    }
+    return await doFetch(endpoint, source) as iTournament[];
+}
+
+export const fetchParticipants = async (endpoint: string, source: apiSource) => {
+    if (endpoint.indexOf('participants') === -1) {
+        throw Error(`Trying to fetch participants from wrong endpoint ${endpoint} `);
+    }
+    return await doFetch(endpoint, source) as iParticipant[];
+}
+
+export const fetchMatches = async (endpoint: string, source: apiSource) => {
+    if (endpoint.indexOf('matches') === -1) {
+        throw Error(`Trying to fetch matches from wrong endpoint ${endpoint} `);
+    }
+    return await doFetch(endpoint, source) as iMatch[];
+}

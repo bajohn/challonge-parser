@@ -1,6 +1,6 @@
 import { iParticipant } from "../lib/types";
 
-exports.cleanName = (name: string) => {
+export const cleanName = (name: string) => {
     const lookup: { [key: string]: string[] } = {
         Abdul: [],
         Adam: [
@@ -212,7 +212,7 @@ exports.cleanName = (name: string) => {
     return name;
 };
 
-exports.findCleanName = (playerId: number, participants: iParticipant[]) => {
+export const findCleanName = (playerId: number, participants: iParticipant[]) => {
     for (const el of participants) {
         const participant = el['participant'];
         if (participant['id'] === playerId) {

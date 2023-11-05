@@ -1,6 +1,6 @@
 import { h2h, iMatch, iParticipant, iStatStore } from "./types";
 
-const { cleanName, findCleanName } = require("../constants/cleanName.js");
+import { cleanName, findCleanName } from "../constants/cleanName.js";
 
 // Update the h2h stats for all the matches
 // of a single tournament.
@@ -9,7 +9,7 @@ const { cleanName, findCleanName } = require("../constants/cleanName.js");
 // a   x   1   1
 // b   0   x   1
 // c   0   0   x
-exports.parseH2H = (statStoreIn: iStatStore, matches: iMatch[], participants: iParticipant[]) => {
+export const parseH2H = (statStoreIn: iStatStore, matches: iMatch[], participants: iParticipant[]) => {
     let statStore = Object.assign({}, statStoreIn);
 
     // Object should be initialized already

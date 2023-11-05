@@ -33,8 +33,6 @@ export interface iPlayer {
     l: number
 }
 
-export type endpoint = 'tournaments'
-
 // interface iChallongeResp {
 //     'tournaments': iTournament[]
 // }

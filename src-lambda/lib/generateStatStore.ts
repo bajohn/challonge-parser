@@ -1,7 +1,7 @@
 import { addTourneyToStatStore } from "./addTourney";
 
-import { doFetch } from "./doFetch";
-import { FIRST_PLACE, SECOND_PLACE, SUBDOMAIN, THIRD_PLACE } from "../constants/constants";
+import { fetchTournies } from "./doFetch";
+import { FIRST_PLACE, SECOND_PLACE, SUBDOMAIN, THIRD_PLACE } from "../../src-shared/constants";
 import { apiSource, iStatStore, iTournament } from "./types";
 
 
@@ -12,7 +12,7 @@ import { apiSource, iStatStore, iTournament } from "./types";
 export const generateStatStore = async (source: apiSource) => {
     const endpoint = `tournaments.json?subdomain=${SUBDOMAIN}`;
 
-    const tourneys = await doFetch(endpoint, source);
+    const tourneys = await fetchTournies(endpoint, source);
     const statStore = await iterate(tourneys, source);
     return statStore;
 };

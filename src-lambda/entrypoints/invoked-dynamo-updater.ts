@@ -1,7 +1,7 @@
 import { Handler } from "aws-lambda";
 import { updateDynamo } from "../lib/updateDynamo";
 import { putMetaField } from "../lib/dynamo";
-import { UPDATE_COMPLETE } from "../constants/constants";
+import { UPDATE_COMPLETE } from "../../src-shared/constants";
 
 export const updaterHandler: Handler = async (event, context) => {
     console.log('Invoked updater triggered', event);
