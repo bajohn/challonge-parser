@@ -43,23 +43,6 @@ resource "aws_lambda_function" "summit-invoked-dynamo-updater" {
   timeout = 300
 }
 
-
-# resource "aws_scheduler_schedule" "dynamo-updater-schedule" {
-#   name       = "dynamo-updater-schedule"
-#   group_name = "default"
-
-#   flexible_time_window {
-#     mode = "OFF"
-#   }
-
-#   schedule_expression = "rate(1 minutes)"
-
-#   target {
-#     arn      = aws_lambda_function.summit-dynamo-updater.arn
-#     role_arn = aws_iam_role.iam_for_summit_scheduler.arn
-#   }
-# }
-
 resource "aws_cloudwatch_event_rule" "dynamo-updater-schedule" {
   name                = "dynamo-updater-schedule"
   description         = "Dynamo Updater Schedule"
@@ -69,7 +52,6 @@ resource "aws_cloudwatch_event_rule" "dynamo-updater-schedule" {
 resource "aws_cloudwatch_event_target" "dynamo-updater-target" {
   arn       =  aws_lambda_function.summit-timed-dynamo-updater.arn
   rule      = aws_cloudwatch_event_rule.dynamo-updater-schedule.name
-  # role_arn  = aws_iam_role.iam_for_summit_scheduler.arn
 }
 
 resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda" {
@@ -80,28 +62,9 @@ resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda" {
     source_arn = aws_cloudwatch_event_rule.dynamo-updater-schedule.arn
 }
 
-resource "aws_iam_role" "iam_for_summit_scheduler" {
-  name = "iam_for_summit_scheduler"
-
-  assume_role_policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "events.amazonaws.com"
-            },
-            "Action": "sts:AssumeRole"
-        }
-    ]
-}
-EOF
-}
-
 
 resource "aws_iam_role" "iam_for_summit_lambda" {
-  name = "iam_for_summit_api_lambda"
+  name = "iam_for_summit_lambda"
 
   assume_role_policy = <<EOF
 {
@@ -120,23 +83,12 @@ resource "aws_iam_role" "iam_for_summit_lambda" {
 EOF
 }
 
-resource "aws_iam_policy_attachment" "summit-lambda-dynamo-attachment" {
-  name       = "summit-lambda-dynamo-attachment"
-  roles      = [aws_iam_role.iam_for_summit_lambda.name]
+resource "aws_iam_role_policy_attachment" "summit-api-lambda-dynamo-role-attachment" {
+  role       = aws_iam_role.iam_for_summit_lambda.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
 }
 
-resource "aws_iam_policy_attachment" "summit-lambda-invoke-attachment" {
-  name       = "summit-lambda-invoke-attachment"
-  roles      = [aws_iam_role.iam_for_summit_lambda.name]
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaRole"
-}
-
-resource "aws_iam_policy_attachment" "summit-lambda-execution-attachment" {
-  name       = "summit-lambda-execution-attachment"
-  roles      = [
-    aws_iam_role.iam_for_summit_lambda.name,
-    aws_iam_role.iam_for_summit_scheduler.name
-    ]
+resource "aws_iam_role_policy_attachment" "summit-api-lambda-execution-role-attachment" {
+  role       = aws_iam_role.iam_for_summit_lambda.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }

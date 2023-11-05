@@ -24,12 +24,10 @@ resource "aws_iam_role" "iam_for_summit_apigw" {
 }
 EOF
 }
-
-resource "aws_iam_policy_attachment" "summit-apigw-attachment" {
-  name       = "summit-apigw-attachment"
-  roles      = [aws_iam_role.iam_for_summit_apigw.name]
+# Allows API GW to invoke lambda
+resource "aws_iam_role_policy_attachment" "summit-apigw-role-attachment" {
+  role       =  aws_iam_role.iam_for_summit_apigw.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaRole"
-  #policy_arn = "arn:aws:iam::aws:policy/AWSLambda_FullAccess"
 }
 
 resource "aws_apigatewayv2_deployment" "summit-deployment" {
@@ -64,12 +62,6 @@ resource "aws_apigatewayv2_route" "default-route" {
   route_key = "$default"
   target = "integrations/${aws_apigatewayv2_integration.default-integration.id}"
 }
-
-#resource "aws_apigatewayv2_route_response" "default-route-response" {
-#  api_id    = aws_apigatewayv2_api.summit-api.id
-#  route_id = aws_apigatewayv2_route.default-route.id
-#  route_response_key = "$default"
-#}
 
 resource "aws_apigatewayv2_integration" "default-integration" {
   api_id           = aws_apigatewayv2_api.summit-api.id

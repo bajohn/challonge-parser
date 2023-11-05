@@ -7,16 +7,17 @@ https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/podium-finis
 https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
 
 ## Next TODOs
-- Why do we need to double deploy to get the API up? Something is out of whack
-- API still throws 500s sporadically, not reaching the lambda
 - Can we share types between front and back end / is it worth doing so?
 - Add clean name prioritization check
-- Make routing work for s3 website, eg https://summit-tournament-webhost-bucket.s3-website-us-west-2.amazonaws.com/admin
 - Hard admin refresh button - make it not time out!
 - Clear old players when doing a fresh load! Currently old, messy names persist between reloads
 - Update only latest tournament / matches instead of full reload when tourneyCount is different
 - Move podiumfinishes to SummitMetadata table
-- (Optional) set CloudWatch retention to 2 weeks via tf
+
+
+## Nice to haves
+- Set CloudWatch retention to 2 weeks via tf
+- Cloudwatch distribution so we're not relying on 404s to route requests
 
 ## Pulling out to generalize
 Once the app is stable, we'll eject a generic web app stack for the next project. The base features to isolate and make generic are:
