@@ -7,9 +7,7 @@ https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/podium-finis
 https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
 
 ## Next TODOs
-- Can we share types between front and back end / is it worth doing so?
 - Add clean name prioritization check
-- Hard admin refresh button - make it not time out!
 - Clear old players when doing a fresh load! Currently old, messy names persist between reloads
 - Update only latest tournament / matches instead of full reload when tourneyCount is different
 - Move podiumfinishes to SummitMetadata table
