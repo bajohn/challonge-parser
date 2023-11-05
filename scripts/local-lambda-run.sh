@@ -1,2 +1,2 @@
-cd lambda-src
+cd src-lambda
 nodemon local-entry.ts

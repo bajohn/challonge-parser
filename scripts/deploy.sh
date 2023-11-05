@@ -1,9 +1,9 @@
 # Clean out last deployment
-rm -r ./lambda-src/artifacts/tsout
-rm lambda-src/artifacts/lambda_function_payload.zip
+rm -r ./src-lambda/artifacts/tsout
+rm src-lambda/artifacts/lambda_function_payload.zip
 
 # Upload lambda code 
-cd lambda-src
+cd src-lambda
 npx tsc 
 cd artifacts/tsout
 zip -r ../lambda_function_payload.zip  ./  # -x test/
@@ -13,7 +13,7 @@ cd ../../../terraform
 terraform apply -auto-approve
 
 # Update front end
-cd ../webpage-src/summit 
+cd ../src-webpage/summit 
 npm run build
 aws s3 cp --recursive build s3://summit-tournament-webhost-bucket
 

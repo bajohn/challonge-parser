@@ -1,9 +1,9 @@
 
 import { DYNAMO, CHALLONGE, getIsTesting } from "../constants/constants";
-import { checkTourneyCount } from "../lib/checkTourneyCount";
-import { putPodiumFinishes, putPlayer } from "../lib/dynamo";
-import { generateStatStore } from "../lib/generateStatStore";
-import { getWinLoss } from "../lib/parseWinLoss";
+import { checkTourneyCount } from "./checkTourneyCount";
+import { putPodiumFinishes, putPlayer } from "./dynamo";
+import { generateStatStore } from "./generateStatStore";
+import { getWinLoss } from "./parseWinLoss";
 
 
 export const updateDynamo = async (forceUpdate: boolean = false) => {

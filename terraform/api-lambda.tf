@@ -1,7 +1,7 @@
 
 
 locals {
-  code-location =  "../lambda-src/artifacts/lambda_function_payload.zip"
+  code-location =  "../src-lambda/artifacts/lambda_function_payload.zip"
 }
 
 

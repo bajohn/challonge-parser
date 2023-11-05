@@ -1,2 +1,2 @@
-cd webpage-src/summit
+cd src-webpage/summit
 npm run start
