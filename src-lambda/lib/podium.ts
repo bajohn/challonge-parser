@@ -1,5 +1,5 @@
 import { podiumLookup } from "../../src-shared/constants";
-import { cleanedNames, iParticipant, iStatStore } from "./types";
+import { cleanedNames, iParticipant, iStatStore } from "../../src-shared/types";
 
 export const parsePodium = (statStoreIn: iStatStore, participants: iParticipant[], cleanedNames: cleanedNames) => {
     let statStore = Object.assign({}, statStoreIn);

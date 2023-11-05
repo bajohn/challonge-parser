@@ -1,4 +1,4 @@
-import { iParticipant } from "../lib/types";
+import { iParticipant } from "../../src-shared/types";
 
 export const cleanName = (name: string) => {
     const lookup: { [key: string]: string[] } = {

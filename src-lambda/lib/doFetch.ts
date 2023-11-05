@@ -1,4 +1,4 @@
-import { apiSource, iMatch, iParticipant, iTournament } from "./types";
+import { apiSource, iMatch, iParticipant, iTournament } from "../../src-shared/types";
 
 import { DYNAMO, CHALLONGE } from "../../src-shared/constants";
 import { apiKey } from "../creds";

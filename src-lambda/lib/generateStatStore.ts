@@ -2,7 +2,7 @@ import { addTourneyToStatStore } from "./addTourney";
 
 import { fetchTournies } from "./doFetch";
 import { FIRST_PLACE, SECOND_PLACE, SUBDOMAIN, THIRD_PLACE } from "../../src-shared/constants";
-import { apiSource, iStatStore, iTournament } from "./types";
+import { apiSource, iStatStore, iTournament } from "../../src-shared/types";
 
 
 

@@ -1,4 +1,4 @@
-import { h2h, iMatch, iParticipant, iStatStore } from "./types";
+import { h2h, iMatch, iParticipant, iStatStore } from "../../src-shared/types";
 
 import { cleanName, findCleanName } from "../constants/cleanName.js";
 

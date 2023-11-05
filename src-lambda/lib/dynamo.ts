@@ -1,4 +1,4 @@
-import { iMatch, iPlayer, iStatStore } from "./types";
+import { iMatch, iPlayer, iStatStore } from "../../src-shared/types";
 
 
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";

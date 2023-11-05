@@ -1,4 +1,4 @@
-import { apiSource, iParticipant, iStatStore } from "./types";
+import { apiSource, iParticipant, iStatStore } from "../../src-shared/types";
 
 import { cleanName } from "../constants/cleanName.js";
 import { fetchMatches, fetchParticipants } from "./doFetch.js";

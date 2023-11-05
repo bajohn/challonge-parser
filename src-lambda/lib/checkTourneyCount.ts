@@ -1,6 +1,6 @@
 import { SUBDOMAIN } from "../../src-shared/constants";
 import { fetchTournies } from "./doFetch";
-import { apiSource, iTournament } from "./types";
+import { apiSource, iTournament } from "../../src-shared/types";
 
 
 export const checkTourneyCount = async (source: apiSource) => {

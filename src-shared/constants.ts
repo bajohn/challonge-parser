@@ -1,4 +1,4 @@
-import { firstPlace, podiumPlaces, secondPlace, thirdPlace } from "../src-lambda/lib/types";
+import { firstPlace, podiumPlaces, secondPlace, thirdPlace } from "./types";
 
 export const FIRST_PLACE: firstPlace = 'First Place Finishes';
 export const SECOND_PLACE: secondPlace = 'Second Place Finishes';
