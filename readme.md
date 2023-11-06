@@ -7,6 +7,8 @@ https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/podium-finis
 https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
 
 ## Next TODOs
+- Add dynamo mock to jest test so we can do "e2e" back end updates (create new data structures without running the entire live API update!)
+- When we're ready to create the clean base app - can we create a fresh version of this entire live app using a fork of the cleaned base app?
 - Add clean name prioritization check
 - Clear old players when doing a fresh load! Currently old, messy names persist between reloads
 - Update only latest tournament / matches instead of full reload when tourneyCount is different
