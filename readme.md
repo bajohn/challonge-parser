@@ -14,7 +14,6 @@ https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
 - Update only latest tournament / matches instead of full reload when tourneyCount is different
 - Move podiumfinishes to SummitMetadata table
 
-
 ## Nice to haves
 - Set CloudWatch retention to 2 weeks via tf
 - Cloudwatch distribution so we're not relying on 404s to route requests
