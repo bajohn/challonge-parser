@@ -2,7 +2,7 @@ import { apiSource, iMatch, iParticipant, iTournament } from "../../src-shared/t
 
 import { DYNAMO, CHALLONGE } from "../../src-shared/constants";
 import { apiKey } from "../creds";
-import { mockApiPut, mockApiGet } from "./dynamo.js";
+import { mockApiPut, mockApiGet } from "./dynamo";
 
 const genUrl = (endpoint: string) => {
     const suffix = endpoint.indexOf('?') === -1 ? '?' : '&';
