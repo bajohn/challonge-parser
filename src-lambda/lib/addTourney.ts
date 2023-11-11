@@ -1,9 +1,9 @@
 import { apiSource, iParticipant, iStatStore } from "../../src-shared/types";
 
-import { cleanName } from "../constants/cleanName.js";
-import { fetchMatches, fetchParticipants } from "./doFetch.js";
-import { parseH2H } from "./h2h.js";
-import { parsePodium } from "./podium.js";
+import { cleanName } from "../constants/cleanName";
+import { fetchMatches, fetchParticipants } from "./doFetch";
+import { parseH2H } from "./h2h";
+import { parsePodium } from "./podium";
 
 export const addTourneyToStatStore = async (
     tourneyId: string,

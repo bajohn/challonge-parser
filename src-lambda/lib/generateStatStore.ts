@@ -18,7 +18,7 @@ export const generateStatStore = async (source: apiSource) => {
 };
 
 const iterate = async (tourneys: iTournament[], source: apiSource) => {
-    let statStore = emptyStatStore;
+    let statStore = emptyStatStore();
     for (const tourney of tourneys) {
         console.log(tourney.tournament.name)
         const tourneyId = tourney.tournament.id;
@@ -27,11 +27,13 @@ const iterate = async (tourneys: iTournament[], source: apiSource) => {
     return statStore;
 };
 
-const emptyStatStore: iStatStore = {
-    podiumFinishes: {
-        [FIRST_PLACE]: {},
-        [SECOND_PLACE]: {},
-        [THIRD_PLACE]: {}
-    },
-    h2h: {}
+export const emptyStatStore = (): iStatStore => {
+    return {
+        podiumFinishes: {
+            [FIRST_PLACE]: {},
+            [SECOND_PLACE]: {},
+            [THIRD_PLACE]: {}
+        },
+        h2h: {}
+    }
 }

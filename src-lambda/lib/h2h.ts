@@ -1,6 +1,6 @@
 import { h2h, iMatch, iParticipant, iStatStore } from "../../src-shared/types";
 
-import { cleanName, findCleanName } from "../constants/cleanName.js";
+import { cleanName, findCleanName } from "../constants/cleanName";
 
 // Update the h2h stats for all the matches
 // of a single tournament.
