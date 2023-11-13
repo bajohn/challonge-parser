@@ -16,24 +16,10 @@ function Adminpage() {
         }, 1000)
     }
 
-    let mockCount = 0;
     const cb: React.MouseEventHandler = async (event) => {
         setUpdateStatus(KICKED_OFF);  // This should trigger a rerender
         reloadDynamo();
     }
-
-    const mocker = () => new Promise((res) => {
-        setTimeout(() => {
-            mockCount += 1;
-            if (mockCount >= 3) {
-                console.log('ready')
-                res(READY);
-            } else {
-                res(IN_PROG);
-            }
-        }, 1000);
-    });
-
 
     const pollUpdateStatus = async () => {
 

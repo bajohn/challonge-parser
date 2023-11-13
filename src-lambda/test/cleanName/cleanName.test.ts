@@ -4,10 +4,10 @@ import { cleanName } from "../../constants/cleanName";
 
 
 
-// test("cleanName disambiguates when a name has a clean name contained in it (here, Katy)", async () => {
-//     const resp = cleanName('Katya')
-//     expect(resp).toEqual('Katya');
-// });
+test("cleanName disambiguates when a name has a clean name contained in it (here, Katy)", async () => {
+    const resp = cleanName('Katya')
+    expect(resp).toEqual('Katya');
+});
 
 
 test("cleanName works for a typical set of names from a tournament", async () => {
