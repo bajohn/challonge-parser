@@ -18,7 +18,6 @@ function Adminpage() {
 
     let mockCount = 0;
     const cb: React.MouseEventHandler = async (event) => {
-        console.log('click');
         setUpdateStatus(KICKED_OFF);  // This should trigger a rerender
         reloadDynamo();
     }
