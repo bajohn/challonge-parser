@@ -101,7 +101,7 @@ export const cleanName = (name: string) => {
             'K86 🫧🧚🏻‍♀️🤸🏻‍♀️🍄🦋🌲🪷🌚🌈 x',
             'K86'
         ],
-        Katya:[],
+        Katya: [],
         Ken: [
             'Ken 💀 x',
             'Ken 💀x'
@@ -190,27 +190,47 @@ export const cleanName = (name: string) => {
         ]
     };
 
+    // default: clean name is the raw name
+    const rankTracker = {
+        cleanName: name,
+        strength: 0
+    };
+
+    const updateRank = (newName: string, newStrength: number) => {
+        if (newStrength > rankTracker.strength) {
+            rankTracker.cleanName = newName;
+        } else if (newStrength === rankTracker.strength) {
+            // This shouldn't happen, but logging this case
+            console.error(`Warning - unable to disambiguate mapping input "${name}" to cleaned name "${newName}" or "${rankTracker.cleanName}}"`);
+        }
+    };
+
     // TODO - this priority isn't quite right
     for (const key of Object.keys(lookup)) {
-        // First priority - 
+        // In order of priority:
+        // Matches key exactly
+        if (key === name) {
+            updateRank(key, 10);
+        }
+
         // Matches element of subarray - hardcoded replacement
         if (lookup[key].indexOf(name) !== -1) {
-            return key;
+            updateRank(key, 9);
         }
-        // Second priority
+
         // Clean name is substring of raw name
         if (name.indexOf(key) > -1) {
-            return key
+            updateRank(key, 8);
         }
-        // Third priority
+
         // Element of subarray is substring of raw name
         for (const subel of lookup[key]) {
             if (name.indexOf(subel) > -1) {
-                return key
+                updateRank(key, 7);
             }
         }
     }
-    return name;
+    return rankTracker.cleanName;
 };
 
 export const findCleanName = (playerId: number, participants: iParticipant[]) => {

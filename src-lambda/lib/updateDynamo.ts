@@ -30,7 +30,7 @@ const executeUpdate = async (statStore: iStatStore) => {
     // Actually push data, updating website
     await putPodiumFinishes(statStore);
     const players = getWinLoss(statStore);
-    //await removeDeprecatedPlayers(players); // TODO do remove
+    await removeDeprecatedPlayers(players);
     await Promise.all(players.map(player => putPlayer(player)));
     // end push
 }
