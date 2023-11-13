@@ -74,7 +74,6 @@ function Adminpage() {
 
     // Poll status would be nice
     if (updateStatus !== READY) {
-        console.log('KICKOFF', updateStatus)
         pollUpdateStatus();
     }
 
