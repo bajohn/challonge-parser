@@ -8,20 +8,21 @@ https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
 
 ## Next TODOs
 - Past tournament listing
-    - Top 3 finishes
-    - Stream link
-    - Challonge link
+    - Ideally, add inputter to admin view
+        - Top 3 finishes (auto generate)
+        - Stream link (manual entry)
+        - Challonge link (auto generate)
 - H2H view?
+    - Actually fill H2H table, which is currently empty
+- Cloudfront distribution so we're not relying on 404s to route requests
 
-- When we're ready to create the clean base app - can we create a fresh version of this entire live app using a fork of the cleaned base app?
-- Add clean name prioritization check
-- Clear old players when doing a fresh load! Currently old, messy names persist between reloads
+Nice to haves, probably won't do:
 - Update only latest tournament / matches instead of full reload when tourneyCount is different
-- Move podiumfinishes to SummitMetadata table
+- When we're ready to create the clean base app - can we create a fresh version of this entire live app using a fork of the cleaned base app?
 
 ## Nice to haves
 - Set CloudWatch retention to 2 weeks via tf
-- Cloudwatch distribution so we're not relying on 404s to route requests
+
 
 ## Pulling out to generalize
 Once the app is stable, we'll eject a generic web app stack for the next project. The base features to isolate and make generic are:

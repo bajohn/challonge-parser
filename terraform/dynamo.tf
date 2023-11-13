@@ -1,22 +1,3 @@
-
-resource "aws_dynamodb_table" "summit-podium" {
-  name           = "SummitPodiumFinishes"
-  billing_mode   = "PROVISIONED"
-  read_capacity  = 1
-  write_capacity = 1
-  hash_key       = "podiumFinishes"
-
-  attribute {
-    name = "podiumFinishes"
-    type = "S"
-  }
-
-  tags = {
-    Name        = "Podium Finishes"
-  }
-}
-
-
 resource "aws_dynamodb_table" "summit-h2h" {
   name           = "SummitH2H"
   billing_mode   = "PROVISIONED"
@@ -69,7 +50,7 @@ resource "aws_dynamodb_table" "summit-tourneys" {
 }
 
 
-// Store key/val metadata in a table
+// Arbitrary key/val metadata 
 resource "aws_dynamodb_table" "summit-metadata" {
   name           = "SummitMetadata"
   billing_mode   = "PROVISIONED"
