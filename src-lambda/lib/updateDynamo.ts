@@ -1,7 +1,8 @@
 
 import { DYNAMO, CHALLONGE } from "../../src-shared/constants";
+import { iPlayer, iStatStore } from "../../src-shared/types";
 import { checkTourneyCount } from "./checkTourneyCount";
-import { putPodiumFinishes, putPlayer } from "./dynamo";
+import { putPodiumFinishes, putPlayer, getAllPlayers, removePlayer } from "./dynamo";
 import { generateStatStore } from "./generateStatStore";
 import { getWinLoss } from "./parseWinLoss";
 
@@ -14,11 +15,7 @@ export const updateDynamo = async (forceUpdate: boolean = false) => {
     if (forceUpdate || challongeCount > dynamoCount) {
         console.log('New tournament(s) found! Updating dynamo.')
         const statStore = await generateStatStore(CHALLONGE);
-        // Actually push data, updating website
-        await putPodiumFinishes(statStore);
-        const players = getWinLoss(statStore);
-        await Promise.all(players.map(player => putPlayer(player)));
-        // end push
+        await executeUpdate(statStore);
 
     } else if (challongeCount == dynamoCount) {
         console.log('No new tournaments, exiting');
@@ -27,4 +24,27 @@ export const updateDynamo = async (forceUpdate: boolean = false) => {
         throw new Error('Fewer tournaments on Challonge than Dynamo, this should should never happen.');
     }
     console.log('Done');
+}
+
+const executeUpdate = async (statStore: iStatStore) => {
+    // Actually push data, updating website
+    await putPodiumFinishes(statStore);
+    const players = getWinLoss(statStore);
+    //await removeDeprecatedPlayers(players); // TODO do remove
+    await Promise.all(players.map(player => putPlayer(player)));
+    // end push
+}
+
+export const removeDeprecatedPlayers = async (newPlayers: iPlayer[]) => {
+    const playersInDynamo = await getAllPlayers();
+    const newPlayerLookup = newPlayers.reduce((lv, cv) => {
+        lv[cv.playerName] = true;
+        return lv;
+    }, {} as { [key: string]: boolean });
+
+    for (const player of playersInDynamo.players) {
+        if (!(player.playerName in newPlayerLookup)) {
+            await removePlayer(player.playerName);
+        }
+    }
 }

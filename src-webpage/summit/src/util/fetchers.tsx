@@ -29,7 +29,8 @@ export const playerGetter = async (setPlayers: any) => {
 export const podiumGetter = async (setPodium: any) => {
     const resp = await fetch(`${rootUrl}podium-finishes`)
     const jsonResp = await resp.json();
-    const podiums = jsonResp.data;
+    console.log(jsonResp);
+    const podiums = jsonResp;
     console.log(podiums)
     setPodium(podiums);
 }

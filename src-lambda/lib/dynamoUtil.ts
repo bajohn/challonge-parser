@@ -6,9 +6,12 @@ import {
     ScanCommand,
     GetItemCommandInput,
     PutItemCommandInput,
-    ScanCommandInput
+    ScanCommandInput,
+    DeleteItemCommand,
+    DeleteItemCommandInput
 } from "@aws-sdk/client-dynamodb";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
+import { iPlayer } from "../../src-shared/types";
 
 const region = 'us-west-2'
 
@@ -32,6 +35,13 @@ export const dynamoPut = async (input: PutItemCommandInput) => {
     return response
 };
 
+export const dynamoRemove = async (input: DeleteItemCommandInput) => {
+    const client = new DynamoDBClient({ region });
+    const command = new DeleteItemCommand(input);
+    const response = await client.send(command);
+    return response
+};
+
 
 
 export const dynamoScan = async (input: ScanCommandInput) => {
@@ -39,7 +49,9 @@ export const dynamoScan = async (input: ScanCommandInput) => {
     const command = new ScanCommand(input);
     const response = await client.send(command);
     if ('Items' in response) {
-        return response.Items;
+        const items = response.Items;
+        return items.map((el: any) => unmarshall(el)) as any[]
+
     }
     console.log('Items not found', JSON.stringify(input));
     return [];

@@ -9,9 +9,11 @@ import { apiSource, iStatStore, iTournament } from "../../src-shared/types";
 
 // Iterate through all tournaments, 
 // returning statStore
+// TODO: Challonge probably paginates at some point, which will break this logic,
+// since it assumes fetchTournies returns all associated tournaments.
 export const generateStatStore = async (source: apiSource) => {
     const endpoint = `tournaments.json?subdomain=${SUBDOMAIN}`;
-
+    
     const tourneys = await fetchTournies(endpoint, source);
     const statStore = await iterate(tourneys, source);
     return statStore;
@@ -22,6 +24,7 @@ const iterate = async (tourneys: iTournament[], source: apiSource) => {
     for (const tourney of tourneys) {
         console.log(tourney.tournament.name)
         const tourneyId = tourney.tournament.id;
+        // await recordTourneyMeta() // TODO record tourney meta
         statStore = await addTourneyToStatStore(tourneyId, statStore, source);
     }
     return statStore;

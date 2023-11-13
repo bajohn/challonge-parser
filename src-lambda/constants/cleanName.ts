@@ -101,6 +101,7 @@ export const cleanName = (name: string) => {
             'K86 🫧🧚🏻‍♀️🤸🏻‍♀️🍄🦋🌲🪷🌚🌈 x',
             'K86'
         ],
+        Katya:[],
         Ken: [
             'Ken 💀 x',
             'Ken 💀x'

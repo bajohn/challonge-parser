@@ -1,37 +1,32 @@
-import { iMatch, iPlayer, iStatStore } from "../../src-shared/types";
+import { iMatch, iPlayer, iStatStore, iTournament } from "../../src-shared/types";
 
 
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
-import { dynamoGet, dynamoPut, dynamoScan } from "./dynamoUtil";
+import { dynamoGet, dynamoPut, dynamoRemove, dynamoScan } from "./dynamoUtil";
 
-const podiumFinishes = 'podiumFinishes'
+const PODIUM_FINISHES = 'podiumFinishes'
 
 export const getPodiumFinishes = async () => {
-    const input = {
-        TableName: 'SummitPodiumFinishes',
-        Key: marshall({
-            podiumFinishes
-        })
-    };
-    return await dynamoGet(input);
+    return await getMetaField(PODIUM_FINISHES);
 };
 
 
 
 export const putPodiumFinishes = async (statStore: iStatStore) => {
-    const marshalled = marshall({
-        podiumFinishes,
-        data: statStore.podiumFinishes
-    });
-    const input = {
-        TableName: 'SummitPodiumFinishes',
-        Item: marshalled
-    };
-    return await dynamoPut(input);
+    return await putMetaField(PODIUM_FINISHES, statStore.podiumFinishes);
 };
 
 
-
+export const putTourneyMeta = async (tourney: iTournament) => {
+    const marshalled = marshall({
+        ...tourney
+    });
+    const input = {
+        TableName: 'SummitTourneys',
+        Item: marshalled
+    };
+    return await dynamoPut(input);
+}
 
 
 
@@ -48,6 +43,24 @@ export const putPlayer = async (player: iPlayer) => {
         Item: marshalled
     };
     return await dynamoPut(input);
+};
+
+// Delete all Player entries in Dynamo
+// 
+export const removePlayer = async (playerName: string) => {
+    const input = {
+        TableName: 'SummitPlayers',
+        Key: marshall({
+            playerName
+        })
+    };
+
+    const resp = await dynamoRemove(input);
+    if ('value' in resp) {
+        return resp['value'];
+    } else {
+        return null;
+    }
 };
 
 // Store only needed fields in Dynamo
@@ -114,9 +127,9 @@ export const getAllPlayers = async () => {
     const input = {
         TableName: 'SummitPlayers',
     };
-    const response = await dynamoScan(input);
+    const response = await dynamoScan(input) as iPlayer[];
     return {
-        players: response.map((el: any) => unmarshall(el))
+        players: response
     };
 };
 

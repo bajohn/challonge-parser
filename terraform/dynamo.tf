@@ -47,7 +47,24 @@ resource "aws_dynamodb_table" "summit-players" {
   }
 
   tags = {
-    Name        = "Summit Head-to-Head"
+    Name        = "Summit Players"
+  }
+}
+
+resource "aws_dynamodb_table" "summit-tourneys" {
+  name           = "SummitTourneys"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 1
+  write_capacity = 1
+  hash_key       = "tourneyID"
+
+  attribute {
+    name = "tourneyID"
+    type = "S"
+  }
+
+  tags = {
+    Name        = "Summit Tournaments"
   }
 }
 
