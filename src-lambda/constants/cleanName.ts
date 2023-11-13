@@ -101,7 +101,9 @@ export const cleanName = (name: string) => {
             'K86 🫧🧚🏻‍♀️🤸🏻‍♀️🍄🦋🌲🪷🌚🌈 x',
             'K86'
         ],
-        Katya: [],
+        Katya: [
+            'Katya 🤠 x'
+        ],
         Ken: [
             'Ken 💀 x',
             'Ken 💀x'
@@ -199,6 +201,7 @@ export const cleanName = (name: string) => {
     const updateRank = (newName: string, newStrength: number) => {
         if (newStrength > rankTracker.strength) {
             rankTracker.cleanName = newName;
+            rankTracker.strength = newStrength;
         } else if (newStrength === rankTracker.strength) {
             // This shouldn't happen, but logging this case
             console.error(`Warning - unable to disambiguate mapping input "${name}" to cleaned name "${newName}" or "${rankTracker.cleanName}}"`);
