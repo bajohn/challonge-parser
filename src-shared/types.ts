@@ -1,4 +1,5 @@
-//import { FIRST_PLACE, SECOND_PLACE, THIRD_PLACE } from "../constants/constants";
+import { FIRST_PLACE, SECOND_PLACE, THIRD_PLACE } from "./constants";
+
 
 
 export type apiSource = 'dynamo' | 'challonge';
@@ -9,7 +10,9 @@ export interface iTournament {
     tournament: {
         name: string
         id: string
-        state: 'complete' // there are other states if needed, only using complete
+        state: 'complete', // there are other states if needed, only using complete
+        videoLink?: string
+        rankedParticipants: string[][]
     }
 }
 
@@ -60,6 +63,7 @@ export interface h2h {
 export interface iStatStore {
     podiumFinishes: podiumFinishes
     h2h: h2h
+    tourneys: iTournament[]
 }
 
 export interface iParticipant {

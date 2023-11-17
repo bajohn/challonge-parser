@@ -1,16 +1,28 @@
 import { podiumLookup } from "../../src-shared/constants";
-import { cleanedNames, iParticipant, iStatStore } from "../../src-shared/types";
+import { cleanedNames, iParticipant, iStatStore, iTournament } from "../../src-shared/types";
 
-export const parsePodium = (statStoreIn: iStatStore, participants: iParticipant[], cleanedNames: cleanedNames) => {
+export const parsePodium = (statStoreIn: iStatStore, participants: iParticipant[], cleanedNames: cleanedNames, tourney: iTournament) => {
     let statStore = Object.assign({}, statStoreIn);
     const finishesRef = statStore['podiumFinishes'];
+    const tournament: iTournament = {
+        ...tourney,
+    };
+    const rankedParticRef: string[][] = [];
+
     for (const el of participants) {
         const participant = el.participant;
         const rank = participant.final_rank;
         const lookup = podiumLookup;
+        const cleanName = cleanedNames[participant.id];
+        // NEXT TODO - test this in a unit test
+        if (rank in rankedParticRef) {
+            rankedParticRef[rank].push(cleanName);
+        } else {
+            rankedParticRef[rank] = [cleanName];
+        }
         if (rank in lookup) {
             const result = lookup[rank];
-            const cleanName = cleanedNames[participant.id];
+
             if (cleanName in finishesRef[result]) {
                 finishesRef[result][cleanName] += 1;
             } else {
@@ -18,6 +30,7 @@ export const parsePodium = (statStoreIn: iStatStore, participants: iParticipant[
             }
         }
     }
+    tournament.tournament.rankedParticipants = rankedParticRef;
     return statStore;
 };
 

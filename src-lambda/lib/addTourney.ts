@@ -1,21 +1,22 @@
-import { apiSource, iParticipant, iStatStore } from "../../src-shared/types";
+import { apiSource, iParticipant, iStatStore, iTournament } from "../../src-shared/types";
 
 import { cleanName } from "../constants/cleanName";
 import { fetchMatches, fetchParticipants } from "./doFetch";
 import { parseH2H } from "./h2h";
 import { parsePodium } from "./podium";
+import { recordTourneyMeta } from "./recordTourneyMeta";
 
 export const addTourneyToStatStore = async (
-    tourneyId: string,
+    tourney: iTournament,
     statStoreIn: iStatStore,
     source: apiSource) => {
     let statStore = Object.assign({}, statStoreIn);
-
+    const tourneyId = tourney.tournament.id;
     const matches = await getMatches(tourneyId, source);
     const participants = await getParticipants(tourneyId, source);
     const cleanedNames = await cleanNames(participants);
 
-    statStore = parsePodium(statStore, participants, cleanedNames);
+    statStore = parsePodium(statStore, participants, cleanedNames, tourney);
     statStore = parseH2H(statStore, matches, participants);
     return statStore;
 };

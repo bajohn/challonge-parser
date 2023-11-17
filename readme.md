@@ -7,6 +7,7 @@ https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/podium-finis
 https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
 
 ## Next TODOs
+- NEXT - test this-  line 17 podium.ts
 - Past tournament listing
     - Ideally, add inputter to admin view
         - Top 3 finishes (auto generate)

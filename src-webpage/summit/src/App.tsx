@@ -5,6 +5,7 @@ import './App.css';
 import Mainpage from './pages/Mainpage';
 import Notfound from './pages/Notfound';
 import Admin from './pages/Adminpage';
+import TournamentsPage from './pages/Tournamentspage';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
 
       </Route>
       <Route path="/admin" element={<Admin />} />
+      <Route path="/tournaments" element={<TournamentsPage />} />
       <Route path="*" element={<Notfound />} />
     </Routes>
 

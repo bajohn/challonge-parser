@@ -23,9 +23,7 @@ const iterate = async (tourneys: iTournament[], source: apiSource) => {
     let statStore = emptyStatStore();
     for (const tourney of tourneys) {
         console.log(tourney.tournament.name)
-        const tourneyId = tourney.tournament.id;
-        // await recordTourneyMeta() // TODO record tourney meta
-        statStore = await addTourneyToStatStore(tourneyId, statStore, source);
+        statStore = await addTourneyToStatStore(tourney, statStore, source);
     }
     return statStore;
 };
