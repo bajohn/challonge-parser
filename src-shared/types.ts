@@ -13,7 +13,13 @@ export interface iTournament {
         id: string
         state: 'complete', // there are other states if needed, only using complete
         videoLink?: string // Non challonge native
-        rankedParticipants?: string[][] // Non challonge native
+        /** Maps ranking in the tournament to an array of players who finished with that ranking.
+         * 
+         * Indexed on numeric rank number (ie 1 for First place, 2 for Second Place).
+         * 
+         * Note this means 0 will never be defined, and other indices may be skipped.
+         */
+        rankedParticipants?: string[][]
     }
 }
 

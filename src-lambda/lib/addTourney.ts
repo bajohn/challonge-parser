@@ -11,6 +11,7 @@ export const addTourneyToStatStore = async (
     statStoreIn: iStatStore,
     source: apiSource) => {
     let statStore = Object.assign({}, statStoreIn);
+    statStoreIn.tourneys.push(tourney);
     const tourneyId = tourney.tournament.id;
     const matches = await getMatches(tourneyId, source);
     const participants = await getParticipants(tourneyId, source);

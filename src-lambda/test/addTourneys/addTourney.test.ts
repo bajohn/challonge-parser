@@ -102,3 +102,25 @@ test('Can add two tournaments to an empty statStore object', async () => {
     });
     expect(statStore.h2h).toEqual(twoTourneyH2H);
 });
+
+test('Assure rankedParticipants ranks players properly.', async () => {
+    let statStore = emptyStatStore();
+    statStore = await addTourneyToStatStore(tourneyFactory(1), statStore, 'dynamo');
+    statStore = await addTourneyToStatStore(tourneyFactory(2), statStore, 'dynamo');
+    const expectedTourney1: iTournament = tourneyFactory(1);
+    expectedTourney1.tournament.rankedParticipants = [];
+    expectedTourney1.tournament.rankedParticipants[1] = ['Player 4'];
+    expectedTourney1.tournament.rankedParticipants[2] = ['Player 1'];
+    expectedTourney1.tournament.rankedParticipants[3] = ['Player 2', 'Player 3'];
+
+    expect(statStore.tourneys[0]).toEqual(expectedTourney1);
+
+    const expectedTourney2: iTournament = tourneyFactory(2);
+    expectedTourney2.tournament.rankedParticipants = [];
+    expectedTourney2.tournament.rankedParticipants[1] = ['Player 3'];
+    expectedTourney2.tournament.rankedParticipants[2] = ['Player 4'];
+    expectedTourney2.tournament.rankedParticipants[3] = ['Player 1', 'Player 2'];
+
+    expect(statStore.tourneys[1]).toEqual(expectedTourney2);
+
+})
