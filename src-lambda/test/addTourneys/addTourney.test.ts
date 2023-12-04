@@ -36,6 +36,18 @@ mockedFetchParticipants.mockImplementation(async (endpoint: string, apiSource: a
     return resp;
 });
 
+const tourneyFactory = (tourneyNum: number): iTournament => {
+    return {
+        'tournament':
+        {
+            'id': `tourney${tourneyNum}`,
+            'name': `Tournament ${tourneyNum}`,
+            'rankedParticipants': [],
+            'state': 'complete'
+        }
+    };
+}
+
 // mockedCleanName.mockImplementation((name: string) => {
 //     return name;
 // });
@@ -52,7 +64,7 @@ test('getParticipants is mocked properly.', async () => {
 
 test('Can add a tournament to an empty statStore object', async () => {
     let statStore = emptyStatStore();
-    statStore = await addTourneyToStatStore('tourney1', statStore, 'dynamo')
+    statStore = await addTourneyToStatStore(tourneyFactory(1), statStore, 'dynamo')
     expect(statStore.podiumFinishes).toEqual({
         "First Place Finishes": {
             "Player 4": 1
@@ -71,8 +83,8 @@ test('Can add a tournament to an empty statStore object', async () => {
 
 test('Can add two tournaments to an empty statStore object', async () => {
     let statStore = emptyStatStore();
-    statStore = await addTourneyToStatStore('tourney1', statStore, 'dynamo');
-    statStore = await addTourneyToStatStore('tourney2', statStore, 'dynamo')
+    statStore = await addTourneyToStatStore(tourneyFactory(1), statStore, 'dynamo');
+    statStore = await addTourneyToStatStore(tourneyFactory(2), statStore, 'dynamo')
     expect(statStore.podiumFinishes).toEqual({
         "First Place Finishes": {
             "Player 3": 1,

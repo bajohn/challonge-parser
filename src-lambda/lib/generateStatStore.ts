@@ -35,6 +35,7 @@ export const emptyStatStore = (): iStatStore => {
             [SECOND_PLACE]: {},
             [THIRD_PLACE]: {}
         },
-        h2h: {}
+        h2h: {},
+        tourneys: []
     }
 }

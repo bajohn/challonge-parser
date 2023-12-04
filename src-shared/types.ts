@@ -5,14 +5,15 @@ import { FIRST_PLACE, SECOND_PLACE, THIRD_PLACE } from "./constants";
 export type apiSource = 'dynamo' | 'challonge';
 
 
-// Types provided from Challonge API
+// Types provided from Challonge API,
+// with fields added for this app.
 export interface iTournament {
     tournament: {
         name: string
         id: string
         state: 'complete', // there are other states if needed, only using complete
-        videoLink?: string
-        rankedParticipants: string[][]
+        videoLink?: string // Non challonge native
+        rankedParticipants?: string[][] // Non challonge native
     }
 }
 
