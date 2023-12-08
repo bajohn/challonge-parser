@@ -19,7 +19,7 @@ export interface iTournament {
          * 
          * Note this means 0 will never be defined, and other indices may be skipped.
          */
-        rankedParticipants?: string[][]
+        rankedParticipants?: (string[] | undefined)[]
     }
 }
 

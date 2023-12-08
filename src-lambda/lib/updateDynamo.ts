@@ -2,7 +2,7 @@
 import { DYNAMO, CHALLONGE } from "../../src-shared/constants";
 import { iPlayer, iStatStore } from "../../src-shared/types";
 import { checkTourneyCount } from "./checkTourneyCount";
-import { putPodiumFinishes, putPlayer, getAllPlayers, removePlayer } from "./dynamo";
+import { putPodiumFinishes, putPlayer, getAllPlayers, removePlayer, putTourneyMeta } from "./dynamo";
 import { generateStatStore } from "./generateStatStore";
 import { getWinLoss } from "./parseWinLoss";
 
@@ -26,12 +26,14 @@ export const updateDynamo = async (forceUpdate: boolean = false) => {
     console.log('Done');
 }
 
-const executeUpdate = async (statStore: iStatStore) => {
+export const executeUpdate = async (statStore: iStatStore) => {
     // Actually push data, updating website
     await putPodiumFinishes(statStore);
     const players = getWinLoss(statStore);
     await removeDeprecatedPlayers(players);
     await Promise.all(players.map(player => putPlayer(player)));
+    
+    await Promise.all(statStore.tourneys.map(tourney=>putTourneyMeta(tourney)))
     // end push
 }
 

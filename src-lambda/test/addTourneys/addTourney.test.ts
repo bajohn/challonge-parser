@@ -5,7 +5,7 @@ import { fetchMatches, fetchParticipants } from "../../lib/doFetch";
 
 import { addTourneyToStatStore } from "../../lib/addTourney";
 import { emptyStatStore } from "../../lib/generateStatStore";
-import { tourney1Matches, tourney1Participants, tourney2Matches, tourney2Participants, oneTourneyH2H, twoTourneyH2H } from "./tourneydata"
+import { tourney1Matches, tourney1Participants, tourney2Matches, tourney2Participants, oneTourneyH2H, twoTourneyH2H, testPodiumFinishes } from "./tourneydata"
 
 jest.mock('../../lib/doFetch'); // magic 
 
@@ -85,22 +85,9 @@ test('Can add two tournaments to an empty statStore object', async () => {
     let statStore = emptyStatStore();
     statStore = await addTourneyToStatStore(tourneyFactory(1), statStore, 'dynamo');
     statStore = await addTourneyToStatStore(tourneyFactory(2), statStore, 'dynamo')
-    expect(statStore.podiumFinishes).toEqual({
-        "First Place Finishes": {
-            "Player 3": 1,
-            "Player 4": 1
-        },
-        "Second Place Finishes": {
-            "Player 1": 1,
-            "Player 4": 1
-        },
-        "Third Place Finishes": {
-            "Player 1": 1,
-            "Player 2": 2,
-            "Player 3": 1
-        }
-    });
+    expect(statStore.podiumFinishes).toEqual(testPodiumFinishes);
     expect(statStore.h2h).toEqual(twoTourneyH2H);
+    console.log(JSON.stringify(statStore.h2h, null, 2));
 });
 
 test('Assure rankedParticipants ranks players properly.', async () => {
