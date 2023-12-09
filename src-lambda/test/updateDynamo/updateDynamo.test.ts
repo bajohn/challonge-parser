@@ -7,6 +7,7 @@ import { dynamoGet, dynamoPut, dynamoRemove, dynamoScan } from "../../lib/dynamo
 import { DeleteItemCommandInput, GetItemCommandInput, PutItemCommandInput, ScanCommandInput } from '@aws-sdk/client-dynamodb';
 import { iPlayer, iStatStore } from '../../../src-shared/types';
 import { oneTourneyH2H, testPodiumFinishes, testTourneys, testh2h } from '../addTourneys/tourneydata';
+import { marshall } from '@aws-sdk/util-dynamodb';
 
 
 jest.mock("../../lib/dynamoUtil"); // magic 
@@ -52,7 +53,7 @@ mockedDynamoRemove.mockImplementation(async (input: DeleteItemCommandInput) => {
 });
 
 mockedDynamoPut.mockImplementation(async (input: PutItemCommandInput) => {
-    console.log(input)
+    // console.log(JSON.stringify(input, null, 2));
     return { '$metadata': {} };
 });
 
@@ -82,5 +83,95 @@ test("executeUpdate pushes statsStore data into dynamo correctly.", async () => 
     };
 
     await executeUpdate(statStore);
-    // TODO add asserts here for push test.
+
+    // Metadata pushed
+    const expectedMetadata = {
+        podiumFinishes: testPodiumFinishes,
+        h2h: testh2h
+    };
+
+    const expectedPodium = {
+        key: 'podiumFinishes',
+        value: {
+            ...testPodiumFinishes
+        }
+    };
+
+    expect(mockedDynamoPut).toHaveBeenCalledWith({
+        TableName: "SummitMetadata",
+        Item: {
+            ...marshall(expectedPodium)
+        }
+    });
+
+    const expectedH2H = {
+        key: 'h2h',
+        value: {
+            ...testh2h
+        }
+    };
+
+    expect(mockedDynamoPut).toHaveBeenCalledWith({
+        TableName: "SummitMetadata",
+        Item: {
+            ...marshall(expectedH2H)
+        }
+    });
+
+
+    // // Four players pushed
+    expect(mockedDynamoPut).toHaveBeenCalledWith({
+        TableName: 'SummitPlayers',
+        Item: {
+            ...marshall({
+                playerName: 'Player 1',
+                w: 1,
+                l: 2
+            })
+        }
+    });
+    expect(mockedDynamoPut).toHaveBeenCalledWith({
+        TableName: 'SummitPlayers',
+        Item: {
+            ...marshall({
+                playerName: 'Player 2',
+                w: 0,
+                l: 2
+            })
+        }
+    });
+    expect(mockedDynamoPut).toHaveBeenCalledWith({
+        TableName: 'SummitPlayers',
+        Item: {
+            ...marshall({
+                playerName: 'Player 3',
+                w: 2,
+                l: 1
+            })
+        }
+    });
+    expect(mockedDynamoPut).toHaveBeenCalledWith({
+        TableName: 'SummitPlayers',
+        Item: {
+            ...marshall({
+                playerName: 'Player 4',
+                w: 3,
+                l: 1
+            })
+        }
+    });
+
+    expect(mockedDynamoPut).toHaveBeenCalledWith({
+        TableName: 'SummitTourneys',
+        Item: {
+            ...marshall(testTourneys[0])
+        }
+    });
+
+    expect(mockedDynamoPut).toHaveBeenCalledWith({
+        TableName: 'SummitTourneys',
+        Item: {
+            ...marshall(testTourneys[1])
+        }
+    });
 })

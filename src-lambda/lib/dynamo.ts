@@ -1,10 +1,11 @@
-import { iMatch, iPlayer, iStatStore, iTournament } from "../../src-shared/types";
+import { h2h, iMatch, iPlayer, iStatStore, iTournament } from "../../src-shared/types";
 
 
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import { dynamoGet, dynamoPut, dynamoRemove, dynamoScan } from "./dynamoUtil";
 
 const PODIUM_FINISHES = 'podiumFinishes'
+const H2H = 'h2h';
 
 export const getPodiumFinishes = async () => {
     return await getMetaField(PODIUM_FINISHES);
@@ -12,12 +13,13 @@ export const getPodiumFinishes = async () => {
 
 
 
-export const putPodiumFinishes = async (statStore: iStatStore) => {
-    return await putMetaField(PODIUM_FINISHES, statStore.podiumFinishes);
+export const putSummitMetadata = async (statStore: iStatStore) => {
+    await putMetaField(PODIUM_FINISHES, statStore.podiumFinishes);
+    await putMetaField(H2H, statStore.h2h);
+
 };
 
-
-export const putTourneyMeta = async (tourney: iTournament) => {
+export const putTourney = async (tourney: iTournament) => {
     const marshalled = marshall({
         ...tourney
     });
@@ -26,7 +28,9 @@ export const putTourneyMeta = async (tourney: iTournament) => {
         Item: marshalled
     };
     return await dynamoPut(input);
-}
+};
+
+
 
 
 
