@@ -315,7 +315,7 @@ export const testPodiumFinishes: podiumFinishes = {
 // tourney array for tourneys 1,2
 export const testTourneys: iTournament[] = [{
     "tournament": {
-        "id": "tourney1",
+        "id": 1,
         "name": "Tournament 1",
         "rankedParticipants":
             [,
@@ -327,7 +327,7 @@ export const testTourneys: iTournament[] = [{
 },
 {
     "tournament": {
-        "id": "tourney2",
+        "id": 2,
         "name": "Tournament 2",
         "rankedParticipants":
             [,

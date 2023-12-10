@@ -22,13 +22,13 @@ export const addTourneyToStatStore = async (
     return statStore;
 };
 
-const getMatches = async (tourneyId: string, source: apiSource) => {
+const getMatches = async (tourneyId: number, source: apiSource) => {
     const endpoint = `tournaments/${tourneyId}/matches.json`;
     const matches = await fetchMatches(endpoint, source);
     return matches;
 }
 
-const getParticipants = async (tourneyId: string, source: apiSource) => {
+const getParticipants = async (tourneyId: number, source: apiSource) => {
     const endpoint = `tournaments/${tourneyId}/participants.json`;
     const participants = await fetchParticipants(endpoint, source);
     return participants

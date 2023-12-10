@@ -16,8 +16,8 @@ const mockedFetchParticipants = jest.mocked(fetchParticipants);
 
 mockedFetchMatches.mockImplementation(async (endpoint: string, apiSource: apiSource): Promise<iMatch[]> => {
     const resp = {
-        'tournaments/tourney1/matches.json': tourney1Matches,
-        'tournaments/tourney2/matches.json': tourney2Matches
+        'tournaments/1/matches.json': tourney1Matches,
+        'tournaments/2/matches.json': tourney2Matches
     }[endpoint];
     if (typeof resp === 'undefined') {
         throw Error(`Unknown endpoint ${endpoint}`);
@@ -27,8 +27,8 @@ mockedFetchMatches.mockImplementation(async (endpoint: string, apiSource: apiSou
 
 mockedFetchParticipants.mockImplementation(async (endpoint: string, apiSource: apiSource): Promise<iParticipant[]> => {
     const resp = {
-        'tournaments/tourney1/participants.json': tourney1Participants,
-        'tournaments/tourney2/participants.json': tourney2Participants
+        'tournaments/1/participants.json': tourney1Participants,
+        'tournaments/2/participants.json': tourney2Participants
     }[endpoint];
     if (typeof resp === 'undefined') {
         throw Error(`Unknown endpoint ${endpoint}`);
@@ -40,7 +40,7 @@ const tourneyFactory = (tourneyNum: number): iTournament => {
     return {
         'tournament':
         {
-            'id': `tourney${tourneyNum}`,
+            'id': tourneyNum,
             'name': `Tournament ${tourneyNum}`,
             'rankedParticipants': [],
             'state': 'complete'
@@ -53,12 +53,12 @@ const tourneyFactory = (tourneyNum: number): iTournament => {
 // });
 
 test('getMatches is mocked properly.', async () => {
-    const matches = await fetchMatches('tournaments/tourney1/matches.json', 'dynamo');
+    const matches = await fetchMatches('tournaments/1/matches.json', 'dynamo');
     expect(matches).toEqual(tourney1Matches);
 });
 
 test('getParticipants is mocked properly.', async () => {
-    const participants = await fetchParticipants('tournaments/tourney1/participants.json', 'dynamo');
+    const participants = await fetchParticipants('tournaments/1/participants.json', 'dynamo');
     expect(participants).toEqual(tourney1Participants);
 });
 

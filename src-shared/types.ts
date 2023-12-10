@@ -10,7 +10,7 @@ export type apiSource = 'dynamo' | 'challonge';
 export interface iTournament {
     tournament: {
         name: string
-        id: string
+        id: number
         state: 'complete', // there are other states if needed, only using complete
         videoLink?: string // Non challonge native
         /** Maps ranking in the tournament to an array of players who finished with that ranking.
