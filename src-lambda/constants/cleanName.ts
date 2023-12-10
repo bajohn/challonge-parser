@@ -138,7 +138,6 @@ export const cleanName = (name: string) => {
         Martin: [
             'Martini 🧜‍♂️🍸 (with a twist)',
             'Martin “The Brown Recluse” 🕷️',
-            'M2 🐺',
             'El Lobo 🐺',
             'M² Prime 🤖 beep boop',
             'M2'
@@ -217,7 +216,7 @@ export const cleanName = (name: string) => {
             rankTracker.strength = newStrength;
         } else if (newStrength === rankTracker.strength) {
             // This shouldn't happen, but logging this case
-            console.error(`Warning - unable to disambiguate mapping input "${name}" to cleaned name "${newName}" or "${rankTracker.cleanName}}"`);
+            console.warn(`Warning - unable to disambiguate mapping input "${name}" to cleaned name "${newName}" or "${rankTracker.cleanName}}"`);
         }
     };
 

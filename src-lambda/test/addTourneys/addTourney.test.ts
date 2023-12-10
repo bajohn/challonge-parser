@@ -109,4 +109,4 @@ test('Assure rankedParticipants ranks players properly.', async () => {
 
     expect(statStore.tourneys[1]).toEqual(expectedTourney2);
 
-})
+});

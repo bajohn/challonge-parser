@@ -41,7 +41,7 @@ resource "aws_dynamodb_table" "summit-tourneys" {
 
   attribute {
     name = "id"
-    type = "S"
+    type = "N"
   }
 
   tags = {
