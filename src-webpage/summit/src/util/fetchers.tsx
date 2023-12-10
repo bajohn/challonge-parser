@@ -24,14 +24,20 @@ export const playerGetter = async (setPlayers: any) => {
         return a['pct'] > b['pct'] ? -1 : 1;
     });
     setPlayers(players);
-}
+};
+
+export const tourneyGetter = async (setTourneys: any) => {
+    const resp = await fetch(`${rootUrl}get-tourneys`)
+    const jsonResp = await resp.json();
+    const tourneys = jsonResp.tournaments;
+    console.log(tourneys);
+    setTourneys(tourneys);
+};
 
 export const podiumGetter = async (setPodium: any) => {
     const resp = await fetch(`${rootUrl}podium-finishes`)
     const jsonResp = await resp.json();
-    console.log(jsonResp);
     const podiums = jsonResp;
-    console.log(podiums)
     setPodium(podiums);
 }
 

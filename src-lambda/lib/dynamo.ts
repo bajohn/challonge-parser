@@ -163,7 +163,7 @@ export const getAllTourneys = async () => {
     };
     const response = await dynamoScan(input) as iTournament[];
     return {
-        tournaments: response
+        tournaments: response.map(el => { return { tournament: el } })
     };
 };
 

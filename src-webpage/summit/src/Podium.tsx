@@ -6,7 +6,6 @@ export function PodiumFinishes(props: any) {
   const SECOND_PLACE = 'Second Place Finishes';
   const THIRD_PLACE = 'Third Place Finishes';
   const podiums = props.podiums;
-  console.log('in', podiums)
   const store: any = {}
   for (const podiumName of Object.keys(podiums)) {
     const podium = podiums[podiumName];
@@ -20,16 +19,12 @@ export function PodiumFinishes(props: any) {
       store[name][podiumName] = podium[name];
     }
   }
-  console.log(store);
-  console.log(JSON.stringify(store));
-
 
   const playerArr = Object.keys(store).map(name => {
     const cur = store[name]
     cur['playerName'] = name;
     return cur;
   });
-  console.log(playerArr);
   const A = -1; // A is larger
   const B = 1; // B is larger
   playerArr.sort((a, b) => {
