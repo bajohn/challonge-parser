@@ -21,7 +21,7 @@ export const putSummitMetadata = async (statStore: iStatStore) => {
 
 export const putTourney = async (tourney: iTournament) => {
     const marshalled = marshall({
-        ...tourney
+        ...tourney.tournament
     });
     const input = {
         TableName: 'SummitTourneys',

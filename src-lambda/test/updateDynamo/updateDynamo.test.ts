@@ -53,7 +53,6 @@ mockedDynamoRemove.mockImplementation(async (input: DeleteItemCommandInput) => {
 });
 
 mockedDynamoPut.mockImplementation(async (input: PutItemCommandInput) => {
-    // console.log(JSON.stringify(input, null, 2));
     return { '$metadata': {} };
 });
 
@@ -164,14 +163,14 @@ test("executeUpdate pushes statsStore data into dynamo correctly.", async () => 
     expect(mockedDynamoPut).toHaveBeenCalledWith({
         TableName: 'SummitTourneys',
         Item: {
-            ...marshall(testTourneys[0])
+            ...marshall(testTourneys[0].tournament)
         }
     });
 
     expect(mockedDynamoPut).toHaveBeenCalledWith({
         TableName: 'SummitTourneys',
         Item: {
-            ...marshall(testTourneys[1])
+            ...marshall(testTourneys[1].tournament)
         }
     });
 })

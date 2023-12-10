@@ -22,6 +22,9 @@ export const cleanName = (name: string) => {
         ],
         Alec: [],
         Alex: [],
+        Andrew: [
+            'Andrew 🎱 x'
+        ],
         Andy: [],
         Antonio: [],
         Aqeel: [],
@@ -74,11 +77,17 @@ export const cleanName = (name: string) => {
             'Darren 🐢 x'
         ],
         David: [],
+        Derek: [
+            'Derek 🪤 x	'
+        ],
         Edward: [],
         Enrique: [],
         Faisal: [
             'Faisal',
             'Faysal'
+        ],
+        Graydon: [
+            'Graydon 😭 x'
         ],
         Greg: [
             'Greg 🏒 x'
@@ -131,7 +140,8 @@ export const cleanName = (name: string) => {
             'Martin “The Brown Recluse” 🕷️',
             'M2 🐺',
             'El Lobo 🐺',
-            'M² Prime 🤖 beep boop'
+            'M² Prime 🤖 beep boop',
+            'M2'
         ],
         Marty: [
             'Marty 💚 x'
@@ -189,6 +199,9 @@ export const cleanName = (name: string) => {
         ],
         Xavier: [
             'Xavier 😋 x'
+        ],
+        Ykaalo: [
+            'Ykaalo 🦘 x'
         ]
     };
 

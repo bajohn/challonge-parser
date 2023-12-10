@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap";
 
-function TournamentsPage() {
+function TournamentsPage(props: any) {
 
     return (<Container>
         <h1>
@@ -9,5 +9,9 @@ function TournamentsPage() {
     </Container>)
 
 };
+
+function TournamentsBlock(props: any) {
+
+}
 
 export default TournamentsPage;

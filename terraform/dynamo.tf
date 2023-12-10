@@ -37,10 +37,10 @@ resource "aws_dynamodb_table" "summit-tourneys" {
   billing_mode   = "PROVISIONED"
   read_capacity  = 1
   write_capacity = 1
-  hash_key       = "tourneyID"
+  hash_key       = "id"
 
   attribute {
-    name = "tourneyID"
+    name = "id"
     type = "S"
   }
 

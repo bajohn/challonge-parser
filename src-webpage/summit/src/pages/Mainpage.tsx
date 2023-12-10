@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
-
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 
 import { PodiumFinishes } from '../Podium';
 import { playerGetter, podiumGetter } from '../util/fetchers';
+import TournamentsPage from './Tournamentspage';
 const MIN_GAMES = 10;
 function Mainpage() {
     const [players, setPlayers] = useState([]);
@@ -15,37 +17,43 @@ function Mainpage() {
     }, []);
 
     return (
-
-
-
-
-
         <Container className="App" data-bs-theme="dark">
             <h1>
                 Summit Wednesday Night Tournaments
             </h1>
-            <h2>
-                Podium Finishes
-            </h2>
-            <PodiumFinishes podiums={podiums}>
+            <Tabs>
+                <Tab eventKey="ranking" title="Ranking">
+                    <h2>
+                        Podium Finishes
+                    </h2>
+                    <PodiumFinishes podiums={podiums}>
 
-            </PodiumFinishes>
-            <h2>
-                Ranked Players
-            </h2>
-            <div className="subheader-italic">
-                Minimum {MIN_GAMES} games played
-            </div>
-            <RankedPlayers players={players}>
+                    </PodiumFinishes>
+                    <h2>
+                        Ranked Players
+                    </h2>
+                    <div className="subheader-italic">
+                        Minimum {MIN_GAMES} games played
+                    </div>
+                    <RankedPlayers players={players}>
 
-            </RankedPlayers>
-            <h2>
-                Unranked Players
-            </h2>
-            <UnrankedPlayers players={players}>
+                    </RankedPlayers>
+                    <h2>
+                        Unranked Players
+                    </h2>
+                    <UnrankedPlayers players={players}>
 
-            </UnrankedPlayers>
+                    </UnrankedPlayers>
+                </Tab>
+                <Tab eventKey="tournaments" title="Tournaments">
+                    <TournamentsPage>
+
+                    </TournamentsPage>
+                </Tab>
+            </Tabs>
         </Container>
+
+
 
     );
 }
