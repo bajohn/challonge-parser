@@ -7,7 +7,7 @@ export const parsePodium = (statStoreIn: iStatStore, participants: iParticipant[
     const tournament: iTournament = {
         ...tourney,
     };
-    const rankedParticRef: string[][] = [];
+    const rankedParticRef: { [index: number]: string[] } = {};
 
     for (const el of participants) {
         const participant = el.participant;

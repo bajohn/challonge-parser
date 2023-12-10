@@ -1,4 +1,4 @@
-import { h2h, iMatch, iPlayer, iStatStore, iTournament } from "../../src-shared/types";
+import { h2h, iMatch, iParticipant, iPlayer, iStatStore, iTournament } from "../../src-shared/types";
 
 
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
@@ -68,7 +68,7 @@ export const removePlayer = async (playerName: string) => {
 };
 
 // Store only needed fields in Dynamo
-const getMinimal = (endpoint: string, resp: any[]) => {
+export const getMinimal = (endpoint: string, resp: any[]) => {
     if (endpoint.indexOf('matches') > -1) {
         return resp.map((el: iMatch): iMatch => {
             const match = el.match;
@@ -83,13 +83,33 @@ const getMinimal = (endpoint: string, resp: any[]) => {
         });
     }
     else if (endpoint.indexOf('participants') > -1) {
-        return resp.map(el => {
+        return resp.map((el: iParticipant) => {
             const participant = el.participant;
             return {
                 participant: {
                     id: participant.id,
                     final_rank: participant.final_rank,
                     name: participant.name
+                }
+            }
+        });
+    }
+    else if (endpoint.indexOf('tournament') > -1) {
+        return resp.map((el: iTournament) => {
+            const tournament = el.tournament;
+            return {
+                tournament: {
+                    name: tournament.name,
+                    id: tournament.id,
+                    url: tournament.url,
+                    tournament_type: tournament.tournament_type,
+                    state: tournament.state,
+                    created_at: tournament.created_at,
+                    updated_at: tournament.updated_at,
+                    started_at: tournament.started_at,
+                    completed_at: tournament.completed_at,
+                    participants_count: tournament.participants_count,
+                    game_name: tournament.game_name
                 }
             }
         });
@@ -134,6 +154,16 @@ export const getAllPlayers = async () => {
     const response = await dynamoScan(input) as iPlayer[];
     return {
         players: response
+    };
+};
+
+export const getAllTourneys = async () => {
+    const input = {
+        TableName: 'SummitTourneys',
+    };
+    const response = await dynamoScan(input) as iTournament[];
+    return {
+        tournaments: response
     };
 };
 

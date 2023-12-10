@@ -315,26 +315,45 @@ export const testPodiumFinishes: podiumFinishes = {
 // tourney array for tourneys 1,2
 export const testTourneys: iTournament[] = [{
     "tournament": {
-        "id": 1,
-        "name": "Tournament 1",
-        "rankedParticipants":
-            [,
-                ["Player 4"],
-                ["Player 1"],
-                ["Player 2", "Player 3"]],
-        "state": "complete"
+        id: 1,
+        name: "Tournament 1",
+        rankedParticipants:
+        {
+            1: ["Player 4"],
+            2: ["Player 1"],
+            3: ["Player 2", "Player 3"]
+        },
+
+        state: "complete",
+        created_at: '2023-11-01',
+        updated_at: '2023-11-01',
+        started_at: '2023-11-01',
+        completed_at: '2023-11-01',
+        participants_count: 4,
+        game_name: '8-ball',
+        url: '1',
+        tournament_type: 'double elimination',
     }
 },
 {
     "tournament": {
-        "id": 2,
-        "name": "Tournament 2",
-        "rankedParticipants":
-            [,
-                ["Player 3"],
-                ["Player 4"],
-                ["Player 1", "Player 2"]],
-        "state": "complete"
+        id: 2,
+        name: "Tournament 2",
+        rankedParticipants:
+        {
+            1: ["Player 3"],
+            2: ["Player 4"],
+            3: ["Player 1", "Player 2"],
+        },     
+        state: "complete",
+        created_at: '2023-11-01',
+        updated_at: '2023-11-01',
+        started_at: '2023-11-01',
+        completed_at: '2023-11-01',
+        participants_count: 4,
+        game_name: '8-ball',
+        url: '2',
+        tournament_type: 'double elimination',
     }
 }];
 

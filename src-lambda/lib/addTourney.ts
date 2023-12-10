@@ -4,7 +4,6 @@ import { cleanName } from "../constants/cleanName";
 import { fetchMatches, fetchParticipants } from "./doFetch";
 import { parseH2H } from "./h2h";
 import { parsePodium } from "./podium";
-import { recordTourneyMeta } from "./recordTourneyMeta";
 
 export const addTourneyToStatStore = async (
     tourney: iTournament,

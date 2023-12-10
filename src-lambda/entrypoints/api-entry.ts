@@ -1,6 +1,6 @@
 import { UPDATE_IN_PROG } from "../../src-shared/constants";
 import { invokeDynamoReload } from "../lib-api/invokeDynamoReload";
-import { getPodiumFinishes, getAllPlayers, getMetaField, putMetaField } from "../lib/dynamo";
+import { getPodiumFinishes, getAllPlayers, getMetaField, putMetaField, getAllTourneys } from "../lib/dynamo";
 import { APIGatewayProxyEventBase, Handler } from 'aws-lambda';
 
 
@@ -49,6 +49,9 @@ export const router = async (path: string, method: string, queryParams: { [key: 
         }
 
     } 
+    else if (path === 'get-tourneys') {
+        return await getAllTourneys()
+    }
     // else if (path === 'get-last-updated') {
     //     return await getMetaField('lastUpdated')
     // }
