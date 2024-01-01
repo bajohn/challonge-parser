@@ -7,17 +7,16 @@ https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/podium-finis
 https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
 
 ## Next TODOs
-- NEXT - test execute update src-lambda/test/updateDynamo/updateDynamo.test.ts
-- NEXT - Run update on prod to make sure tourneys update
+- Get cloudfront distribution so we're not relying on 404s to route requests
+- Register summit-pool.com
+- Do terraform for webhost behind live url
+- Set up terraform 
 - Past tournament listing
     - Ideally, add inputter to admin view
-        - Top 3 finishes (auto generate)
         - Stream link (manual entry)
-        - Challonge link (auto generate)
-- H2H view?
+- H2H view
     - Actually fill H2H table, which is currently empty
-- Cloudfront distribution so we're not relying on 404s to route requests
-
+- 
 Nice to haves, probably won't do:
 - Update only latest tournament / matches instead of full reload when tourneyCount is different
 - When we're ready to create the clean base app - can we create a fresh version of this entire live app using a fork of the cleaned base app?
