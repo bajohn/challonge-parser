@@ -22,6 +22,8 @@ function TournamentsPage(props: any) {
 
 };
 
+const pascalCase = (str: string) => str.split(' ').map(el => el.substring(0, 1).toUpperCase() + el.substring(1).toLowerCase()).join(' ');
+
 const TournamentsBlock: React.FC<{ tourneys: iTournament[] }> = (props) => {
     console.log(props.tourneys);
     props.tourneys.sort((a, b) => {
@@ -30,10 +32,32 @@ const TournamentsBlock: React.FC<{ tourneys: iTournament[] }> = (props) => {
         } else {
             return 1;
         }
-    })
+    });
+
+
+
     const arr = props.tourneys.map((el: iTournament) => {
         console.log(el);
         const challongeUrl = (suffix: string) => `https://challonge.com/${suffix}`;
+        const rankedParticipants = el.tournament.rankedParticipants;
+
+        const topThree: string[] = [];
+
+        if (typeof rankedParticipants !== 'undefined') {
+            const medal: { [index: number]: string } = {
+                1: '🥇',
+                2: '🥈',
+                3: '🥉',
+            };
+            [1, 2, 3].reduce((lv, rankIdx) => {
+                if (rankIdx in rankedParticipants) {
+                    const toPush = medal[rankIdx] + rankedParticipants[rankIdx].join(', ');
+                    lv.push(toPush)
+                }
+                return lv;
+            }, topThree)
+        }
+
         return (
             <Container key={el.tournament.id}>
                 <Card>
@@ -41,14 +65,20 @@ const TournamentsBlock: React.FC<{ tourneys: iTournament[] }> = (props) => {
                     <Card.Body>
                         <Card.Title></Card.Title>
                         <Card.Text>
+                            {topThree.map(el => {
+                                return <Container>
+                                    {el}
+                                </Container>
+                            })}
+
                             <Container>
-                                Date started: {el.tournament.started_at.substring(0, 10)}
+                                Date: {el.tournament.started_at.substring(0, 10)}
                             </Container>
                             <Container>
                                 Participants: {el.tournament.participants_count}
                             </Container>
                             <Container>
-                                Format: {el.tournament.tournament_type}
+                                Format: {pascalCase(el.tournament.tournament_type)}
                             </Container>
                             <Container>
                                 <a href={challongeUrl(el.tournament.url)}>  Challonge Bracket </a>

@@ -49,10 +49,11 @@ export function PodiumFinishes(props: any) {
 
   const getMedals = (cur: any) => {
     let ret = '';
-    const lookup: any = {};
-    lookup[FIRST_PLACE] = '🥇';
-    lookup[SECOND_PLACE] = '🥈';
-    lookup[THIRD_PLACE] = '🥉';
+    const lookup: { [index: string]: string } = {
+      [FIRST_PLACE]: '🥇',
+      [SECOND_PLACE]: '🥈',
+      [THIRD_PLACE]: '🥉',
+    };
 
     for (const podiumName of Object.keys(lookup)) {
       if (podiumName in cur) {
