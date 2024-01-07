@@ -8,7 +8,7 @@ import { PodiumFinishes } from '../Podium';
 import { playerGetter, podiumGetter } from '../util/fetchers';
 import TournamentsPage from './Tournamentspage';
 const MIN_GAMES = 10;
-function Mainpage() {
+const Mainpage = () => {
     const [players, setPlayers] = useState([]);
     const [podiums, setPodiums] = useState({});
     useEffect(() => {
@@ -46,9 +46,7 @@ function Mainpage() {
                     </UnrankedPlayers>
                 </Tab>
                 <Tab eventKey="tournaments" title="Tournaments">
-                    <TournamentsPage>
-
-                    </TournamentsPage>
+                    <TournamentsPage isAdminPage={false} />
                 </Tab>
             </Tabs>
         </Container>
@@ -60,7 +58,7 @@ function Mainpage() {
 
 
 
-function RankedPlayers(props: any) {
+const RankedPlayers = (props: any) => {
     const rankedPlayers = props.players.reduce((lv: any[], cv: any) => {
         if (cv.w + cv.l >= MIN_GAMES) {
             lv.push(cv);
@@ -75,7 +73,7 @@ function RankedPlayers(props: any) {
     </PlayerTable>)
 }
 
-function UnrankedPlayers(props: any) {
+const UnrankedPlayers = (props: any) => {
     const unRankedPlayers = props.players.reduce((lv: any[], cv: any) => {
         if (cv.w + cv.l < MIN_GAMES) {
             lv.push(cv);
@@ -92,7 +90,7 @@ function UnrankedPlayers(props: any) {
     </PlayerTable>)
 }
 
-function PlayerTable(props: any) {
+const PlayerTable = (props: any) => {
     let counter = 0;
     const showRank = props.showRank;
     return (<Table striped bordered hover>

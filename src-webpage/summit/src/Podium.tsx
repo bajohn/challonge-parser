@@ -1,7 +1,7 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 
-export function PodiumFinishes(props: any) {
+export const PodiumFinishes = (props: any) => {
   const FIRST_PLACE = 'First Place Finishes';
   const SECOND_PLACE = 'Second Place Finishes';
   const THIRD_PLACE = 'Third Place Finishes';

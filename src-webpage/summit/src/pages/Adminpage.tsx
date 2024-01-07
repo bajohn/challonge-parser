@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 
 
-function Adminpage() {
+const Adminpage = () => {
 
     const [INITIAL, READY, KICKED_OFF, IN_PROG] = [1, 2, 3, 4];
     const [updateStatus, setUpdateStatus] = useState(INITIAL);
@@ -14,7 +14,7 @@ function Adminpage() {
         setTimeout(() => {
             setTick(tick + 1)
         }, 1000)
-    }
+    };
 
     const cb: React.MouseEventHandler = async (event) => {
         setUpdateStatus(KICKED_OFF);  // This should trigger a rerender

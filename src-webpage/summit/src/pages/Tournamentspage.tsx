@@ -4,7 +4,7 @@ import { tourneyGetter } from '../util/fetchers';
 import { iTournament } from '../../../../src-shared/types';
 import Card from 'react-bootstrap/Card';
 
-function TournamentsPage(props: any) {
+const TournamentsPage: React.FC<{ isAdminPage: boolean }> = (props) => {
     const [tourneys, setTourneys] = useState([] as iTournament[]);
 
     useEffect(() => {

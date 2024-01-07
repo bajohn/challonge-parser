@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap";
 
-function HeadtoHead() {
+const HeadtoHead = () => {
     return <Container>
         Hi
     </Container>

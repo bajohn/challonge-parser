@@ -7,7 +7,7 @@ import Notfound from './pages/Notfound';
 import Admin from './pages/Adminpage';
 import TournamentsPage from './pages/Tournamentspage';
 
-function App() {
+const App = () => {
 
   return (
 
@@ -24,7 +24,7 @@ function App() {
 
       </Route>
       <Route path="/admin" element={<Admin />} />
-      <Route path="/tournaments" element={<TournamentsPage />} />
+      {/* <Route path="/tournaments" element={<TournamentsPage  isAdminPage={false} />} /> */}
       <Route path="*" element={<Notfound />} />
     </Routes>
 
