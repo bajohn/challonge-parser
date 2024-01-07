@@ -1,12 +1,14 @@
 import { Button, Container } from "react-bootstrap";
 import { checkUpdateStatus, reloadDynamo } from "../util/fetchers";
 import { useEffect, useState } from "react";
+import TournamentsPage from "./Tournamentspage";
 
 
 
 
 const Adminpage = () => {
-
+    // TODO can we generalize this?
+    // only inputs are endpoint to UPDATE and endpoint to check completion
     const [INITIAL, READY, KICKED_OFF, IN_PROG] = [1, 2, 3, 4];
     const [updateStatus, setUpdateStatus] = useState(INITIAL);
     const [tick, setTick] = useState(0);
@@ -106,8 +108,7 @@ const Adminpage = () => {
             }
 
         </Container>
-
-
+        <TournamentsPage isAdminPage={true}/>
     </Container>
 }
 

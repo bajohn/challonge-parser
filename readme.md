@@ -10,6 +10,9 @@ https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
 - Get cloudfront distribution so we're not relying on 404s to route requests
 - Add inputter to admin view
         - Stream link (manual entry)
+        - Generalize the updater pattern from the admin page - Adminpage.tsx
+            - Should just need an update endpoint, and a check (get) endpoint, as inputs
+            - 
 - H2H view
     - Actually fill H2H table, which is currently empty
 - 

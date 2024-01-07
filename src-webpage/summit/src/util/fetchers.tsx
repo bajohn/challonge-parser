@@ -1,6 +1,7 @@
+import React, { useEffect, useState } from 'react';
 import { rootUrl } from './constants';
 
-export const playerGetter = async (setPlayers: any) => {
+export const playerGetter = async (setPlayers: React.SetStateAction<any>) => {
 
     const resp = await fetch(`${rootUrl}get-players`)
     const jsonResp = await resp.json();
