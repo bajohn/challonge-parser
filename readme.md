@@ -8,11 +8,7 @@ https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
 
 ## Next TODOs
 - Get cloudfront distribution so we're not relying on 404s to route requests
-- Register summit-pool.com
-- Do terraform for webhost behind live url
-- Set up terraform 
-- Past tournament listing
-    - Ideally, add inputter to admin view
+- Add inputter to admin view
         - Stream link (manual entry)
 - H2H view
     - Actually fill H2H table, which is currently empty
