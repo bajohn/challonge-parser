@@ -41,6 +41,7 @@ export const cleanName = (name: string) => {
             'Bella 🧜‍♀️ x'
         ],
         Bill: ['Bill'],
+        Brett: ['Brett x'],
         Blake: [],
         Brandon: ['Brandon 💅 x'],
         Brendan: [
@@ -68,8 +69,12 @@ export const cleanName = (name: string) => {
             'Cho x',
             'Cho 👸🏻'
         ],
-        Chris: [
-            'Chris 🩴 x'
+        'Chris M': [
+            'Chris 🩴 x',
+            'Chris'
+        ],
+        'Chris H': [
+            'Chris H x'
         ],
         Claire: [],
         Darren: [

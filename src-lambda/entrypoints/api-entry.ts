@@ -1,4 +1,4 @@
-import { UPDATE_IN_PROG } from "../../src-shared/constants";
+import { FULL_RELOAD, FULL_RELOAD_STATUS_PATH, UPDATE_IN_PROG } from "../../src-shared/constants";
 import { invokeDynamoReload } from "../lib-api/invokeDynamoReload";
 import { getPodiumFinishes, getAllPlayers, getMetaField, putMetaField, getAllTourneys } from "../lib/dynamo";
 import { APIGatewayProxyEventBase, Handler } from 'aws-lambda';
@@ -22,7 +22,6 @@ export const apiHandler: Handler = async (event: APIGatewayProxyEventBase<any>, 
             ...routedResp
         })
     };
-    console.log(res);
     return res;
 }
 
@@ -31,32 +30,26 @@ export const router = async (path: string, method: string, queryParams: { [key: 
         return await getAllPlayers()
     } else if (path === 'podium-finishes') {
         return await getPodiumFinishes()
-    } else if (path === 'reload-dynamo') {
-        const updateStatus = await getMetaField('updateStatus')
-        console.log(updateStatus)
+    } else if (path === FULL_RELOAD) {
+        const updateStatus = await getMetaField(FULL_RELOAD_STATUS_PATH)
         if (updateStatus === UPDATE_IN_PROG) {
             return {
                 status: 'blocked'
             }
         }
-        await putMetaField('updateStatus', UPDATE_IN_PROG);
-        await invokeDynamoReload();
-
-
-
+        await putMetaField(FULL_RELOAD_STATUS_PATH, UPDATE_IN_PROG);
+        await invokeDynamoReload(); //TODO removed for testing
         return {
             status: 'kicked_off',
         }
 
-    } 
+    }
     else if (path === 'get-tourneys') {
         return await getAllTourneys()
     }
-    // else if (path === 'get-last-updated') {
-    //     return await getMetaField('lastUpdated')
-    // }
-    else if (path === 'get-update-status') {
-        const status = await getMetaField('updateStatus');
+
+    else if (path.includes('update-status')) {
+        const status = await getMetaField(path);
         return { status };
     }
     // TODO return status 404 here:

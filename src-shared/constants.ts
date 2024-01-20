@@ -25,3 +25,5 @@ export const getIsTesting = () => {
 }
 
 export const [UPDATE_IN_PROG, UPDATE_COMPLETE] = ['update_in_progress', 'update_complete'];
+export const FULL_RELOAD = 'challonge-full-reload';
+export const FULL_RELOAD_STATUS_PATH = `update-status/${FULL_RELOAD}`;

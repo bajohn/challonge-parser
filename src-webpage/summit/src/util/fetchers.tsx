@@ -43,15 +43,15 @@ export const podiumGetter = async (setPodium: any) => {
 }
 
 export const reloadDynamo = async () => {
-    const resp = await fetch(`${rootUrl}reload-dynamo`, {
+    const resp = await fetch(`${rootUrl}challonge-full-reload`, {
         method: 'POST'
     });
     const respJson = await resp.json()
     console.log(respJson);
 }
 
-export const checkUpdateStatus = async () => {
-    const resp = await fetch(`${rootUrl}get-update-status`, {
+export const checkUpdateStatus = async (checkType: string) => {
+    const resp = await fetch(`${rootUrl}update-status/${checkType}`, {
         method: 'GET'
     });
     return await resp.json();

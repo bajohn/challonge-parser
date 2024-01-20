@@ -40,8 +40,9 @@ resource "aws_cloudfront_distribution" "s3-distribution" {
 
     viewer_protocol_policy = "allow-all"
     min_ttl                = 0
-    default_ttl            = 3600
-    max_ttl                = 86400
+    # Do we need these?
+    # default_ttl            = 3600
+    # max_ttl                = 86400
   }
 
   restrictions {
