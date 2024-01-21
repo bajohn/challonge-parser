@@ -196,4 +196,28 @@ export const putMetaField = async (key: string, value: any) => {
 
 };
 
+export const updateTourney = async (tourneyId: number, args: { [key: string]: string }) => {
+    const getInput = {
+        TableName: 'SummitTourneys',
+        Key: marshall({
+            id: tourneyId
+        })
+    };
+    console.log(getInput);
+    const curValue = await dynamoGet(getInput);
+    console.log(curValue);
+    console.log('To update')
+    console.log(tourneyId, args);
+    const newVal = Object.assign(curValue, args);
+    console.log('new val')
+    console.log(newVal)
+    const marshalled = marshall(newVal);
+    const putInput = {
+        TableName: 'SummitTourneys',
+        Item: marshalled
+    };
+    await dynamoPut(putInput);
+
+    return newVal;
+};
 

@@ -1,7 +1,8 @@
 
 import { DYNAMO, CHALLONGE } from "../../src-shared/constants";
 import { iPlayer, iStatStore } from "../../src-shared/types";
-import { checkTourneyCount } from "./checkTourneyCount";
+import { checkTourneyCount, getTourneys } from "./checkTourneyCount";
+import { fetchTournies } from "./doFetch";
 import { putSummitMetadata, putPlayer, getAllPlayers, removePlayer, putTourney } from "./dynamo";
 import { generateStatStore } from "./generateStatStore";
 import { getWinLoss } from "./parseWinLoss";
@@ -32,8 +33,19 @@ export const executeUpdate = async (statStore: iStatStore) => {
     const players = getWinLoss(statStore);
     await removeDeprecatedPlayers(players);
     await Promise.all(players.map(player => putPlayer(player)));
-    
-    await Promise.all(statStore.tourneys.map(tourney=>putTourney(tourney)));
+
+    const tourneysInDynamo = await getTourneys(DYNAMO);
+    const tourneysInDynamoLookup = tourneysInDynamo.reduce((lv, cv) => {
+        lv[cv.tournament.id] = true;
+        return lv;
+    }, {} as { [index: number]: boolean });
+
+    await Promise.all(statStore.tourneys.map(tourney => {
+        // Don't overwrite existing tournaments! 
+        if (!(tourney.tournament.id in tourneysInDynamoLookup)) {
+            putTourney(tourney);
+        }
+    }));
     // end push
 }
 

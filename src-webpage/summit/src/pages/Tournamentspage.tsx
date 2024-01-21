@@ -1,6 +1,6 @@
 import React, { ChangeEventHandler, ReactNode, useEffect, useState } from "react";
 import { Container, Button, Form, InputGroup } from "react-bootstrap";
-import { tourneyGetter } from '../util/fetchers';
+import { tourneyGetter, updateTourney } from '../util/fetchers';
 import { iTournament } from '../../../../src-shared/types';
 import Card from 'react-bootstrap/Card';
 
@@ -71,47 +71,50 @@ const TournamentRow = (isAdminPage: boolean, el: iTournament) => {
         }
 
         const onTextSubmit = () => {
-            console.log(textInput);
+            updateTourney(el.tournament.id, { videoLink: textInput })
         }
+        return <Container>
+            {
+                el.tournament.videoLink ?
+                    <Container>
+                        Current Link:
+                        <a href={el.tournament.videoLink}>
+                            {el.tournament.videoLink}
+                        </a>
+                    </Container>
+                    : <Container>
+                        No link available
+                    </Container>
 
-        if (el.tournament.videoLink) {
-            return <Container>
-                <a href={el.tournament.videoLink}>
-                    {el.tournament.videoLink}
-                </a>
-            </Container>
-        } else {
-            return <Container>
-                Enter stream link:
+            }
+            Enter stream link:
 
-                <InputGroup className="mb-3">
-                    <Form.Control
-                        placeholder="Link to YouTube"
-                        aria-label="Recipient's username"
-                        aria-describedby="basic-addon2"
-                        onChange={onTextChange}
-                    />
-                    {/* <InputGroup.Text
+            <InputGroup className="mb-3">
+                <Form.Control
+                    placeholder="Link to YouTube"
+                    aria-label="Link to YouTube"
+                    onChange={onTextChange}
+                />
+                {/* <InputGroup.Text
                         id="basic-addon2"
                         onChange={onTextChange}
                     >blahblah</InputGroup.Text> */}
-                </InputGroup>
+            </InputGroup>
 
 
 
 
-                <Button onClick={onTextSubmit}>
-                    Submit
-                </Button>
-            </Container>
-        }
+            <Button onClick={onTextSubmit}>
+                Submit
+            </Button>
+        </Container>
     };
 
     const VideoLink = (el: iTournament) => {
         if (el.tournament.videoLink) {
             return <Container>
-                <a href="">
-
+                <a target="_blank" href={el.tournament.videoLink}>
+                    {el.tournament.videoLink}
                 </a>
             </Container>
         } else {
@@ -145,7 +148,7 @@ const TournamentRow = (isAdminPage: boolean, el: iTournament) => {
                         Format: {pascalCase(el.tournament.tournament_type)}
                     </Container>
                     <Container>
-                        <a href={challongeUrl(el.tournament.url)}>  Challonge Bracket </a>
+                        <a target="_blank" href={challongeUrl(el.tournament.url)}>  Challonge Bracket </a>
                     </Container>
 
                     {isAdminPage ?

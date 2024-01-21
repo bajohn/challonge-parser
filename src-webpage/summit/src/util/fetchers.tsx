@@ -31,7 +31,6 @@ export const tourneyGetter = async (setTourneys: any) => {
     const resp = await fetch(`${rootUrl}get-tourneys`)
     const jsonResp = await resp.json();
     const tourneys = jsonResp.tournaments;
-    console.log(tourneys);
     setTourneys(tourneys);
 };
 
@@ -49,6 +48,21 @@ export const reloadDynamo = async () => {
     const respJson = await resp.json()
     console.log(respJson);
 }
+
+export const updateTourney = async (tourneyId: number, update: {
+    [key: string]: string
+}) => {
+    const resp = await fetch(`${rootUrl}update-tourney`, {
+        method: 'POST',
+        body: JSON.stringify({
+            tourneyId,
+            update
+        })
+    });
+    const respJson = await resp.json()
+    console.log(respJson);
+}
+
 
 export const checkUpdateStatus = async (checkType: string) => {
     const resp = await fetch(`${rootUrl}update-status/${checkType}`, {

@@ -5,7 +5,7 @@ import { FULL_RELOAD_STATUS_PATH, UPDATE_COMPLETE } from "../../src-shared/const
 
 export const updaterHandler: Handler = async (event, context) => {
     console.log('Invoked updater triggered', event);
-    // await updateDynamo(true); // TODO removed for testing
+    await updateDynamo(true);
     const resp = await new Promise(res => {
         setTimeout(() => {
             res('kicked_off');
@@ -14,7 +14,7 @@ export const updaterHandler: Handler = async (event, context) => {
 
     const lastUpdated = (new Date()).toISOString();
     await putMetaField('lastUpdated', lastUpdated);
-    
+
     await putMetaField(FULL_RELOAD_STATUS_PATH, UPDATE_COMPLETE)
     return { status: 'done' }
 };

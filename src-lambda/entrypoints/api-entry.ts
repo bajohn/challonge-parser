@@ -1,6 +1,6 @@
 import { FULL_RELOAD, FULL_RELOAD_STATUS_PATH, UPDATE_IN_PROG } from "../../src-shared/constants";
 import { invokeDynamoReload } from "../lib-api/invokeDynamoReload";
-import { getPodiumFinishes, getAllPlayers, getMetaField, putMetaField, getAllTourneys } from "../lib/dynamo";
+import { getPodiumFinishes, getAllPlayers, getMetaField, putMetaField, getAllTourneys, updateTourney } from "../lib/dynamo";
 import { APIGatewayProxyEventBase, Handler } from 'aws-lambda';
 
 
@@ -38,7 +38,7 @@ export const router = async (path: string, method: string, queryParams: { [key: 
             }
         }
         await putMetaField(FULL_RELOAD_STATUS_PATH, UPDATE_IN_PROG);
-        await invokeDynamoReload(); //TODO removed for testing
+        await invokeDynamoReload(); 
         return {
             status: 'kicked_off',
         }
@@ -51,6 +51,17 @@ export const router = async (path: string, method: string, queryParams: { [key: 
     else if (path.includes('update-status')) {
         const status = await getMetaField(path);
         return { status };
+    }
+    else if (path === 'update-tourney') {
+        console.log('Made it here');
+        console.log(body)
+        const jsonBody = JSON.parse(body);
+        if (!('tourneyId' in jsonBody)) {
+            throw Error('tourneyId missing in request body.')
+        }
+        const tourneyId = jsonBody['tourneyId'];
+        const updatedItem = await updateTourney(tourneyId, jsonBody['update']);
+        return {};
     }
     // TODO return status 404 here:
     return {
