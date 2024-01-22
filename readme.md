@@ -7,9 +7,6 @@ https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/podium-finis
 https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
 
 ## Next TODOs
-- Get cloudfront distribution so we're not relying on 404s to route requests
-- Add inputter to admin view
-        - Stream link (manual entry)
 - H2H view
     - Actually fill H2H table, which is currently empty
 - Can we clarify tournament getters - which are pulling from API/Mock API, and which are pulling from Dynamo?
