@@ -46,8 +46,8 @@ export const reloadDynamo = async () => {
     const resp = await fetch(`${rootUrl}challonge-full-reload`, {
         method: 'POST'
     });
-    const respJson = await resp.json()
-    console.log(respJson);
+    const respJson = await resp.json();
+    return respJson;
 }
 
 export const updateTourney = async (tourneyId: number, update: {
@@ -61,7 +61,7 @@ export const updateTourney = async (tourneyId: number, update: {
         })
     });
     const respJson = await resp.json()
-    console.log(respJson);
+    return respJson;
 }
 
 export const getTourney = async (tourneyId: number) => {

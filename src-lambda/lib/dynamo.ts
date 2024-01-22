@@ -213,14 +213,8 @@ export const updateTourney = async (tourneyId: number, args: { [key: string]: st
             id: tourneyId
         })
     };
-    console.log(getInput);
     const curValue = await dynamoGet(getInput);
-    console.log(curValue);
-    console.log('To update')
-    console.log(tourneyId, args);
     const newVal = Object.assign(curValue, args);
-    console.log('new val')
-    console.log(newVal)
     const marshalled = marshall(newVal);
     const putInput = {
         TableName: 'SummitTourneys',

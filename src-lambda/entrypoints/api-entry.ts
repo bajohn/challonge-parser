@@ -57,8 +57,6 @@ export const router = async (path: string, method: string, queryParams: { [key: 
         return { status };
     }
     else if (path === 'update-tourney') {
-        console.log('Made it here');
-        console.log(body)
         const jsonBody = JSON.parse(body);
         if (!('tourneyId' in jsonBody)) {
             throw Error('tourneyId missing in request body.')
