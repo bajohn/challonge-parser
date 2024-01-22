@@ -83,6 +83,8 @@ const TournamentRow = (isAdminPage: boolean, el: iTournament) => {
             const updated = await getTourney(el.tournament.id);
             el.tournament = updated;
             setUpdateState(READY);
+            // TODO - be nice to clean out the input text after submission.
+            // setTextInput('');
         }
         return <Container>
             {
