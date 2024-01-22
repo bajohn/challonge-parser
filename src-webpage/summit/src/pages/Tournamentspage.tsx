@@ -1,6 +1,6 @@
 import React, { ChangeEventHandler, ReactNode, useEffect, useState } from "react";
 import { Container, Button, Form, InputGroup } from "react-bootstrap";
-import { tourneyGetter, updateTourney } from '../util/fetchers';
+import { getTourney, tourneyGetter, updateTourney } from '../util/fetchers';
 import { iTournament } from '../../../../src-shared/types';
 import Card from 'react-bootstrap/Card';
 
@@ -24,7 +24,10 @@ const TournamentsPage: React.FC<{ isAdminPage: boolean }> = (props) => {
 
 const pascalCase = (str: string) => str.split(' ').map(el => el.substring(0, 1).toUpperCase() + el.substring(1).toLowerCase()).join(' ');
 
-const TournamentsTable: React.FC<{ tourneys: iTournament[], isAdminPage: boolean }> = (props) => {
+const TournamentsTable: React.FC<{
+    tourneys: iTournament[],
+    isAdminPage: boolean
+}> = (props) => {
     props.tourneys.sort((a, b) => {
         if (a.tournament.completed_at > b.tournament.completed_at) {
             return -1;
@@ -35,15 +38,19 @@ const TournamentsTable: React.FC<{ tourneys: iTournament[], isAdminPage: boolean
 
 
 
-    const arr = props.tourneys.map((el: iTournament) => TournamentRow(props.isAdminPage, el));
+    const arr = props.tourneys.map((el: iTournament) => TournamentRow(
+        props.isAdminPage,
+        el
+    ));
     return <Container>
         {arr}
     </Container>
 };
 
 const TournamentRow = (isAdminPage: boolean, el: iTournament) => {
-
+    const [READY, IN_PROG] = [1, 2];
     const [textInput, setTextInput] = useState("");
+    const [updateState, setUpdateState] = useState(READY);
 
     const challongeUrl = (suffix: string) => `https://challonge.com/${suffix}`;
     const rankedParticipants = el.tournament.rankedParticipants;
@@ -70,8 +77,12 @@ const TournamentRow = (isAdminPage: boolean, el: iTournament) => {
             setTextInput(event.target.value);
         }
 
-        const onTextSubmit = () => {
-            updateTourney(el.tournament.id, { videoLink: textInput })
+        const onTextSubmit = async () => {
+            setUpdateState(IN_PROG);
+            await updateTourney(el.tournament.id, { videoLink: textInput })
+            const updated = await getTourney(el.tournament.id);
+            el.tournament = updated;
+            setUpdateState(READY);
         }
         return <Container>
             {
@@ -103,10 +114,17 @@ const TournamentRow = (isAdminPage: boolean, el: iTournament) => {
 
 
 
+            {
+                updateState === READY ?
+                    <Button onClick={onTextSubmit}>
+                        Submit
+                    </Button>
+                    :
+                    <Container>
+                        Updating...
+                    </Container>
+            }
 
-            <Button onClick={onTextSubmit}>
-                Submit
-            </Button>
         </Container>
     };
 

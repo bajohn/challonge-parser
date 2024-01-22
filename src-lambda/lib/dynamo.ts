@@ -167,6 +167,16 @@ export const getAllTourneys = async () => {
     };
 };
 
+export const getTourney = async (tourneyId: number) => {
+    const input = {
+        TableName: 'SummitTourneys',
+        Key: marshall({
+            id: tourneyId
+        })
+    };
+    return await dynamoGet(input);
+};
+
 export const getMetaField = async (key: string) => {
     const input = {
         TableName: 'SummitMetadata',

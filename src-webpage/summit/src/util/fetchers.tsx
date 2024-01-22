@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { rootUrl } from './constants';
+import { iTournament, iTournamentData } from '../../../../src-shared/types';
 
 export const playerGetter = async (setPlayers: React.SetStateAction<any>) => {
 
@@ -61,6 +62,14 @@ export const updateTourney = async (tourneyId: number, update: {
     });
     const respJson = await resp.json()
     console.log(respJson);
+}
+
+export const getTourney = async (tourneyId: number) => {
+    const resp = await fetch(`${rootUrl}get-tourney?tourneyId=${tourneyId}`, {
+        method: 'GET',
+    });
+    const respJson = await resp.json()
+    return respJson as iTournamentData;
 }
 
 

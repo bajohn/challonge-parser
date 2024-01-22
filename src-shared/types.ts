@@ -5,31 +5,35 @@ import { FIRST_PLACE, SECOND_PLACE, THIRD_PLACE } from "./constants";
 export type apiSource = 'dynamo' | 'challonge';
 
 
+
+export interface iTournamentData {
+    name: string
+    id: number
+    url: string
+    tournament_type: string
+    state: 'complete', // there are other states if needed, only using complete
+    videoLink?: string // Non challonge native
+    created_at: string
+    updated_at: string
+    started_at: string
+    completed_at: string
+    participants_count: number
+    game_name: string
+    /** Maps ranking in the tournament to an array of players who finished with that ranking.
+     * 
+     * Indexed on numeric rank number (ie 1 for First place, 2 for Second Place).
+     * 
+     * Note this means 0 will never be defined, and other indices may be skipped.
+     */
+    rankedParticipants?: { [index: number]: string[] }
+}
+
 // Types provided from Challonge API,
 // with fields added for this app.
 export interface iTournament {
-    tournament: {
-        name: string
-        id: number
-        url: string
-        tournament_type: string
-        state: 'complete', // there are other states if needed, only using complete
-        videoLink?: string // Non challonge native
-        created_at: string
-        updated_at: string
-        started_at: string
-        completed_at: string
-        participants_count: number
-        game_name: string
-        /** Maps ranking in the tournament to an array of players who finished with that ranking.
-         * 
-         * Indexed on numeric rank number (ie 1 for First place, 2 for Second Place).
-         * 
-         * Note this means 0 will never be defined, and other indices may be skipped.
-         */
-        rankedParticipants?: { [index: number]: string[] }
-    }
+    tournament: iTournamentData
 }
+
 
 export interface iMatch {
     match: {
