@@ -9,7 +9,7 @@ https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
 ## Next TODOs
 - H2H view
     - Actually fill H2H table, which is currently empty
-- Can we clarify tournament getters - which are pulling from API/Mock API, and which are pulling from Dynamo?
+- Add iTournament and iTournamentData types where missing (if anywhere)
 - 
 Nice to haves, probably won't do:
 - Update only latest tournament / matches instead of full reload when tourneyCount is different
