@@ -2,7 +2,7 @@
 import { DYNAMO, CHALLONGE } from "../../src-shared/constants";
 import { iPlayer, iStatStore } from "../../src-shared/types";
 import { checkTourneyCount, getTourneys } from "./checkTourneyCount";
-import { fetchTournies } from "./doFetch";
+import { fetchTournies } from "./challongeFetch";
 import { putSummitMetadata, putPlayer, getAllPlayers, removePlayer, putTourney } from "./dynamo";
 import { generateStatStore } from "./generateStatStore";
 import { getWinLoss } from "./parseWinLoss";
@@ -27,21 +27,22 @@ export const updateDynamo = async (forceUpdate: boolean = false) => {
     console.log('Done');
 }
 
+// Actually push data, updating website
 export const executeUpdate = async (statStore: iStatStore) => {
-    // Actually push data, updating website
     await putSummitMetadata(statStore);
     const players = getWinLoss(statStore);
     await removeDeprecatedPlayers(players);
     await Promise.all(players.map(player => putPlayer(player)));
-
     const tourneysInDynamo = await getTourneys(DYNAMO);
+
+    // Create lookup of existing Tournament IDs:
     const tourneysInDynamoLookup = tourneysInDynamo.reduce((lv, cv) => {
         lv[cv.tournament.id] = true;
         return lv;
     }, {} as { [index: number]: boolean });
 
+    // Only put tournaments into Dynamo that don't exist yet
     await Promise.all(statStore.tourneys.map(tourney => {
-        // Don't overwrite existing tournaments! 
         if (!(tourney.tournament.id in tourneysInDynamoLookup)) {
             putTourney(tourney);
         }

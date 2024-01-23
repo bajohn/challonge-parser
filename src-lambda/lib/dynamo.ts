@@ -139,7 +139,6 @@ export const mockApiGet = async (endpoint: string) => {
             url: endpoint
         })
     };
-
     const response = await dynamoGet(input);
     if ('data' in response) {
         return response.data

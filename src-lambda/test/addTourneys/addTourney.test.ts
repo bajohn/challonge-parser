@@ -1,13 +1,13 @@
 import { describe, expect, test, jest } from '@jest/globals';
 
 import { apiSource, iStatStore, iTournament, iMatch, iParticipant } from "../../../src-shared/types";
-import { fetchMatches, fetchParticipants } from "../../lib/doFetch";
+import { fetchMatches, fetchParticipants } from "../../lib/challongeFetch";
 
 import { addTourneyToStatStore } from "../../lib/addTourney";
 import { emptyStatStore } from "../../lib/generateStatStore";
 import { tourney1Matches, tourney1Participants, tourney2Matches, tourney2Participants, oneTourneyH2H, twoTourneyH2H, testPodiumFinishes } from "./tourneydata"
 
-jest.mock('../../lib/doFetch'); // magic 
+jest.mock('../../lib/challongeFetch'); // magic 
 
 
 const mockedFetchMatches = jest.mocked(fetchMatches);

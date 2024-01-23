@@ -1,7 +1,7 @@
 import { apiSource, iParticipant, iStatStore, iTournament } from "../../src-shared/types";
 
 import { cleanName } from "../constants/cleanName";
-import { fetchMatches, fetchParticipants } from "./doFetch";
+import { fetchMatches, fetchParticipants } from "./challongeFetch";
 import { parseH2H } from "./h2h";
 import { parsePodium } from "./podium";
 

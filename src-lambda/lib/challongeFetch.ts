@@ -33,23 +33,26 @@ const doFetch = async (endpoint: string, source: apiSource) => {
     }
 };
 
+// Fetch tournament data from challonge API (or a clone of this API)
 export const fetchTournies = async (endpoint: string, source: apiSource) => {
     if (endpoint.indexOf('tournaments') === -1) {
         throw Error(`Trying to fetch tournaments from wrong endpoint ${endpoint} `);
     }
     return await doFetch(endpoint, source) as iTournament[];
-}
+};
 
+// Fetch participant data from challonge API (or a clone of this API)
 export const fetchParticipants = async (endpoint: string, source: apiSource) => {
     if (endpoint.indexOf('participants') === -1) {
         throw Error(`Trying to fetch participants from wrong endpoint ${endpoint} `);
     }
     return await doFetch(endpoint, source) as iParticipant[];
-}
+};
 
+// Fetch match data from challonge API (or a clone of this API)
 export const fetchMatches = async (endpoint: string, source: apiSource) => {
     if (endpoint.indexOf('matches') === -1) {
         throw Error(`Trying to fetch matches from wrong endpoint ${endpoint} `);
     }
     return await doFetch(endpoint, source) as iMatch[];
-}
+};

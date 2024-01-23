@@ -19,20 +19,28 @@ const mockedDynamoPut = jest.mocked(dynamoPut);
 mockedDynamoGet.mockImplementation(async (input: GetItemCommandInput) => {
     const Key = input?.Key;
     if (typeof Key === 'object') {
-        const key = Key['key'].S;
-        if (typeof key === 'string') {
+        if ('key' in Key) {
+            const key = Key['key'].S;
+            if (typeof key === 'string') {
 
-            const lookup = {
-                podiumFinishes,
-            } as { [key: string]: any };
+                const lookup = {
+                    podiumFinishes,
+                } as { [key: string]: any };
 
-            const val = lookup[key];
-            return {
-                value: {
-                    ...val
+                const val = lookup[key];
+                return {
+                    value: {
+                        ...val
+                    }
                 }
             }
+        } else if ('url' in Key) {
+            const url = Key.S;
+            return []
+        } else {
+            throw Error(`Unmocked Dynamo GET for this test: ${JSON.stringify(Key)} `);
         }
+
 
     }
     throw Error(`Missing key in get call ${input}`);

@@ -1,5 +1,5 @@
 import { SUBDOMAIN } from "../../src-shared/constants";
-import { fetchTournies } from "./doFetch";
+import { fetchTournies } from "./challongeFetch";
 import { apiSource, iTournament } from "../../src-shared/types";
 
 
