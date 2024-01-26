@@ -12,9 +12,9 @@ const main = async () => {
     console.log('hi there');
     
     // const resp = await getPodiumFinishes();
-    const players = await getAllPlayers();
-    // const resp = await updateDynamo(true);
-    console.log(players);
+    //const players = await getAllPlayers();
+    const resp = await updateDynamo(true);
+    console.log(resp);
 }
 
 main();

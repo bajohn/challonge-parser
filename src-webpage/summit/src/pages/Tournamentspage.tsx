@@ -1,11 +1,11 @@
 import React, { ChangeEventHandler, ReactNode, useEffect, useState } from "react";
 import { Container, Button, Form, InputGroup } from "react-bootstrap";
 import { getTourney, tourneyGetter, updateTourney } from '../util/fetchers';
-import { iTournament } from '../../../../src-shared/types';
+import { iTournament, iTournamentData } from '../../../../src-shared/types';
 import Card from 'react-bootstrap/Card';
 
 const TournamentsPage: React.FC<{ isAdminPage: boolean }> = (props) => {
-    const [tourneys, setTourneys] = useState([] as iTournament[]);
+    const [tourneys, setTourneys] = useState([] as iTournamentData[]);
 
     useEffect(() => {
         tourneyGetter(setTourneys);
@@ -25,11 +25,11 @@ const TournamentsPage: React.FC<{ isAdminPage: boolean }> = (props) => {
 const pascalCase = (str: string) => str.split(' ').map(el => el.substring(0, 1).toUpperCase() + el.substring(1).toLowerCase()).join(' ');
 
 const TournamentsTable: React.FC<{
-    tourneys: iTournament[],
+    tourneys: iTournamentData[],
     isAdminPage: boolean
 }> = (props) => {
     props.tourneys.sort((a, b) => {
-        if (a.tournament.completed_at > b.tournament.completed_at) {
+        if (a.completed_at > b.completed_at) {
             return -1;
         } else {
             return 1;
@@ -38,7 +38,7 @@ const TournamentsTable: React.FC<{
 
 
 
-    const arr = props.tourneys.map((el: iTournament) => TournamentRow(
+    const arr = props.tourneys.map((el: iTournamentData) => TournamentRow(
         props.isAdminPage,
         el
     ));
@@ -47,13 +47,13 @@ const TournamentsTable: React.FC<{
     </Container>
 };
 
-const TournamentRow = (isAdminPage: boolean, el: iTournament) => {
+const TournamentRow = (isAdminPage: boolean, el: iTournamentData) => {
     const [READY, IN_PROG] = [1, 2];
     const [textInput, setTextInput] = useState("");
     const [updateState, setUpdateState] = useState(READY);
 
     const challongeUrl = (suffix: string) => `https://challonge.com/${suffix}`;
-    const rankedParticipants = el.tournament.rankedParticipants;
+    const rankedParticipants = el.rankedParticipants;
 
     const topThree: string[] = [];
 
@@ -72,27 +72,27 @@ const TournamentRow = (isAdminPage: boolean, el: iTournament) => {
         }, topThree)
     }
 
-    const AdminVideoEntry = (el: iTournament) => {
+    const AdminVideoEntry = (el: iTournamentData) => {
         const onTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
             setTextInput(event.target.value);
         }
 
         const onTextSubmit = async () => {
             setUpdateState(IN_PROG);
-            await updateTourney(el.tournament.id, { videoLink: textInput })
-            const updated = await getTourney(el.tournament.id);
-            el.tournament = updated;
+            await updateTourney(el.id, { videoLink: textInput })
+            const updated = await getTourney(el.id);
+            el = updated;
             setUpdateState(READY);
             // TODO - be nice to clean out the input text after submission.
             // setTextInput('');
         }
         return <Container>
             {
-                el.tournament.videoLink ?
+                el.videoLink ?
                     <Container>
                         Current Link:
-                        <a href={el.tournament.videoLink}>
-                            {el.tournament.videoLink}
+                        <a href={el.videoLink}>
+                            {el.videoLink}
                         </a>
                     </Container>
                     : <Container>
@@ -130,11 +130,11 @@ const TournamentRow = (isAdminPage: boolean, el: iTournament) => {
         </Container>
     };
 
-    const VideoLink = (el: iTournament) => {
-        if (el.tournament.videoLink) {
+    const VideoLink = (el: iTournamentData) => {
+        if (el.videoLink) {
             return <Container>
-                <a target="_blank" href={el.tournament.videoLink}>
-                    {el.tournament.videoLink}
+                <a target="_blank" href={el.videoLink}>
+                    {el.videoLink}
                 </a>
             </Container>
         } else {
@@ -146,9 +146,9 @@ const TournamentRow = (isAdminPage: boolean, el: iTournament) => {
     };
 
     return (
-        <Container key={el.tournament.id}>
+        <Container key={el.id}>
             <Card>
-                <Card.Header as="h5">   {el.tournament.name}  </Card.Header>
+                <Card.Header as="h5">   {el.name}  </Card.Header>
                 <Card.Body>
                     {/* <Card.Title></Card.Title>
                     <Card.Text> */}
@@ -159,16 +159,16 @@ const TournamentRow = (isAdminPage: boolean, el: iTournament) => {
                     })}
 
                     <Container>
-                        Date: {el.tournament.started_at.substring(0, 10)}
+                        Date: {el.started_at.substring(0, 10)}
                     </Container>
                     <Container>
-                        Participants: {el.tournament.participants_count}
+                        Participants: {el.participants_count}
                     </Container>
                     <Container>
-                        Format: {pascalCase(el.tournament.tournament_type)}
+                        Format: {pascalCase(el.tournament_type)}
                     </Container>
                     <Container>
-                        <a target="_blank" href={challongeUrl(el.tournament.url)}>  Challonge Bracket </a>
+                        <a target="_blank" href={challongeUrl(el.url)}>  Challonge Bracket </a>
                     </Container>
 
                     {isAdminPage ?

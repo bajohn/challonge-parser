@@ -1,4 +1,4 @@
-import { h2h, iMatch, iParticipant, iPlayer, iStatStore, iTournament } from "../../src-shared/types";
+import { h2h, iMatch, iParticipant, iPlayer, iStatStore, iTournament, iTournamentData } from "../../src-shared/types";
 
 
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
@@ -160,9 +160,9 @@ export const getAllTourneys = async () => {
     const input = {
         TableName: 'SummitTourneys',
     };
-    const response = await dynamoScan(input) as iTournament[];
+    const response = await dynamoScan(input) as iTournamentData[];
     return {
-        tournaments: response.map(el => { return { tournament: el } })
+        tournaments: response
     };
 };
 

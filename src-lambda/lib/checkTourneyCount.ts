@@ -16,7 +16,7 @@ export const checkTourneyCount = async (source: apiSource) => {
 };
 
 
-export const getTourneys = async (source: apiSource) => {
+const getTourneys = async (source: apiSource) => {
     const endpoint = `tournaments.json?subdomain=${SUBDOMAIN}`;
     const tourneys = await fetchTournies(endpoint, source);
     return tourneys;
