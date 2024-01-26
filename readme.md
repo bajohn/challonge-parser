@@ -12,7 +12,6 @@ https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
 - Add iTournament and iTournamentData types where missing (if anywhere)
 - 
 Nice to haves, probably won't do:
-- Update only latest tournament / matches instead of full reload when tourneyCount is different
 - When we're ready to create the clean base app - can we create a fresh version of this entire live app using a fork of the cleaned base app?
 
 ## Nice to haves
