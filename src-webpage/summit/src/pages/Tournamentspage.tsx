@@ -15,11 +15,8 @@ const TournamentsPage: React.FC<{ isAdminPage: boolean }> = (props) => {
         <h1>
             Past Tournaments
         </h1>
-
         <TournamentsTable tourneys={tourneys} isAdminPage={props.isAdminPage} />
-
     </Container>)
-
 };
 
 const pascalCase = (str: string) => str.split(' ').map(el => el.substring(0, 1).toUpperCase() + el.substring(1).toLowerCase()).join(' ');
@@ -35,9 +32,6 @@ const TournamentsTable: React.FC<{
             return 1;
         }
     });
-
-
-
     const arr = props.tourneys.map((el: iTournamentData) => TournamentRow(
         props.isAdminPage,
         el
@@ -93,8 +87,6 @@ const TournamentRow = (isAdminPage: boolean, rowData: iTournamentData) => {
             }
 
             setUpdateState(READY);
-
-            // TODO - be nice to clean out the input text after submission.
             setTextInput('');
         };
 
@@ -143,7 +135,6 @@ const TournamentRow = (isAdminPage: boolean, rowData: iTournamentData) => {
                         Updating...
                     </Container>
             }
-
         </Container>
     };
 
@@ -197,9 +188,8 @@ const TournamentRow = (isAdminPage: boolean, rowData: iTournamentData) => {
                     {/* </Card.Text> */}
                 </Card.Body>
             </Card>
-
         </Container>
     )
-}
+};
 
 export default TournamentsPage;
