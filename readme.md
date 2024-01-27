@@ -3,6 +3,7 @@
 Live web app:
 https://summit-pool.com/
 
+Below are mostly notes to self on next-ups.
 
 ## Next TODOs
 - H2H view
