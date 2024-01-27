@@ -1,10 +1,8 @@
 # Summit Tournament Tracker
 
-Live web app
-http://summit-tournament-webhost-bucket.s3-website-us-west-2.amazonaws.com/
-Live API
-https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/podium-finishes
-https://xx3ptt5y85.execute-api.us-west-2.amazonaws.com/summit-stage/get-players
+Live web app:
+https://summit-pool.com/
+
 
 ## Next TODOs
 - H2H view
