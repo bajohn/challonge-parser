@@ -1,6 +1,6 @@
 import { FULL_RELOAD, FULL_RELOAD_STATUS_PATH, UPDATE_IN_PROG } from "../../src-shared/constants";
 import { invokeDynamoReload } from "../lib-api/invokeDynamoReload";
-import { dyGetPodiumFinishes, dyGetAllPlayers, getMetaField, dyPutMetaField, dyGetAllTourneys, dyUpdateTourney, dyGetTourney } from "../lib/dynamo";
+import { dyGetPodiumFinishes, dyGetAllPlayers, dyGetMetaField, dyPutMetaField, dyGetAllTourneys, dyUpdateTourney, dyGetTourney } from "../lib/dynamo";
 import { APIGatewayProxyEventBase, Handler } from 'aws-lambda';
 
 
@@ -31,7 +31,7 @@ export const router = async (path: string, method: string, queryParams: { [key: 
     } else if (path === 'podium-finishes') {
         return await dyGetPodiumFinishes()
     } else if (path === FULL_RELOAD) {
-        const updateStatus = await getMetaField(FULL_RELOAD_STATUS_PATH)
+        const updateStatus = await dyGetMetaField(FULL_RELOAD_STATUS_PATH)
         if (updateStatus === UPDATE_IN_PROG) {
             return {
                 status: 'blocked'
@@ -53,7 +53,7 @@ export const router = async (path: string, method: string, queryParams: { [key: 
     }
 
     else if (path.includes('update-status')) {
-        const status = await getMetaField(path);
+        const status = await dyGetMetaField(path);
         return { status };
     }
     else if (path === 'update-tourney') {

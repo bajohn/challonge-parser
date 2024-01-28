@@ -1,4 +1,4 @@
-import { getMetaField } from "../lib/dynamo";
+import { dyGetMetaField } from "../lib/dynamo";
 import { LambdaClient, InvokeCommand } from "@aws-sdk/client-lambda";
 
 export const invokeDynamoReload = async () => {

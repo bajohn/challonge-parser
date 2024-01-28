@@ -2,7 +2,7 @@ import { apiSource, iMatch, iParticipant, iTournament } from "../../src-shared/t
 
 import { DYNAMO, CHALLONGE } from "../../src-shared/constants";
 import { apiKey } from "../creds";
-import { mockApiPut, mockApiGet } from "./dynamo";
+import { dyMockApiPut, dyMockApiGet } from "./dynamo";
 
 const genUrl = (endpoint: string) => {
     const suffix = endpoint.indexOf('?') === -1 ? '?' : '&';
@@ -19,13 +19,13 @@ const genUrl = (endpoint: string) => {
 // But leaving generic for now
 const doFetch = async (endpoint: string, source: apiSource) => {
     if (source === DYNAMO) {
-        return await mockApiGet(endpoint)
+        return await dyMockApiGet(endpoint)
 
     } else if (source === CHALLONGE) {
         const url = genUrl(endpoint);
         const resp = await fetch(url);
         const respJson = await resp.json();
-        await mockApiPut(endpoint, respJson)
+        await dyMockApiPut(endpoint, respJson)
         return respJson as iTournament[];
     }
     else {

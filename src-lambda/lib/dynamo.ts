@@ -9,7 +9,7 @@ const PODIUM_FINISHES = 'podiumFinishes'
 const H2H = 'h2h';
 
 export const dyGetPodiumFinishes = async () => {
-    return await getMetaField(PODIUM_FINISHES);
+    return await dyGetMetaField(PODIUM_FINISHES);
 };
 
 
@@ -70,7 +70,7 @@ export const dyRemovePlayer = async (playerName: string) => {
 
 
 
-export const mockApiPut = async (endpoint: string, resp: any) => {
+export const dyMockApiPut = async (endpoint: string, resp: any) => {
     const minimalData = getMinimal(endpoint, resp);
     const marshalled = marshall({
         url: endpoint,
@@ -84,7 +84,7 @@ export const mockApiPut = async (endpoint: string, resp: any) => {
     return await dynamoPut(input);
 };
 
-export const mockApiGet = async (endpoint: string) => {
+export const dyMockApiGet = async (endpoint: string) => {
     const input = {
         TableName: 'SummitAPIMock',
         Key: marshall({
@@ -128,7 +128,7 @@ export const dyGetTourney = async (tourneyId: number) => {
     return await dynamoGet(input);
 };
 
-export const getMetaField = async (key: string) => {
+export const dyGetMetaField = async (key: string) => {
     const input = {
         TableName: 'SummitMetadata',
         Key: marshall({
