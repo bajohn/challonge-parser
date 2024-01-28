@@ -1,7 +1,7 @@
 import { UPDATE_COMPLETE } from "../src-shared/constants";
 import { router } from "./entrypoints/api-entry";
 import { updaterHandler } from "./entrypoints/invoked-dynamo-updater";
-import { getAllPlayers, getMetaField, getPodiumFinishes, putMetaField } from "./lib/dynamo";
+import { dyGetAllPlayers, getMetaField, dyGetPodiumFinishes, dyPutMetaField } from "./lib/dynamo";
 import { updateDynamo } from "./lib/updateDynamo";
 
 

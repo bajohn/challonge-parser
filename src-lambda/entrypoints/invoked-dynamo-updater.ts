@@ -1,6 +1,6 @@
 import { Handler } from "aws-lambda";
 import { updateDynamo } from "../lib/updateDynamo";
-import { putMetaField } from "../lib/dynamo";
+import { dyPutMetaField } from "../lib/dynamo";
 import { FULL_RELOAD_STATUS_PATH, UPDATE_COMPLETE } from "../../src-shared/constants";
 
 export const updaterHandler: Handler = async (event, context) => {
@@ -13,8 +13,8 @@ export const updaterHandler: Handler = async (event, context) => {
     });
 
     const lastUpdated = (new Date()).toISOString();
-    await putMetaField('lastUpdated', lastUpdated);
+    await dyPutMetaField('lastUpdated', lastUpdated);
 
-    await putMetaField(FULL_RELOAD_STATUS_PATH, UPDATE_COMPLETE)
+    await dyPutMetaField(FULL_RELOAD_STATUS_PATH, UPDATE_COMPLETE)
     return { status: 'done' }
 };

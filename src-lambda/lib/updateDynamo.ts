@@ -2,7 +2,7 @@
 import { DYNAMO, CHALLONGE } from "../../src-shared/constants";
 import { iPlayer, iStatStore } from "../../src-shared/types";
 import { checkTourneyCount } from "./checkTourneyCount";
-import { putSummitMetadata, putPlayer, getAllPlayers, removePlayer, putTourney, getAllTourneys } from "./dynamo";
+import { dyPutSummitMetadata, dyPutPlayer, dyGetAllPlayers, dyRemovePlayer, dyPutTourney, dyGetAllTourneys } from "./dynamo";
 import { generateStatStore } from "./generateStatStore";
 import { getWinLoss } from "./parseWinLoss";
 
@@ -28,11 +28,11 @@ export const updateDynamo = async (forceUpdate: boolean = false) => {
 
 // Actually push data, updating website
 export const executeUpdate = async (statStore: iStatStore) => {
-    await putSummitMetadata(statStore);
+    await dyPutSummitMetadata(statStore);
     const players = getWinLoss(statStore);
     await removeDeprecatedPlayers(players);
-    await Promise.all(players.map(player => putPlayer(player)));
-    const tourneysInDynamo = await getAllTourneys();
+    await Promise.all(players.map(player => dyPutPlayer(player)));
+    const tourneysInDynamo = await dyGetAllTourneys();
     // Create lookup of existing Tournament IDs:
     const tourneysInDynamoLookup = tourneysInDynamo.tournaments.reduce((lv, cv) => {
         lv[cv.id] = true;
@@ -41,14 +41,15 @@ export const executeUpdate = async (statStore: iStatStore) => {
     // Only put tournaments into Dynamo that don't exist yet
     await Promise.all(statStore.tourneys.map(async (tourney) => {
         if (!(tourney.tournament.id in tourneysInDynamoLookup)) {
-            return putTourney(tourney);
+            return dyPutTourney(tourney);
         }
     }));
+
     // end push
 }
 
 export const removeDeprecatedPlayers = async (newPlayers: iPlayer[]) => {
-    const playersInDynamo = await getAllPlayers();
+    const playersInDynamo = await dyGetAllPlayers();
     const newPlayerLookup = newPlayers.reduce((lv, cv) => {
         lv[cv.playerName] = true;
         return lv;
@@ -56,7 +57,7 @@ export const removeDeprecatedPlayers = async (newPlayers: iPlayer[]) => {
 
     for (const player of playersInDynamo.players) {
         if (!(player.playerName in newPlayerLookup)) {
-            await removePlayer(player.playerName);
+            await dyRemovePlayer(player.playerName);
         }
     }
 }

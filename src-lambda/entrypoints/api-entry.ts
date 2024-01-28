@@ -1,6 +1,6 @@
 import { FULL_RELOAD, FULL_RELOAD_STATUS_PATH, UPDATE_IN_PROG } from "../../src-shared/constants";
 import { invokeDynamoReload } from "../lib-api/invokeDynamoReload";
-import { getPodiumFinishes, getAllPlayers, getMetaField, putMetaField, getAllTourneys, updateTourney, getTourney } from "../lib/dynamo";
+import { dyGetPodiumFinishes, dyGetAllPlayers, getMetaField, dyPutMetaField, dyGetAllTourneys, dyUpdateTourney, dyGetTourney } from "../lib/dynamo";
 import { APIGatewayProxyEventBase, Handler } from 'aws-lambda';
 
 
@@ -27,9 +27,9 @@ export const apiHandler: Handler = async (event: APIGatewayProxyEventBase<any>, 
 
 export const router = async (path: string, method: string, queryParams: { [key: string]: string }, body: string) => {
     if (path === 'get-players') {
-        return await getAllPlayers()
+        return await dyGetAllPlayers()
     } else if (path === 'podium-finishes') {
-        return await getPodiumFinishes()
+        return await dyGetPodiumFinishes()
     } else if (path === FULL_RELOAD) {
         const updateStatus = await getMetaField(FULL_RELOAD_STATUS_PATH)
         if (updateStatus === UPDATE_IN_PROG) {
@@ -37,7 +37,7 @@ export const router = async (path: string, method: string, queryParams: { [key: 
                 status: 'blocked'
             }
         }
-        await putMetaField(FULL_RELOAD_STATUS_PATH, UPDATE_IN_PROG);
+        await dyPutMetaField(FULL_RELOAD_STATUS_PATH, UPDATE_IN_PROG);
         await invokeDynamoReload(); 
         return {
             status: 'kicked_off',
@@ -45,11 +45,11 @@ export const router = async (path: string, method: string, queryParams: { [key: 
 
     }
     else if (path === 'get-tourneys') {
-        return await getAllTourneys()
+        return await dyGetAllTourneys()
     }
 
     else if (path === 'get-tourney') {
-        return await getTourney(Number(queryParams['tourneyId']))
+        return await dyGetTourney(Number(queryParams['tourneyId']))
     }
 
     else if (path.includes('update-status')) {
@@ -62,7 +62,7 @@ export const router = async (path: string, method: string, queryParams: { [key: 
             throw Error('tourneyId missing in request body.')
         }
         const tourneyId = jsonBody['tourneyId'];
-        const updatedItem = await updateTourney(tourneyId, jsonBody['update']);
+        const updatedItem = await dyUpdateTourney(tourneyId, jsonBody['update']);
         return {};
     }
     // TODO return status 404 here:

@@ -3,10 +3,7 @@ import { addTourneyToStatStore } from "./addTourney";
 import { fetchTournies } from "./challongeFetch";
 import { FIRST_PLACE, SECOND_PLACE, SUBDOMAIN, THIRD_PLACE } from "../../src-shared/constants";
 import { apiSource, iStatStore, iTournament } from "../../src-shared/types";
-import { getMinimal } from "./dynamo";
-
-
-
+import { getMinimal } from "./dynamoHelpers";
 
 // Iterate through all tournaments, 
 // returning statStore

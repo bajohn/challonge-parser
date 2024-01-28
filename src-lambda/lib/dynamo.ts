@@ -1,25 +1,26 @@
-import { h2h, iMatch, iParticipant, iPlayer, iStatStore, iTournament, iTournamentData } from "../../src-shared/types";
+import { iPlayer, iStatStore, iTournament, iTournamentData } from "../../src-shared/types";
 
 
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import { marshall } from "@aws-sdk/util-dynamodb";
 import { dynamoGet, dynamoPut, dynamoRemove, dynamoScan } from "./dynamoUtil";
+import { getMinimal } from "./dynamoHelpers";
 
 const PODIUM_FINISHES = 'podiumFinishes'
 const H2H = 'h2h';
 
-export const getPodiumFinishes = async () => {
+export const dyGetPodiumFinishes = async () => {
     return await getMetaField(PODIUM_FINISHES);
 };
 
 
 
-export const putSummitMetadata = async (statStore: iStatStore) => {
-    await putMetaField(PODIUM_FINISHES, statStore.podiumFinishes);
-    await putMetaField(H2H, statStore.h2h);
+export const dyPutSummitMetadata = async (statStore: iStatStore) => {
+    await dyPutMetaField(PODIUM_FINISHES, statStore.podiumFinishes);
+    await dyPutMetaField(H2H, statStore.h2h);
 
 };
 
-export const putTourney = async (tourney: iTournament) => {
+export const dyPutTourney = async (tourney: iTournament) => {
     const marshalled = marshall({
         ...tourney.tournament
     });
@@ -38,7 +39,7 @@ export const putTourney = async (tourney: iTournament) => {
 // Could batch update these, but
 // not super time sensitive
 // player shape: {playerName, w, l}
-export const putPlayer = async (player: iPlayer) => {
+export const dyPutPlayer = async (player: iPlayer) => {
     const marshalled = marshall({
         ...player
     });
@@ -51,7 +52,7 @@ export const putPlayer = async (player: iPlayer) => {
 
 // Delete all Player entries in Dynamo
 // 
-export const removePlayer = async (playerName: string) => {
+export const dyRemovePlayer = async (playerName: string) => {
     const input = {
         TableName: 'SummitPlayers',
         Key: marshall({
@@ -67,55 +68,6 @@ export const removePlayer = async (playerName: string) => {
     }
 };
 
-// Store only needed fields in Dynamo
-export const getMinimal = (endpoint: string, resp: any[]) => {
-    if (endpoint.indexOf('matches') > -1) {
-        return resp.map((el: iMatch): iMatch => {
-            const match = el.match;
-            return {
-                match: {
-                    player1_id: match.player1_id,
-                    player2_id: match.player2_id,
-                    winner_id: match.winner_id
-                }
-
-            }
-        });
-    }
-    else if (endpoint.indexOf('participants') > -1) {
-        return resp.map((el: iParticipant) => {
-            const participant = el.participant;
-            return {
-                participant: {
-                    id: participant.id,
-                    final_rank: participant.final_rank,
-                    name: participant.name
-                }
-            }
-        });
-    }
-    else if (endpoint.indexOf('tournament') > -1) {
-        return resp.map((el: iTournament) => {
-            const tournament = el.tournament;
-            return {
-                tournament: {
-                    name: tournament.name,
-                    id: tournament.id,
-                    url: tournament.url,
-                    tournament_type: tournament.tournament_type,
-                    state: tournament.state,
-                    created_at: tournament.created_at,
-                    updated_at: tournament.updated_at,
-                    started_at: tournament.started_at,
-                    completed_at: tournament.completed_at,
-                    participants_count: tournament.participants_count,
-                    game_name: tournament.game_name
-                }
-            }
-        });
-    }
-    return resp;
-};
 
 
 export const mockApiPut = async (endpoint: string, resp: any) => {
@@ -146,7 +98,7 @@ export const mockApiGet = async (endpoint: string) => {
     return response;
 };
 
-export const getAllPlayers = async () => {
+export const dyGetAllPlayers = async () => {
     const input = {
         TableName: 'SummitPlayers',
     };
@@ -156,7 +108,7 @@ export const getAllPlayers = async () => {
     };
 };
 
-export const getAllTourneys = async () => {
+export const dyGetAllTourneys = async () => {
     const input = {
         TableName: 'SummitTourneys',
     };
@@ -166,7 +118,7 @@ export const getAllTourneys = async () => {
     };
 };
 
-export const getTourney = async (tourneyId: number) => {
+export const dyGetTourney = async (tourneyId: number) => {
     const input = {
         TableName: 'SummitTourneys',
         Key: marshall({
@@ -192,7 +144,7 @@ export const getMetaField = async (key: string) => {
     }
 };
 
-export const putMetaField = async (key: string, value: any) => {
+export const dyPutMetaField = async (key: string, value: any) => {
     const marshalled = marshall({
         key,
         value
@@ -205,7 +157,7 @@ export const putMetaField = async (key: string, value: any) => {
 
 };
 
-export const updateTourney = async (tourneyId: number, args: { [key: string]: string }) => {
+export const dyUpdateTourney = async (tourneyId: number, args: { [key: string]: string }) => {
     const getInput = {
         TableName: 'SummitTourneys',
         Key: marshall({
