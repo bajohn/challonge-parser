@@ -2,7 +2,7 @@
 import { DYNAMO, CHALLONGE } from "../../src-shared/constants";
 import { iPlayer, iStatStore } from "../../src-shared/types";
 import { checkTourneyCount } from "./checkTourneyCount";
-import { dyPutSummitMetadata, dyPutPlayer, dyGetAllPlayers, dyRemovePlayer, dyPutTourney, dyGetAllTourneys } from "./dynamo";
+import { dyPutSummitMetadata, dyPutPlayer, dyGetAllPlayers, dyRemovePlayer, dyPutTourney, dyGetAllTourneys, dyPutH2h } from "./dynamo";
 import { generateStatStore } from "./generateStatStore";
 import { getWinLoss } from "./parseWinLoss";
 
@@ -45,6 +45,9 @@ export const executeUpdate = async (statStore: iStatStore) => {
         }
     }));
 
+    await Promise.all(Object.keys(statStore.h2h).map(playerName=>{
+        return dyPutH2h(playerName, statStore.h2h[playerName]);
+    }));
     // end push
 }
 

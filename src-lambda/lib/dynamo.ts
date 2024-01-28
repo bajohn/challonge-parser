@@ -1,4 +1,4 @@
-import { iPlayer, iStatStore, iTournament, iTournamentData } from "../../src-shared/types";
+import { h2h, h2hOpp, iPlayer, iStatStore, iTournament, iTournamentData } from "../../src-shared/types";
 
 
 import { marshall } from "@aws-sdk/util-dynamodb";
@@ -31,7 +31,17 @@ export const dyPutTourney = async (tourney: iTournament) => {
     return await dynamoPut(input);
 };
 
-
+export const dyPutH2h = async (playerName: string, h2hOpp: h2hOpp) => {
+    const marshalled = marshall({
+        playerName,
+        ...h2hOpp
+    });
+    const input = {
+        TableName: 'SummitH2H',
+        Item: marshalled
+    };
+    return await dynamoPut(input);
+};
 
 
 

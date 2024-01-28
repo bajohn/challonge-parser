@@ -30,6 +30,7 @@ export const cleanName = (name: string) => {
         Aqeel: [],
         Ari: ['Ari 🐙 x'],
         Aryan: ['Aryan x'],
+        Austin: ['Austin x', 'Austin 🍑 x'],
         Ben: ['Ben x'],
         Tom: [
             'Big ChaTomgus 🌴 x'
@@ -225,28 +226,39 @@ export const cleanName = (name: string) => {
         }
     };
 
-    // TODO - this priority isn't quite right
-    for (const key of Object.keys(lookup)) {
+    for (const cleanName of Object.keys(lookup)) {
         // In order of priority:
         // Matches key exactly
-        if (key === name) {
-            updateRank(key, 10);
+        if (cleanName === name) {
+            updateRank(cleanName, 10);
         }
 
         // Matches element of subarray - hardcoded replacement
-        if (lookup[key].indexOf(name) !== -1) {
-            updateRank(key, 9);
+        if (lookup[cleanName].indexOf(name) !== -1) {
+            updateRank(cleanName, 9);
         }
 
         // Clean name is substring of raw name
-        if (name.indexOf(key) > -1) {
-            updateRank(key, 8);
+        if (name.indexOf(cleanName) > -1) {
+            updateRank(cleanName, 8);
         }
 
         // Element of subarray is substring of raw name
-        for (const subel of lookup[key]) {
+        for (const subel of lookup[cleanName]) {
             if (name.indexOf(subel) > -1) {
-                updateRank(key, 7);
+                updateRank(cleanName, 7);
+            }
+        }
+
+        // Clean name is substring of raw name - case insensitive
+        if (name.toLowerCase().indexOf(cleanName.toLowerCase()) > -1) {
+            updateRank(cleanName, 6);
+        }
+
+        // Element of subarray is substring of raw name = case insensitive
+        for (const subel of lookup[cleanName]) {
+            if (name.toLowerCase().indexOf(subel.toLowerCase()) > -1) {
+                updateRank(cleanName, 5);
             }
         }
     }

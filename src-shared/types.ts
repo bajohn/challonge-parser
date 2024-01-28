@@ -71,11 +71,13 @@ export interface podiumFinishes {
 }
 
 export interface h2h {
-    [myName: string]: {
-        [opponentName: string]: {
-            w: number
-            l: number
-        }
+    [myName: string]: h2hOpp
+}
+
+export interface h2hOpp {
+    [opponentName: string]: {
+        w: number
+        l: number
     }
 }
 
