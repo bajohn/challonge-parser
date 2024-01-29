@@ -187,6 +187,9 @@ export const cleanName = (name: string) => {
         Rachelle: [
             'Rachelle 📢 x'
         ],
+        Ray: [
+            'Ray 🐍 x'
+        ],
         Sup: [
             'Sup 🐐 x'
         ],

@@ -1,6 +1,6 @@
 import { FULL_RELOAD, FULL_RELOAD_STATUS_PATH, UPDATE_IN_PROG } from "../../src-shared/constants";
 import { invokeDynamoReload } from "../lib-api/invokeDynamoReload";
-import { dyGetPodiumFinishes, dyGetAllPlayers, dyGetMetaField, dyPutMetaField, dyGetAllTourneys, dyUpdateTourney, dyGetTourney } from "../lib/dynamo";
+import { dyGetPodiumFinishes, dyGetAllPlayers, dyGetMetaField, dyPutMetaField, dyGetAllTourneys, dyUpdateTourney, dyGetTourney, dyGetAllH2h } from "../lib/dynamo";
 import { APIGatewayProxyEventBase, Handler } from 'aws-lambda';
 
 
@@ -50,6 +50,10 @@ export const router = async (path: string, method: string, queryParams: { [key: 
 
     else if (path === 'get-tourney') {
         return await dyGetTourney(Number(queryParams['tourneyId']))
+    }
+
+    else if (path === 'get-h2h') {
+        return await dyGetAllH2h();
     }
 
     else if (path.includes('update-status')) {

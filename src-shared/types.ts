@@ -70,11 +70,11 @@ export interface podiumFinishes {
     { [index: string]: number }
 }
 
-export interface h2h {
-    [myName: string]: h2hOpp
+export interface iH2h {
+    [myName: string]: iH2hOpp
 }
 
-export interface h2hOpp {
+export interface iH2hOpp {
     [opponentName: string]: {
         w: number
         l: number
@@ -83,7 +83,7 @@ export interface h2hOpp {
 
 export interface iStatStore {
     podiumFinishes: podiumFinishes
-    h2h: h2h
+    h2h: iH2h
     tourneys: iTournament[]
 }
 

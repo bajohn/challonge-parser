@@ -2,7 +2,7 @@
 import { DYNAMO, CHALLONGE } from "../../src-shared/constants";
 import { iPlayer, iStatStore } from "../../src-shared/types";
 import { checkTourneyCount } from "./checkTourneyCount";
-import { dyPutSummitMetadata, dyPutPlayer, dyGetAllPlayers, dyRemovePlayer, dyPutTourney, dyGetAllTourneys, dyPutH2h } from "./dynamo";
+import { dyPutSummitMetadata, dyPutPlayer, dyGetAllPlayers, dyRemovePlayer, dyPutTourney, dyGetAllTourneys, dyPutH2h, dyRemoveH2h, dyGetAllH2h } from "./dynamo";
 import { generateStatStore } from "./generateStatStore";
 import { getWinLoss } from "./parseWinLoss";
 
@@ -45,14 +45,15 @@ export const executeUpdate = async (statStore: iStatStore) => {
         }
     }));
 
-    await Promise.all(Object.keys(statStore.h2h).map(playerName=>{
+    await Promise.all(Object.keys(statStore.h2h).map(playerName => {
         return dyPutH2h(playerName, statStore.h2h[playerName]);
     }));
     // end push
-}
+};
 
 export const removeDeprecatedPlayers = async (newPlayers: iPlayer[]) => {
     const playersInDynamo = await dyGetAllPlayers();
+    const h2hInDynamo = await dyGetAllH2h();
     const newPlayerLookup = newPlayers.reduce((lv, cv) => {
         lv[cv.playerName] = true;
         return lv;
@@ -60,7 +61,10 @@ export const removeDeprecatedPlayers = async (newPlayers: iPlayer[]) => {
 
     for (const player of playersInDynamo.players) {
         if (!(player.playerName in newPlayerLookup)) {
-            await dyRemovePlayer(player.playerName);
+            await Promise.all([
+                dyRemovePlayer(player.playerName),
+                // dyRemoveH2h(player.playerName)
+            ]);
         }
     }
-}
+};

@@ -1,4 +1,4 @@
-import { h2h, iMatch, iParticipant, iStatStore } from "../../src-shared/types";
+import { iH2h, iMatch, iParticipant, iStatStore } from "../../src-shared/types";
 
 import { cleanName, findCleanName } from "../constants/cleanName";
 
@@ -39,7 +39,7 @@ export const parseH2H = (statStoreIn: iStatStore, matches: iMatch[], participant
     return statStore;
 };
 
-const updateH2H2wl = (player1Name: string, player2Name: string, winnerName: string, h2h: h2h) => {
+const updateH2H2wl = (player1Name: string, player2Name: string, winnerName: string, h2h: iH2h) => {
     if (!(player1Name in h2h)) {
         h2h[player1Name] = {};
     }

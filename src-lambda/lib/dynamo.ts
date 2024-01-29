@@ -1,4 +1,4 @@
-import { h2h, h2hOpp, iPlayer, iStatStore, iTournament, iTournamentData } from "../../src-shared/types";
+import { iH2h, iH2hOpp, iPlayer, iStatStore, iTournament, iTournamentData } from "../../src-shared/types";
 
 
 import { marshall } from "@aws-sdk/util-dynamodb";
@@ -31,10 +31,10 @@ export const dyPutTourney = async (tourney: iTournament) => {
     return await dynamoPut(input);
 };
 
-export const dyPutH2h = async (playerName: string, h2hOpp: h2hOpp) => {
+export const dyPutH2h = async (playerName: string, h2hOpp: iH2hOpp) => {
     const marshalled = marshall({
         playerName,
-        ...h2hOpp
+        h2h: h2hOpp
     });
     const input = {
         TableName: 'SummitH2H',
@@ -43,7 +43,31 @@ export const dyPutH2h = async (playerName: string, h2hOpp: h2hOpp) => {
     return await dynamoPut(input);
 };
 
+export const dyRemoveH2h = async (playerName: string) => {
+    const input = {
+        TableName: 'SummitH2H',
+        Key: marshall({
+            playerName
+        })
+    };
 
+    return await dynamoRemove(input);
+
+}
+
+export const dyGetAllH2h = async () => {
+    const input = {
+        TableName: 'SummitH2H',
+    };
+    const dynamoResp = await dynamoScan(input) as { playerName: string, h2h: iH2hOpp }[];
+    const resp = dynamoResp.reduce((lv, cv) => {
+        lv[cv.playerName] = cv.h2h;
+        return lv;
+    }, {} as iH2h);
+    return {
+        h2h: resp
+    };
+};
 
 // Insert player with win/loss
 // Could batch update these, but
@@ -70,12 +94,7 @@ export const dyRemovePlayer = async (playerName: string) => {
         })
     };
 
-    const resp = await dynamoRemove(input);
-    if ('value' in resp) {
-        return resp['value'];
-    } else {
-        return null;
-    }
+    return await dynamoRemove(input);
 };
 
 
