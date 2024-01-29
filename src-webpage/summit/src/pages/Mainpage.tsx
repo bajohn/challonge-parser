@@ -7,6 +7,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import { PodiumFinishes } from '../Podium';
 import { playerGetter, podiumGetter } from '../util/fetchers';
 import TournamentsPage from './Tournamentspage';
+import H2HPage from './H2Hpage';
 const MIN_GAMES = 10;
 const Mainpage = () => {
     const [players, setPlayers] = useState([]);
@@ -47,6 +48,9 @@ const Mainpage = () => {
                 </Tab>
                 <Tab eventKey="tournaments" title="Tournaments">
                     <TournamentsPage isAdminPage={false} />
+                </Tab>
+                <Tab eventKey="h2h" title="Head to Head">
+                    <H2HPage isAdminPage={false} />
                 </Tab>
             </Tabs>
         </Container>

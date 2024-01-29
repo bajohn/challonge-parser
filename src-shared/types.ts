@@ -42,6 +42,10 @@ export interface iMatch {
         player1_id: number,
         player2_id: number,
         winner_id: number
+
+        started_at: string,
+        tournament_id: number,
+        url: string
         //loser_id: number
     }
 }
@@ -75,10 +79,14 @@ export interface iH2h {
 }
 
 export interface iH2hOpp {
-    [opponentName: string]: {
-        w: number
-        l: number
-    }
+    [opponentName: string]: iH2hElement
+}
+
+export interface iH2hElement {
+    result: 'w' | 'l' // Did the subject win or lose this match
+    started_at: string
+    tournament_id: number
+    url: string
 }
 
 export interface iStatStore {

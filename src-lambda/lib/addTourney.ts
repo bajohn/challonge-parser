@@ -17,7 +17,7 @@ export const addTourneyToStatStore = async (
     const cleanedNames = await cleanNames(participants);
 
     statStore = parsePodium(statStore, participants, cleanedNames, tourney);
-    statStore = parseH2H(statStore, matches, participants);
+    statStore = parseH2H(statStore, tourney, matches, participants,);
     return statStore;
 };
 
