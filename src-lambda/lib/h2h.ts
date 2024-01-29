@@ -1,4 +1,4 @@
-import { iH2h, iMatch, iParticipant, iStatStore } from "../../src-shared/types";
+import { iH2h, iMatch, iParticipant, iStatStore, iTournament } from "../../src-shared/types";
 
 import { cleanName, findCleanName } from "../constants/cleanName";
 
@@ -9,7 +9,10 @@ import { cleanName, findCleanName } from "../constants/cleanName";
 // a   x   1   1
 // b   0   x   1
 // c   0   0   x
-export const parseH2H = (statStoreIn: iStatStore, matches: iMatch[], participants: iParticipant[]) => {
+export const parseH2H = (statStoreIn: iStatStore, 
+    tourney: iTournament,
+    matches: iMatch[], 
+    participants: iParticipant[]) => {
     let statStore = Object.assign({}, statStoreIn);
 
     // Object should be initialized already
@@ -23,8 +26,9 @@ export const parseH2H = (statStoreIn: iStatStore, matches: iMatch[], participant
         const player2Name = findCleanName(match['player2_id'], participants);
 
         const winnerName = findCleanName(match['winner_id'], participants);
-        updateH2H2wl(player1Name, player2Name, winnerName, h2h);
-        updateH2H2wl(player2Name, player1Name, winnerName, h2h);
+        
+        updateH2H2wl(player1Name, player2Name, winnerName, tourney, h2h);
+        updateH2H2wl(player2Name, player1Name, winnerName, tourney, h2h);
     }
 
     for (const keyName of Object.keys(h2h)) {
@@ -39,7 +43,12 @@ export const parseH2H = (statStoreIn: iStatStore, matches: iMatch[], participant
     return statStore;
 };
 
-const updateH2H2wl = (player1Name: string, player2Name: string, winnerName: string, h2h: iH2h) => {
+const updateH2H2wl = (
+    player1Name: string, 
+    player2Name: string, 
+    winnerName: string, 
+    tournament: iTournament,
+    h2h: iH2h) => {
     if (!(player1Name in h2h)) {
         h2h[player1Name] = {};
     }
@@ -57,6 +66,7 @@ const updateH2H2wl = (player1Name: string, player2Name: string, winnerName: stri
     } else {
         resultRef['l'] += 1;
     }
+    resultRef
 }
 
 
