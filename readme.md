@@ -7,7 +7,8 @@ Below are mostly notes to self on next-ups.
 
 ## Next TODOs
 - H2H view
-    - Actually fill H2H table, which is currently empty
+    - (In progress) Finish refactor of H2H storage
+    - Build h2h view on front end, show player v player and past matches
 - Add iTournament and iTournamentData types where missing (if anywhere)
 - 
 Nice to haves, probably won't do:
