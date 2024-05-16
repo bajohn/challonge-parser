@@ -39,7 +39,8 @@ export const cleanName = (name: string) => {
             'OG Chris 😎'
         ],
         Bella: [
-            'Bella 🧜‍♀️ x'
+            'Bella 🧜‍♀️ x',
+            'Bella x / Katy x'
         ],
         Bill: ['Bill'],
         Brett: ['Brett x'],
@@ -80,11 +81,13 @@ export const cleanName = (name: string) => {
         Claire: [],
         Darren: [
             'Darren x 🐢',
-            'Darren 🐢 x'
+            'Darren 🐢 x',
+            'Darren x / Luis x'
         ],
         David: [],
         Derek: [
-            'Derek 🪤 x	'
+            'Derek 🪤 x	',
+            'Derek x / Aqeel x'
         ],
         Edward: [],
         Enrique: [],
@@ -140,7 +143,9 @@ export const cleanName = (name: string) => {
 
 
         Marcus: [],
-        Mariel: [],
+        Mariel: [
+            'Mariel / Ykaalo x'
+        ],
         Martin: [
             'Martini 🧜‍♂️🍸 (with a twist)',
             'Martin “The Brown Recluse” 🕷️',
@@ -164,12 +169,26 @@ export const cleanName = (name: string) => {
             'Mo 🐥 x',
             'Mo x',
             'Mohammad 🐥 x',
+            'Mo x / Campbell x'
+        ],
+        Morgan: [
+            'Morgan x / Lily'
         ],
         Philo: [],
+        Riley: [
+            'Riley',
+            'Riley x / Brendan x'
+        ],
         Robin: [],
-        Ronnie: [],
+        Ronnie: [
+            'Ronnie',
+            'Ronnie x / Spencer x'
+        ],
         Ryan: [],
         Said: [],
+        Salem: [
+            'Salem / Marty x'
+        ],
         Sean: [
             'Sean 🖕 x',
             'Sean 👍 x',
@@ -177,7 +196,8 @@ export const cleanName = (name: string) => {
             'S69',
         ],
         Sirine: [
-            'Sirine 🐠🦋 x'
+            'Sirine 🐠🦋 x',
+            'Sirine x / Adel x'
         ],
 
         Spencer: [
