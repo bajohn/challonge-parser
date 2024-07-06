@@ -49,9 +49,9 @@ const Mainpage = () => {
                 <Tab eventKey="tournaments" title="Tournaments">
                     <TournamentsPage isAdminPage={false} />
                 </Tab>
-                <Tab eventKey="h2h" title="Head to Head">
+                {/* <Tab eventKey="h2h" title="Head to Head">
                     <H2HPage isAdminPage={false} />
-                </Tab>
+                </Tab> */}
             </Tabs>
         </Container>
 

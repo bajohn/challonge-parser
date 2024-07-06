@@ -89,6 +89,8 @@ export const cleanName = (name: string) => {
             'Derek 🪤 x	',
             'Derek x / Aqeel x'
         ],
+        'Derek T': [
+        ],
         Edward: [],
         Enrique: [],
         Faisal: [
@@ -174,6 +176,7 @@ export const cleanName = (name: string) => {
         Morgan: [
             'Morgan x / Lily'
         ],
+        Peter: [],
         Philo: [],
         Riley: [
             'Riley',
