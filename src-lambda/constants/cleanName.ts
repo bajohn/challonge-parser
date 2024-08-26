@@ -106,6 +106,9 @@ export const cleanName = (name: string) => {
         Idir: [],
         James: [
         ],
+        Jack: [
+            'Jack x'
+        ],
         Jackie: [],
         Jake: [],
         Jeff: [],
@@ -171,10 +174,15 @@ export const cleanName = (name: string) => {
             'Mo 🐥 x',
             'Mo x',
             'Mohammad 🐥 x',
+            'Mohammad x',
+            'Mohammad',
             'Mo x / Campbell x'
         ],
         Morgan: [
             'Morgan x / Lily'
+        ],
+        Noah: [
+            'Noah x'
         ],
         Peter: [],
         Philo: [],
@@ -185,6 +193,8 @@ export const cleanName = (name: string) => {
         Robin: [],
         Ronnie: [
             'Ronnie',
+            'Ronny',
+            'Ronny x',
             'Ronnie x / Spencer x'
         ],
         Ryan: [],
@@ -232,6 +242,7 @@ export const cleanName = (name: string) => {
             'Xavier 😋 x'
         ],
         Ykaalo: [
+            'Yakaalo',
             'Ykaalo 🦘 x'
         ]
     };
