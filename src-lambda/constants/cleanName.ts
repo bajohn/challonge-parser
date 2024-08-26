@@ -31,6 +31,9 @@ export const cleanName = (name: string) => {
         Ari: ['Ari 🐙 x'],
         Aryan: ['Aryan x'],
         Austin: ['Austin x', 'Austin 🍑 x'],
+        Azor: [
+            'Azor x'
+        ],
         Ben: ['Ben x'],
         Tom: [
             'Big ChaTomgus 🌴 x'
@@ -41,6 +44,9 @@ export const cleanName = (name: string) => {
         Bella: [
             'Bella 🧜‍♀️ x',
             'Bella x / Katy x'
+        ],
+        Berkeley: [
+            'Berkeley x'
         ],
         Bill: ['Bill'],
         Brett: ['Brett x'],
@@ -79,6 +85,13 @@ export const cleanName = (name: string) => {
             'Chris H x'
         ],
         Claire: [],
+        Conor: [
+            'Conner',
+            'Conor x'
+        ],
+        Dan: [
+            'Dan x'
+        ],
         Darren: [
             'Darren x 🐢',
             'Darren 🐢 x',
@@ -87,12 +100,23 @@ export const cleanName = (name: string) => {
         David: [],
         Derek: [
             'Derek 🪤 x	',
-            'Derek x / Aqeel x'
+            'Derek x / Aqeel x',
+            'Derrick x',
+            'Derrick'
         ],
         'Derek T': [
         ],
+        Doug: [
+            'Doug x'
+        ],
+        Dylan: [
+            'Dylan x'
+        ],
         Edward: [],
         Enrique: [],
+        Eric: [
+            'Eric x'
+        ],
         Faisal: [
             'Faisal',
             'Faysal'
@@ -102,6 +126,9 @@ export const cleanName = (name: string) => {
         ],
         Greg: [
             'Greg 🏒 x'
+        ],
+        Hazel: [
+            'Hazel x'
         ],
         Idir: [],
         James: [
@@ -146,7 +173,7 @@ export const cleanName = (name: string) => {
             'Luis Vuitton 🦖 x',
         ],
 
-
+        Malcolm: [],
         Marcus: [],
         Mariel: [
             'Mariel / Ykaalo x'
@@ -181,11 +208,22 @@ export const cleanName = (name: string) => {
         Morgan: [
             'Morgan x / Lily'
         ],
+        Nicco: [
+            'Nicco x'
+        ],
         Noah: [
             'Noah x'
         ],
+        Parker: [
+        ],
+        'Parker 2': [
+            'Parker x'
+        ],
         Peter: [],
         Philo: [],
+        Ricky: [
+            'Ricky x'
+        ],
         Riley: [
             'Riley',
             'Riley x / Brendan x'
@@ -207,6 +245,9 @@ export const cleanName = (name: string) => {
             'Sean 👍 x',
             'Sean 🎼 x',
             'S69',
+        ],
+        Shawn: [
+            'Shawn 😈 x'
         ],
         Sirine: [
             'Sirine 🐠🦋 x',
