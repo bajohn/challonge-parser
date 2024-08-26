@@ -142,6 +142,9 @@ export const cleanName = (name: string) => {
         Joe: [
             'Joe 🍳 x'
         ],
+        John: [
+            'John x'
+        ],
         Joshua: [
             'Josh',
             'Josh 🤡 x',
