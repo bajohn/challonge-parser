@@ -6,6 +6,9 @@ https://summit-pool.com/
 Below are mostly notes to self on next-ups.
 
 ## Next TODOs
+- Make sure update works when tournaments are already logged in a pending state - they seem
+- Support for doubles tournaments
+- How to deal with repeated names via unique IDs
 - H2H view
     - (In progress) Finish refactor of H2H storage
     - Build h2h view on front end, show player v player and past matches
