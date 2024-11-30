@@ -1,6 +1,6 @@
 
 import { DYNAMO, CHALLONGE } from "../../src-shared/constants";
-import { iPlayer, iStatStore } from "../../src-shared/types";
+import { iPlayer, iStatStore, iTournamentData } from "../../src-shared/types";
 import { checkTourneyCount } from "./checkTourneyCount";
 import { dyPutSummitMetadata, dyPutPlayer, dyGetAllPlayers, dyRemovePlayer, dyPutTourney, dyGetAllTourneys, dyPutH2h, dyRemoveH2h, dyGetAllH2h } from "./dynamo";
 import { generateStatStore } from "./generateStatStore";
@@ -9,7 +9,19 @@ import { getWinLoss } from "./parseWinLoss";
 
 export const updateDynamo = async (forceUpdate: boolean = false) => {
 
-    const dynamoCount = await checkTourneyCount(DYNAMO);
+
+    // More efficient, but could miss updates
+    // const dynamoCount = await checkTourneyCount(DYNAMO);
+
+    // This forces a scan of the SummitTourneys table on every run
+    const dyTourneys = await dyGetAllTourneys();
+    const dynamoCount = dyTourneys.tournaments.reduce((lv: number, cv: iTournamentData) => {
+        if (cv.state === 'complete') {
+            lv += 1;
+        }
+        return lv;
+    }, 0);
+
     const challongeCount = await checkTourneyCount(CHALLONGE);
 
     if (forceUpdate || challongeCount > dynamoCount) {
@@ -38,11 +50,12 @@ export const executeUpdate = async (statStore: iStatStore) => {
         lv[cv.id] = true;
         return lv;
     }, {} as { [index: number]: boolean });
-    // Only put tournaments into Dynamo that don't exist yet
+
     await Promise.all(statStore.tourneys.map(async (tourney) => {
-        if (!(tourney.tournament.id in tourneysInDynamoLookup)) {
-            return dyPutTourney(tourney);
-        }
+        // Only put tournaments into Dynamo that don't exist yet
+        //if (!(tourney.tournament.id in tourneysInDynamoLookup)) {
+        return dyPutTourney(tourney);
+        //}
     }));
 
     await Promise.all(Object.keys(statStore.h2h).map(playerName => {

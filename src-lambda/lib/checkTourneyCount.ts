@@ -1,4 +1,4 @@
-import { SUBDOMAIN } from "../../src-shared/constants";
+import { CHALLONGE_ENDPOINT } from "../../src-shared/constants";
 import { fetchTournies } from "./challongeFetch";
 import { apiSource, iTournament } from "../../src-shared/types";
 
@@ -17,7 +17,6 @@ export const checkTourneyCount = async (source: apiSource) => {
 
 
 const getTourneys = async (source: apiSource) => {
-    const endpoint = `tournaments.json?subdomain=${SUBDOMAIN}`;
-    const tourneys = await fetchTournies(endpoint, source);
+    const tourneys = await fetchTournies(CHALLONGE_ENDPOINT, source);
     return tourneys;
 };

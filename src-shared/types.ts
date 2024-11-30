@@ -59,6 +59,14 @@ export interface iPlayer {
     l: number
 }
 
+export interface iMatchMin {
+    match: {
+        player1_id: number,
+        player2_id: number,
+        winner_id: number
+    }
+}
+
 // interface iChallongeResp {
 //     'tournaments': iTournament[]
 // }

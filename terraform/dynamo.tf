@@ -1,8 +1,8 @@
 resource "aws_dynamodb_table" "summit-h2h" {
   name           = "SummitH2H"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 1
-  write_capacity = 1
+  read_capacity  = 5
+  write_capacity = 5
   hash_key       = "playerName"
 
   attribute {
@@ -18,8 +18,8 @@ resource "aws_dynamodb_table" "summit-h2h" {
 resource "aws_dynamodb_table" "summit-players" {
   name           = "SummitPlayers"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 1
-  write_capacity = 1
+  read_capacity  = 5
+  write_capacity = 5
   hash_key       = "playerName"
 
   attribute {
@@ -35,8 +35,8 @@ resource "aws_dynamodb_table" "summit-players" {
 resource "aws_dynamodb_table" "summit-tourneys" {
   name           = "SummitTourneys"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 1
-  write_capacity = 1
+  read_capacity  = 5
+  write_capacity = 5
   hash_key       = "id"
 
   attribute {
@@ -55,7 +55,7 @@ resource "aws_dynamodb_table" "summit-metadata" {
   name           = "SummitMetadata"
   billing_mode   = "PROVISIONED"
   read_capacity  = 5
-  write_capacity = 1
+  write_capacity = 5
   hash_key       = "key"
 
   attribute {
