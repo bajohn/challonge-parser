@@ -1,9 +1,9 @@
-import { iMatch, iParticipant, iTournament } from "../../src-shared/types";
+import { iMatch, iMatchMin, iParticipant, iTournament } from "../../src-shared/types";
 
 // Store only needed fields in Dynamo
 export const getMinimal = (endpoint: string, resp: any[]) => {
     if (endpoint.indexOf('matches') > -1) {
-        return resp.map((el: iMatch): iMatch => {
+        return resp.map((el: iMatch): iMatchMin => {
             const match = el.match;
             return {
                 match: {

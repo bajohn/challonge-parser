@@ -13,7 +13,7 @@ export const podiumLookup: { [key: number]: podiumPlaces } = {
 export const SUBDOMAIN = 'b71fc01980b13ee66eab1849';
 export const DYNAMO = 'dynamo';
 export const CHALLONGE = 'challonge';
-
+export const CHALLONGE_ENDPOINT = `tournaments.json?subdomain=${SUBDOMAIN}`;
 let isTesting = false;
 
 export const setIsTesting = (input: boolean) => {

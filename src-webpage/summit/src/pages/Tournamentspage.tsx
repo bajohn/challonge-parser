@@ -25,14 +25,20 @@ const TournamentsTable: React.FC<{
     tourneys: iTournamentData[],
     isAdminPage: boolean
 }> = (props) => {
-    props.tourneys.sort((a, b) => {
+    const finishedTourneys = props.tourneys.reduce((lv, cv) => {
+        if (cv.started_at && cv.completed_at) {
+            lv.push(cv);
+        }
+        return lv;
+    }, [] as iTournamentData[]);
+    finishedTourneys.sort((a, b) => {
         if (a.started_at > b.started_at) {
             return -1;
         } else {
             return 1;
         }
     });
-    const arr = props.tourneys.map((el: iTournamentData) => TournamentRow(
+    const arr = finishedTourneys.map((el: iTournamentData) => TournamentRow(
         props.isAdminPage,
         el
     ));

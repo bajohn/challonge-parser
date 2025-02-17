@@ -34,6 +34,13 @@ export const tourneyGetter = async (setTourneys: any) => {
     const tourneys = jsonResp.tournaments;
     setTourneys(tourneys);
 };
+export const h2hGetter = async (setH2h: any) => {
+    const resp = await fetch(`${rootUrl}get-h2h`)
+    const jsonResp = await resp.json();
+    const h2h = jsonResp.h2h;
+    setH2h(h2h);
+};
+
 
 export const podiumGetter = async (setPodium: any) => {
     const resp = await fetch(`${rootUrl}podium-finishes`)

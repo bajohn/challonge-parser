@@ -16,7 +16,8 @@ export const dyGetPodiumFinishes = async () => {
 
 export const dyPutSummitMetadata = async (statStore: iStatStore) => {
     await dyPutMetaField(PODIUM_FINISHES, statStore.podiumFinishes);
-    await dyPutMetaField(H2H, statStore.h2h);
+    // TODO- This needs refactoring - too large to push!
+    // await dyPutMetaField(H2H, statStore.h2h);
 
 };
 

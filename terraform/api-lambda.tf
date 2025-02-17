@@ -27,6 +27,7 @@ resource "aws_lambda_function" "summit-timed-dynamo-updater" {
   source_code_hash = filebase64sha256(local.code-location)
 
   runtime = "nodejs18.x"
+  memory_size = 512
   timeout = 900
 }
 
@@ -40,6 +41,7 @@ resource "aws_lambda_function" "summit-invoked-dynamo-updater" {
   source_code_hash = filebase64sha256(local.code-location)
 
   runtime = "nodejs18.x"
+  memory_size = 512
   timeout = 900
 }
 
