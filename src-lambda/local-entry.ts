@@ -16,18 +16,18 @@ const main = async () => {
 
     // const resp = await getPodiumFinishes();
     // const players = await getAllPlayers();
-    // const resp = await updateDynamo(true);
-    const dynamoCount = await checkTourneyCount(DYNAMO);
+    const resp = await updateDynamo(true);
+    //const dynamoCount = await checkTourneyCount(DYNAMO);
     //const challongeCount = await checkTourneyCount(CHALLONGE);
-    const rawTourneys = await fetchTournies(CHALLONGE_ENDPOINT, DYNAMO);
-    const tourneys = await dyGetAllTourneys();
+    // const rawTourneys = await fetchTournies(CHALLONGE_ENDPOINT, DYNAMO);
+    // const tourneys = await dyGetAllTourneys();
 
-    const resp = tourneys.tournaments.reduce((lv: number, cv: iTournamentData) => {
-        if (cv.state === 'complete') {
-            lv += 1;
-        }
-        return lv;
-    }, 0);
+    // const resp = tourneys.tournaments.reduce((lv: number, cv: iTournamentData) => {
+    //     if (cv.state === 'complete') {
+    //         lv += 1;
+    //     }
+    //     return lv;
+    // }, 0);
 
     // console.log(JSON.stringify(rawTourneys));
     // const resp = rawTourneys.map(el => {

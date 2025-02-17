@@ -254,7 +254,8 @@ export const cleanName = (name: string) => {
         ],
         Sirine: [
             'Sirine 🐠🦋 x',
-            'Sirine x / Adel x'
+            'Sirine x / Adel x',
+            'Adel / Sirine'
         ],
 
         Spencer: [

@@ -58,6 +58,7 @@ export const executeUpdate = async (statStore: iStatStore) => {
         //}
     }));
 
+
     await Promise.all(Object.keys(statStore.h2h).map(playerName => {
         return dyPutH2h(playerName, statStore.h2h[playerName]);
     }));

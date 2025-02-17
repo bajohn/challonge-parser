@@ -91,10 +91,12 @@ export interface iH2hOpp {
 }
 
 export interface iH2hElement {
-    result: 'w' | 'l' // Did the subject win or lose this match
-    started_at: string
-    tournament_id: number
-    url: string
+    'w': number,
+    'l': number // Did the subject win or lose this match
+    // result: 'w' | 'l' // Did the subject win or lose this match
+    // started_at: string
+    // tournament_id: number
+    // url: string
 }
 
 export interface iStatStore {
