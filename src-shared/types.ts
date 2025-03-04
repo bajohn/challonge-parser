@@ -113,8 +113,8 @@ export interface iParticipant {
     }
 }
 
-export interface cleanedNames {
-    [id: number]: string
+export interface cleanedNameMap {
+    [id: number]: string[]
 }
 
 export type firstPlace = 'First Place Finishes';
