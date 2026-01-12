@@ -16,7 +16,6 @@ import { iPlayer } from "../../src-shared/types";
 const region = 'us-west-2'
 
 export const dynamoGet = async (input: GetItemCommandInput) => {
-    console.log(JSON.stringify(input,null, 2));
     const command = new GetItemCommand(input);
     const client = new DynamoDBClient({ region });
     const response = await client.send(command);
@@ -30,8 +29,6 @@ export const dynamoGet = async (input: GetItemCommandInput) => {
 };
 
 export const dynamoPut = async (input: PutItemCommandInput) => {
-    console.log(JSON.stringify(input,null, 2));
-
     const client = new DynamoDBClient({ region });
     const command = new PutItemCommand(input);
     const response = await client.send(command);
@@ -48,7 +45,6 @@ export const dynamoRemove = async (input: DeleteItemCommandInput) => {
 
 
 export const dynamoScan = async (input: ScanCommandInput) => {
-    console.log(JSON.stringify(input,null, 2));
 
     const client = new DynamoDBClient({ region });
     const command = new ScanCommand(input);

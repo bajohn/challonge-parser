@@ -24,7 +24,6 @@ export const parseH2H = (statStoreIn: iStatStore,
         const match = el['match'];
         const player1Name = findCleanName(match['player1_id'], participants);
         const player2Name = findCleanName(match['player2_id'], participants);
-
         const winnerName = findCleanName(match['winner_id'], participants);
         
         updateH2H2wl(player1Name, player2Name, winnerName, tourney, h2h);
